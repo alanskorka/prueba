@@ -1,0 +1,6 @@
+SELECT FECHA, VALOR 
+FROM IPC 
+WHERE FECHA = ${fecha}
+  AND CIUDADID = ${ciudad} 
+  AND GASTOID = ${gasto}
+  AND NIVEL = 2;

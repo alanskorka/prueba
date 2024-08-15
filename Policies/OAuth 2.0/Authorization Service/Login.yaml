@@ -1,0 +1,86 @@
+---
+type: FilterCircuit
+fields:
+  start: ./Compare Attribute checks for open redirect
+  name: Login
+children:
+- type: CompareAttributeFilter
+  fields:
+    name: Compare Attribute checks for open redirect
+  routing:
+    success: ../Login via HTML Form
+    failure: ../Trace Filter
+  children:
+  - type: AttributeCompare
+    fields:
+      attrName: ${http.client.getCgiArgument("continue")}
+      matchType: BEGINS_WITH
+      expression: /api/oauth/authorize
+- type: FormAuthnFilter
+  fields:
+    username: UserName
+    password: Passwd
+    credentialFormat: Username
+    repository: /External Connections/Authentication Repositories/Local Repositories/Local User Store
+    uriprefix: /api
+    domain: ""
+    onlySendOverSSL: true
+    httpOnly: true
+    cookie: RESOURCEOWNERCOOKIE
+    name: Login via HTML Form
+  routing:
+    success: ../Remove HTTP Header
+    failure: ../Login Failed
+- type: RemoveHTTPHeaderFilter
+  fields:
+    headerName: Cookie
+    name: Remove HTTP Header
+  routing:
+    success: ../Redirect to OAuth Service
+  logging:
+    fatal: 'Error in removing the HTTP header from the message. Error: ${circuit.exception}'
+    failure: Failed in removing the HTTP header from the message
+    success: Success in removing the HTTP header from the message
+- type: RedirectFilter
+  fields:
+    url: ${http.client.getCgiArgument("continue")}
+    outputContentType: text/html
+    content: redirect
+    name: Redirect to OAuth Service
+- type: RedirectFilter
+  fields:
+    url: ${http.client.getCgiArgument("continue")}#error=loginfailed
+    outputContentType: text/html
+    content: redirect
+    name: Login Failed
+- type: TraceFilter
+  fields:
+    traceMsg: Open Redirect detected, Login failed return 400
+    traceLevel: 2
+    traceAttributes: false
+    name: Trace Filter
+  routing:
+    success: ../Set Open Redirect Message
+  logging:
+    fatal: 'Error while tracing the message properties. Error: ${circuit.exception}'
+    failure: Failed to trace the message properties
+    success: Traced the message properties
+- type: ChangeMessageFilter
+  fields:
+    body: Redirect detected
+    outputContentType: text/plain
+    name: Set Open Redirect Message
+  routing:
+    success: ../Reflect Message
+  logging:
+    fatal: 'Error in setting the message. Error: ${circuit.exception}'
+    failure: Failed in setting the message
+    success: Success in setting the message
+- type: Reflector
+  fields:
+    httpResponseStatus: 400
+    name: Reflect Message
+  logging:
+    fatal: 'Error occurred while echoing the message. Error: ${circuit.exception}'
+    failure: Failed to echo back the message
+    success: Successfully echoed back the message

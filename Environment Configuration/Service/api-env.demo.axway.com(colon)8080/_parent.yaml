@@ -1,0 +1,4 @@
+---
+type: HTTP
+fields:
+  name: api-env.demo.axway.com:8080

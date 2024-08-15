@@ -1,0 +1,21 @@
+---
+type: FilterCircuit
+fields:
+  start: ./JSON Error
+  name: Default GraphQL Fault Handler
+  description: ""
+children:
+- type: JSONErrorFilter
+  fields:
+    name: JSON Error
+  routing:
+    success: ../Set Message
+- type: ChangeMessageFilter
+  fields:
+    body: '{"errors":[ ${content.body}]}'
+    outputContentType: application/json
+    name: Set Message
+  logging:
+    fatal: 'Error in setting the message. Error: ${circuit.exception}'
+    failure: Failed in setting the message
+    success: Success in setting the message

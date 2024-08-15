@@ -1,0 +1,39 @@
+---
+type: CoreAPIBroker
+fields:
+  routingType: CUSTOM
+  uriprefix: /Serankua
+  corsUsage: null
+  id: 947751fd-5f68-4d05-868a-f43510073af8
+  name: IPC2
+  description: ""
+  destination: null
+children:
+- type: CoreAPIMethod
+  fields:
+    uriprefix: /Services/healthcheck
+    httpMethod: GET
+    corsUsage: null
+    id: 77f60c6f-ead4-422a-8322-5c6a8c807721
+    name: IPC2
+    description: ""
+    notes: ""
+    filterCircuit: /Policies/Generated Policies/REST API's/IPC2/IPC2
+    destinationPath: null
+    copyQueryParams: true
+    destinationHttpVerb: '*'
+    responseSchema: /null
+- type: CoreAPIMethod
+  fields:
+    uriprefix: /Services/IPC2
+    httpMethod: GET
+    corsUsage: null
+    id: 4908585f-5afa-4264-8b48-862a04dc4a8a
+    name: IPC2prueba
+    description: ""
+    notes: ""
+    filterCircuit: /Policies/Generated Policies/REST API's/IPC2/IPC2
+    destinationPath: null
+    copyQueryParams: true
+    destinationHttpVerb: '*'
+    responseSchema: /null

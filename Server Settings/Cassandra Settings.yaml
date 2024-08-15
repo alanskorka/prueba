@@ -1,0 +1,8 @@
+---
+type: CassandraSettings
+fields:
+  name: Cassandra Settings
+children:
+- type: CassandraServer
+  fields:
+    name: cas1

@@ -1,0 +1,8 @@
+---
+type: KPSPackage
+fields:
+  name: API Server
+  description: API Server KPS Schema
+  alias: ""
+  dataSource: ./Data Sources/Cassandra Storage
+  internal: true

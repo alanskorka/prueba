@@ -1,0 +1,110 @@
+---
+type: FilterCircuit
+fields:
+  name: IPC2
+  description: ""
+  start: ./XML To JSON
+children:
+- type: AttributeExtractDbFilter
+  fields:
+    userIdentityAttribName: ""
+    placeDbResultsIntoUserAttributeList: false
+    messageAttrPrefix: respuestaBD
+    outParamName: out.param.value
+    name: Retrieve from or write to database
+    dbConn: /External Connections/Database Connections/Conexion BDD SQL
+  routing:
+    success: ../Scripting Language
+    failure: ../Set Message KO
+  logging:
+    fatal: 'Error occurred while extracting attributes from database/entity store. Error: ${circuit.exception}'
+    failure: Failed to extract attributes from database/entity store
+    success: Extracted attributes from database/entity store for ${attribute.subject.id}
+  children:
+  - type: Query
+    fields:
+      name: selectIPC2
+      sqlStatement: '{{file "IPC2-Files/Retrieve from or write to database - selectIPC2.sql"}}'
+- type: ChangeMessageFilter
+  fields:
+    name: Set Message OK
+    outputContentType: application/json
+    body: '{{file "IPC2-Files/Set Message OK.json"}}'
+  routing:
+    success: ../Reflect Message OK
+  logging:
+    fatal: 'Error in setting the message. Error: ${circuit.exception}'
+    failure: Failed in setting the message
+    success: Success in setting the message
+- type: Reflector
+  fields:
+    name: Reflect Message OK
+  logging:
+    fatal: 'Error occurred while echoing the message. Error: ${circuit.exception}'
+    failure: Failed to echo back the message
+    success: Successfully echoed back the message
+- type: XMLToJSONFilter
+  fields:
+    name: XML To JSON
+    xpathNode: /Resources/XPath Definitions/Schema Validation Nodes Xpath/All Elements inside SOAP Body (SOAP 1.1 or SOAP 1.2)
+  routing:
+    success: ../JSON Path
+- type: JSONPathFilter
+  fields:
+    name: JSON Path
+  routing:
+    success: ../Retrieve from or write to database
+  children:
+  - type: JSONPath
+    fields:
+      unmarshalType: java.lang.String
+      attributeName: fecha
+      expression: $.consultarIPC.fechaInicial
+  - type: JSONPath
+    fields:
+      unmarshalType: java.lang.String
+      attributeName: ciudad
+      expression: $.consultarIPC.ciudadId
+  - type: JSONPath
+    fields:
+      unmarshalType: java.lang.String
+      attributeName: gasto
+      expression: $.consultarIPC.gastoId
+  - type: JSONPath
+    fields:
+      unmarshalType: java.lang.String
+      attributeName: nivel
+      expression: $.consultarIPC.nivel
+- type: JavaScriptFilter
+  fields:
+    engineName: groovy
+    name: Scripting Language
+    consumedProperties: []
+    generatedProperties: []
+    requiredProperties: []
+    script: '{{file "IPC2-Files/Scripting Language.groovy"}}'
+  routing:
+    success: ../Set Message OK
+  logging:
+    fatal: 'Error while attempt to run script filter. Error: ${circuit.exception}'
+    failure: Failed script filter
+    success: Passed script filter
+- type: ChangeMessageFilter
+  fields:
+    name: Set Message KO
+    outputContentType: application/json
+    body: '{{file "IPC2-Files/Set Message KO.json"}}'
+  routing:
+    success: ../Reflect Message KO
+  logging:
+    fatal: 'Error in setting the message. Error: ${circuit.exception}'
+    failure: Failed in setting the message
+    success: Success in setting the message
+- type: Reflector
+  fields:
+    httpResponseStatus: 400
+    name: Reflect Message KO
+  logging:
+    fatal: 'Error occurred while echoing the message. Error: ${circuit.exception}'
+    failure: Failed to echo back the message
+    success: Successfully echoed back the message

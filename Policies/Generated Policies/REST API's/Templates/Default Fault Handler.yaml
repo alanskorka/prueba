@@ -1,0 +1,10 @@
+---
+type: FilterCircuit
+fields:
+  start: ./Generic Error
+  name: Default Fault Handler
+  description: ""
+children:
+- type: GenericFaultFilter
+  fields:
+    name: Generic Error

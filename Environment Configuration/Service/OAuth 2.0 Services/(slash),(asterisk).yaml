@@ -1,0 +1,93 @@
+---
+type: XMLFirewall
+fields:
+  filterCircuit: /Policies/Client App Registry Policies/Client App Registry Protection Policy
+  uriprefix: /
+children:
+- type: StaticFile
+  fields:
+    file: $VDISTDIR/webapps/apiportal/index-car.html
+    uriprefix: /home
+    httpMethod: GET
+  children:
+  - type: Property
+    fields:
+      name: X-Frame-Options
+      value: DENY
+  - type: Property
+    fields:
+      name: Pragma
+      value: no-cache
+  - type: Property
+    fields:
+      name: Cache-Control
+      value: no-cache, no-store, must-revalidate
+  - type: Property
+    fields:
+      name: X-XSS-Protection
+      value: 1; mode=block
+  - type: Property
+    fields:
+      name: Expires
+      value: 0
+  - type: Property
+    fields:
+      name: Content-Security-Policy
+      value: ${env.SERVICES.CONTENTSECURITYPOLICY}
+  - type: Property
+    fields:
+      name: X-Content-Type-Options
+      value: nosniff
+- type: SoftCircuitReference
+  fields:
+    circuitPK: system.policy.response
+    name: GLOBAL_POLICY_RSP
+    priority: 4
+- type: PortableCircuitReference
+  fields:
+    name: CUSTOM_POLICY_REQ
+    priority: 1
+- type: StaticContent
+  fields:
+    fileSystemPath: $VDISTDIR/webapps/apiportal/
+    indexfile: registry-login.html
+    uriprefix: /
+    httpMethod: GET
+  children:
+  - type: Property
+    fields:
+      name: X-Frame-Options
+      value: DENY
+  - type: Property
+    fields:
+      name: X-XSS-Protection
+      value: 1; mode=block
+  - type: Property
+    fields:
+      name: Cache-Control
+      value: no-cache, no-store, must-revalidate
+  - type: Property
+    fields:
+      name: Content-Security-Policy
+      value: ${env.SERVICES.CONTENTSECURITYPOLICY}
+  - type: Property
+    fields:
+      name: Pragma
+      value: no-cache
+  - type: Property
+    fields:
+      name: Expires
+      value: 0
+  - type: Property
+    fields:
+      name: X-Content-Type-Options
+      value: nosniff
+- type: SoftCircuitReference
+  fields:
+    circuitPK: system.policy.request
+    name: GLOBAL_POLICY_REQ
+    priority: 0
+- type: PortableCircuitReference
+  fields:
+    name: CUSTOM_POLICY_RSP
+    priority: 3

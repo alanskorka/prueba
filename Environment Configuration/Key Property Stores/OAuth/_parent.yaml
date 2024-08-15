@@ -1,0 +1,8 @@
+---
+type: KPSPackage
+fields:
+  name: OAuth
+  description: oauth tables
+  alias: OAuth
+  dataSource: ./DataSources/Cassandra Storage
+  internal: true

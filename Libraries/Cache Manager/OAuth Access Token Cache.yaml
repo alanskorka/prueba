@@ -1,0 +1,5 @@
+---
+type: Cache
+fields:
+  name: OAuth Access Token Cache
+  eternal: true

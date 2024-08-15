@@ -1,0 +1,20 @@
+---
+name: EnvironmentalizedFieldString
+version: 2
+class: com.vordel.api.deployment.model.EnvironmentalizedFieldString
+fields:
+  replaceAll:
+    type: boolean
+    defaultValues:
+    - data: "false"
+    cardinality: 1
+  value:
+    type: string
+    defaultValues:
+    - {}
+    cardinality: '*'
+  multiline:
+    type: boolean
+    defaultValues:
+    - data: 0
+    cardinality: 1

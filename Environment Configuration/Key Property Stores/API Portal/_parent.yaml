@@ -1,0 +1,7 @@
+---
+type: KPSPackage
+fields:
+  name: API Portal
+  description: API Portal KPS Schema
+  dataSource: ./Data Sources/Cassandra Storage
+  internal: true

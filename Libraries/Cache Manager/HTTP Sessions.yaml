@@ -1,0 +1,5 @@
+---
+type: Cache
+fields:
+  name: HTTP Sessions
+  eternal: true

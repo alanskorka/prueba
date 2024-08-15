@@ -1,0 +1,25 @@
+---
+type: FilterCircuit
+fields:
+  name: healthcheck
+  description: ""
+  start: ./Set Message
+children:
+- type: ChangeMessageFilter
+  fields:
+    name: Set Message
+    outputContentType: application/json
+    body: '{{file "healthcheck-Files/Set Message.json"}}'
+  routing:
+    success: ../Reflect Message
+  logging:
+    fatal: 'Error in setting the message. Error: ${circuit.exception}'
+    failure: Failed in setting the message
+    success: Success in setting the message
+- type: Reflector
+  fields:
+    name: Reflect Message
+  logging:
+    fatal: 'Error occurred while echoing the message. Error: ${circuit.exception}'
+    failure: Failed to echo back the message
+    success: Successfully echoed back the message

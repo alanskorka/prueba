@@ -1,0 +1,5 @@
+---
+type: DatabaseLogger
+fields:
+  connection: /External Connections/Database Connections/Conexion BDD SQL
+  name: Database Logger

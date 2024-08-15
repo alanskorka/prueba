@@ -1,0 +1,6 @@
+---
+type: Cache
+fields:
+  name: OAuth Client State Cache
+  timeToIdleSeconds: 60
+  timeToLiveSeconds: 120

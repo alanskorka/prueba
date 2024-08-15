@@ -1,0 +1,8 @@
+---
+type: Certificate
+fields:
+  dname: CN=Change this for production
+  engine: RAW
+  certificateRealm: ""
+  content: '{{file "CN=Change this for production-cert.pem"}}'
+  key: '{{file "CN=Change this for production-key.pem"}}'

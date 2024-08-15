@@ -1,0 +1,5 @@
+---
+type: KPSCassandraDataSource
+fields:
+  name: Cassandra Storage
+  description: Uses Cassandra for storage
