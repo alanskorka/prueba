@@ -27,9 +27,9 @@ children:
       sqlStatement: '{{file "IPC2-Files/Retrieve from or write to database - selectIPC2.sql"}}'
 - type: ChangeMessageFilter
   fields:
-    name: Set Message OK
+    name: Set Message OK3
     outputContentType: application/json
-    body: '{{file "IPC2-Files/Set Message OK.json"}}'
+    body: '{{file "IPC2-Files/Set Message OK3.json"}}'
   routing:
     success: ../Reflect Message OK
   logging:
@@ -84,7 +84,7 @@ children:
     requiredProperties: []
     script: '{{file "IPC2-Files/Scripting Language.groovy"}}'
   routing:
-    success: ../Set Message OK
+    success: ../Set Message OK3
   logging:
     fatal: 'Error while attempt to run script filter. Error: ${circuit.exception}'
     failure: Failed script filter
