@@ -15,7 +15,6 @@ children:
     dbConn: /External Connections/Database Connections/Conexion BDD SQL
   routing:
     success: ../Scripting Language
-    failure: ../Set Message KO
   logging:
     fatal: 'Error occurred while extracting attributes from database/entity store. Error: ${circuit.exception}'
     failure: Failed to extract attributes from database/entity store
@@ -85,6 +84,7 @@ children:
     script: '{{file "IPC2-Files/Scripting Language.groovy"}}'
   routing:
     success: ../Set Message OK6
+    failure: ../Set Message KO
   logging:
     fatal: 'Error while attempt to run script filter. Error: ${circuit.exception}'
     failure: Failed script filter
@@ -94,7 +94,17 @@ children:
     name: Set Message KO
     outputContentType: application/json
     body: '{{file "IPC2-Files/Set Message KO.json"}}'
+  routing:
+    success: ../Reflect Message KO
   logging:
     fatal: 'Error in setting the message. Error: ${circuit.exception}'
     failure: Failed in setting the message
     success: Success in setting the message
+- type: Reflector
+  fields:
+    httpResponseStatus: 500
+    name: Reflect Message KO
+  logging:
+    fatal: 'Error occurred while echoing the message. Error: ${circuit.exception}'
+    failure: Failed to echo back the message
+    success: Successfully echoed back the message
