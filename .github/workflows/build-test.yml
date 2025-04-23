@@ -5,8 +5,8 @@ on:
   push:
     branches: [main, develop]
     paths:
-    - '**.cs'
-    - '**.csproj'
+      - '**/*.cs'
+      - '**/*.csproj'
 
 jobs:
   run:

@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="" />
+    <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/code-analysis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/code-analysis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,7 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745422900508</updated>
       <workItem from="1745422914489" duration="750000" />
-      <workItem from="1745424282679" duration="759000" />
+      <workItem from="1745424282679" duration="2346000" />
     </task>
     <servers />
   </component>
