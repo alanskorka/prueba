@@ -10,16 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Migrations/20250424213741_InitialCreate.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Migrations/20250424213741_InitialCreate.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Migrations/SimuladorDbContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/SimuladorDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/SimuladorDbContext.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -116,7 +115,7 @@
       <updated>1745422900508</updated>
       <workItem from="1745422914489" duration="750000" />
       <workItem from="1745424282679" duration="2346000" />
-      <workItem from="1745522262773" duration="6473000" />
+      <workItem from="1745522262773" duration="8493000" />
     </task>
     <servers />
   </component>
