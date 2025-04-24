@@ -2,10 +2,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
+    <ProjectReference Include="..\SimuladorDeObjetos.Infrastructure\SimuladorDeObjetos.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
   </ItemGroup>
 
   <PropertyGroup>
