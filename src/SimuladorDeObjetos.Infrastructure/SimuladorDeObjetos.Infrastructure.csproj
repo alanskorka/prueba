@@ -10,4 +10,12 @@
       <Compile Remove="Class1.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
+    </ItemGroup>
+
 </Project>
