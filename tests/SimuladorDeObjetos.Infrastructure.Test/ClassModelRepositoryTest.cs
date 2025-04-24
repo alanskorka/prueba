@@ -59,4 +59,21 @@ public class ClassModelRepositoryTest
         Assert.AreEqual("ClassB", result[1].Name);
         Assert.AreEqual("ClassC", result[2].Name);
     }
+
+    [TestMethod]
+    public void Delete_ShouldRemoveClassModel()
+    {
+        var classModelToDelete = new ClassModel { Id = Guid.NewGuid(), Name = "ToDelete" };
+        var data = new List<ClassModel>
+        {
+            classModelToDelete,
+            new ClassModel { Id = Guid.NewGuid(), Name = "KeepMe" }
+        }.AsQueryable();
+
+        SetupMocks(data);
+
+        _repository.Delete(classModelToDelete);
+
+        _mockSet.Verify(m => m.Remove(classModelToDelete), Times.Once);
+    }
 }
