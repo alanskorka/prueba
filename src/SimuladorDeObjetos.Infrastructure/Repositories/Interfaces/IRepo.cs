@@ -1,6 +1,3 @@
 namespace SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-public class IRepo
-{
-    
-}
+public class IRepo;
