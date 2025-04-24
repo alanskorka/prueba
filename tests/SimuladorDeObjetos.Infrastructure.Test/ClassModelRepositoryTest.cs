@@ -39,4 +39,24 @@ public class ClassModelRepositoryTest
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("Test1", result[0].Name);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllClassModels()
+    {
+        var data = new List<ClassModel>
+        {
+            new ClassModel { Name = "ClassA" },
+            new ClassModel { Name = "ClassB" },
+            new ClassModel { Name = "ClassC" }
+        }.AsQueryable();
+
+        SetupMocks(data);
+
+        var result = _repository.GetAll().ToList();
+
+        Assert.AreEqual(3, result.Count);
+        Assert.AreEqual("ClassA", result[0].Name);
+        Assert.AreEqual("ClassB", result[1].Name);
+        Assert.AreEqual("ClassC", result[2].Name);
+    }
 }
