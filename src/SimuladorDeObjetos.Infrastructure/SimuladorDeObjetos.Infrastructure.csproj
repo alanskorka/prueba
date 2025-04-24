@@ -27,4 +27,8 @@
       <ProjectReference Include="..\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Repositories\Interfaces\" />
+    </ItemGroup>
+
 </Project>

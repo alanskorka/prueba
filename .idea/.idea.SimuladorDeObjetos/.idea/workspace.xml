@@ -10,22 +10,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application /SimuladorDeObjetos.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application /SimuladorDeObjetos.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IClassRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IClassRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Infrastructure/SimuladorDeObjetos.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Infrastructure/SimuladorDeObjetos.Infrastructure.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DpaMonitoringSettings">
-    <option name="autoShow" value="false" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/efcore/9275e9ac55e413546a09551c29d5227d6d009747/src/EFCore/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
-  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ezequielsteinberg"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/IngSoft-DA2/270028_267001_289871.git",
+    "accountId": "f88afc2f-7012-4750-bb67-9e63584a2198"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
@@ -41,7 +49,8 @@
     ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http.executor": "Run",
     ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/infrastructure",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/services",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -49,13 +58,6 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "RiderIisExpressOptionsPageId",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\User\\AppData\\Local\\Symbols\\src"
-    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http">
@@ -115,7 +117,7 @@
       <updated>1745422900508</updated>
       <workItem from="1745422914489" duration="750000" />
       <workItem from="1745424282679" duration="2346000" />
-      <workItem from="1745522262773" duration="8493000" />
+      <workItem from="1745494667969" duration="3873000" />
     </task>
     <servers />
   </component>
