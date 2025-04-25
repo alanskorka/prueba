@@ -63,4 +63,23 @@ public class RepositoryAtributteModelTest
         var result = _repo.GetAll();
         CollectionAssert.AreEqual((_data ?? throw new InvalidOperationException()).ToList(), result);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallUpdateAndSaveChanges()
+    {
+        var updated = new AttributeModel
+        {
+            Id = _attribute.Id,
+            Name = "Updated",
+            Type = "int",
+            ClassId = _attribute.ClassId,
+            Accessibility = AccessibilityModifier.Private
+        };
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Update(updated);
+
+        _mockSet.Verify(m => m.Update(updated), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
