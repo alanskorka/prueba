@@ -71,7 +71,6 @@ public class RepositoryMethodModelTest
             {
                 _repo.Delete(_method);
 
-                // Assert
                 _mockSet.Verify(m => m.Remove(_method), Times.Once);
             }
 
