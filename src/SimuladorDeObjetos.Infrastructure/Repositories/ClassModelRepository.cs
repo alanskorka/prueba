@@ -33,8 +33,8 @@ public class ClassModelRepository : IClassModelRepository
         _dbContext.Entry(classModel).State = EntityState.Modified;
     }
 
-    public void SaveChanges(ClassModel classModel)
+    public void SaveChanges()
     {
-        _dbContext.Entry(classModel).State = EntityState.Modified;
+        _dbContext.SaveChanges();
     }
 }

@@ -95,9 +95,28 @@ public class ClassModelRepositoryTest
 
         model.Name = "Updated";
         repository.Update(model);
-        repository.SaveChanges(model);
+        repository.SaveChanges();
 
         var updated = context.Classes.First(x => x.Id == model.Id);
         Assert.AreEqual("Updated", updated.Name);
+    }
+
+    [TestMethod]
+    public void SaveChanges_ShouldPersistChanges()
+    {
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: "SaveChangesTestDb")
+            .Options;
+
+        using var context = new SimuladorDbContext(options);
+        var repository = new ClassModelRepository(context);
+
+        var model = new ClassModel { Id = Guid.NewGuid(), Name = "ToPersist" };
+        repository.Add(model);
+        repository.SaveChanges();
+
+        var persisted = context.Classes.FirstOrDefault(c => c.Id == model.Id);
+        Assert.IsNotNull(persisted);
+        Assert.AreEqual("ToPersist", persisted.Name);
     }
 }
