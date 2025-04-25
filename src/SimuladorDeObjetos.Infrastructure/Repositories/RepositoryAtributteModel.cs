@@ -17,6 +17,7 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
 
     public void Add(AttributeModel attribute)
     {
+        ArgumentNullException.ThrowIfNull(attribute);
         _attributes.Add(attribute);
         _dbContext.SaveChanges();
     }
