@@ -21,7 +21,11 @@ public class RepositoryMethodModel
         _dbContext.SaveChanges();
     }
 
-    public List<MethodModel> GetAll() => throw new NotImplementedException();
+    public List<MethodModel> GetAll()
+    {
+        return _methods.ToList();
+    }
+
     public void Delete(MethodModel method) => throw new NotImplementedException();
     public void SaveChanges() => throw new NotImplementedException();
 }
