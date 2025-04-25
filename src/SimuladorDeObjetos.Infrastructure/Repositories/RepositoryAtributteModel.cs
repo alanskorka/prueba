@@ -27,7 +27,8 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
 
     public void Update(AttributeModel attribute)
     {
-        throw new NotImplementedException();
+        _attributes.Update(attribute);
+        _dbContext.SaveChanges();
     }
 
     public void Delete(AttributeModel attribute)
