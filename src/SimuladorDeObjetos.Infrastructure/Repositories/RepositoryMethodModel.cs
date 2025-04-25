@@ -33,5 +33,8 @@ public class RepositoryMethodModel
         _dbContext.SaveChanges();
     }
 
-    public void SaveChanges() => throw new NotImplementedException();
+    public void SaveChanges()
+    {
+        _dbContext.SaveChanges();
+    }
 }
