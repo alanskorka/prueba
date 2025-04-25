@@ -27,6 +27,7 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
 
     public void Update(AttributeModel attribute)
     {
+        ArgumentNullException.ThrowIfNull(attribute);
         _attributes.Update(attribute);
         _dbContext.SaveChanges();
     }
