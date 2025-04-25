@@ -40,4 +40,13 @@ public class RepositoryAtributteModelTest
 
         _repo = new RepositoryAtributteModel(_mockContext.Object);
     }
+
+    [TestMethod]
+    public void Add_ShouldCallAddAndSaveChanges()
+    {
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+        _repo.Add(_attribute ?? throw new InvalidOperationException());
+        _mockSet.Verify(m => m.Add(_attribute), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
