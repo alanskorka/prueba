@@ -54,6 +54,7 @@ public class RepositoryMethodModelTest
         public void GetAll_ShouldReturnAllMethods()
         {
             var result = _repo.GetAll();
+
             if(_data != null)
             {
                 CollectionAssert.AreEqual(_data.ToList(), result);
