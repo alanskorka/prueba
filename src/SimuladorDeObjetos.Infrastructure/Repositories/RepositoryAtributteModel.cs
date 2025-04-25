@@ -17,7 +17,8 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
 
     public void Add(AttributeModel attribute)
     {
-        throw new NotImplementedException();
+        _attributes.Add(attribute);
+        _dbContext.SaveChanges();
     }
 
     public List<AttributeModel> GetAll()
