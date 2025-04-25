@@ -1,9 +1,10 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class RepositoryMethodModel
+public class RepositoryMethodModel : IRepositoryMethodModel
 {
     private readonly DbContext _dbContext;
     private readonly DbSet<MethodModel> _methods;

@@ -7,5 +7,6 @@ public interface IRepositoryMethodModel
     void Add(MethodModel method);
     List<MethodModel> GetAll();
     void Delete(MethodModel method);
+    void Update(MethodModel method);
     void SaveChanges();
 }
