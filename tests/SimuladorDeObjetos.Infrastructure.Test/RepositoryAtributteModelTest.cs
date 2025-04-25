@@ -100,4 +100,11 @@ public class RepositoryAtributteModelTest
         _mockSet.Verify(m => m.Remove(_attribute), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenAttributeIsNull()
+    {
+        _repo.Delete(null!);
+    }
 }
