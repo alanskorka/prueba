@@ -56,4 +56,11 @@ public class RepositoryAtributteModelTest
     {
         _repo.Add(null!);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllAttributes()
+    {
+        var result = _repo.GetAll();
+        CollectionAssert.AreEqual((_data ?? throw new InvalidOperationException()).ToList(), result);
+    }
 }
