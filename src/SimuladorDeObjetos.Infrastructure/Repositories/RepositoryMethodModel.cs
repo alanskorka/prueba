@@ -26,6 +26,12 @@ public class RepositoryMethodModel
         return _methods.ToList();
     }
 
-    public void Delete(MethodModel method) => throw new NotImplementedException();
+    public void Delete(MethodModel method)
+    {
+        ArgumentNullException.ThrowIfNull(method);
+        _methods.Remove(method);
+        _dbContext.SaveChanges();
+    }
+
     public void SaveChanges() => throw new NotImplementedException();
 }
