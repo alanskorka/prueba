@@ -22,4 +22,9 @@ public class ClassModelRepository : IClassModelRepository
     {
         return _dbContext.Set<ClassModel>().ToList();
     }
+
+    public void Delete(ClassModel model)
+    {
+        _dbContext.Set<ClassModel>().Remove(model);
+    }
 }
