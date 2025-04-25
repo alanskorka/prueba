@@ -40,5 +40,5 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
     }
 
     public void SaveChanges()
-        => throw new NotImplementedException();
+        => _dbContext.SaveChanges();
 }
