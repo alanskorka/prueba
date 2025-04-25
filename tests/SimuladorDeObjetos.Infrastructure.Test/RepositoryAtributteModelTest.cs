@@ -89,4 +89,15 @@ public class RepositoryAtributteModelTest
     {
         _repo.Update(null!);
     }
+
+    [TestMethod]
+    public void Delete_ShouldCallRemoveAndSaveChanges()
+    {
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Delete(_attribute ?? throw new InvalidOperationException());
+
+        _mockSet.Verify(m => m.Remove(_attribute), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
