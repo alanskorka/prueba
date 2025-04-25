@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using SimuladorDeObjetos.Infrastructure.Repositories;
 
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
@@ -28,11 +29,8 @@ public class LocalVarModelRepositoryTest
     [TestMethod]
     public void GetAll_ShouldReturnAllLocalVarModels()
     {
-        var data = new List<LocalVarModel>
-        {
-            new LocalVarModel { Name = "Var1" },
-            new LocalVarModel { Name = "Var2" }
-        }.AsQueryable();
+        var data = new List<LocalVarModel> { new LocalVarModel { Name = "Var1" }, new LocalVarModel { Name = "Var2" } }
+            .AsQueryable();
 
         SetupMocks(data);
 
@@ -41,3 +39,4 @@ public class LocalVarModelRepositoryTest
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("Var1", result[0].Name);
     }
+}
