@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using SimuladorDeObjetos.Infrastructure.Repositories;
 
@@ -75,5 +76,24 @@ public class ClassModelRepositoryTest
         _repository.Delete(classModelToDelete);
 
         _mockSet.Verify(m => m.Remove(classModelToDelete), Times.Once);
+    }
+
+    [TestMethod]
+    public void Update_ShouldMarkEntityAsModified()
+    {
+        var classModelToUpdate = new ClassModel { Id = Guid.NewGuid(), Name = "ToUpdate" };
+        var data = new List<ClassModel> { classModelToUpdate }.AsQueryable();
+
+        SetupMocks(data);
+
+        var mockEntry = new Mock<EntityEntry<ClassModel>>();
+        mockEntry.Setup(x => x.State).Returns(EntityState.Modified);
+
+        _mockContext.Setup(m => m.Entry(classModelToUpdate)).Returns(mockEntry.Object);
+
+        _repository.Update(classModelToUpdate);
+
+        _mockContext.Verify(m => m.Entry(classModelToUpdate), Times.Once);
+        mockEntry.VerifySet(e => e.State = EntityState.Modified, Times.Once);
     }
 }
