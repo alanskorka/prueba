@@ -95,4 +95,20 @@ public class RepositoryMethodModelTest
         _repo.SaveChanges();
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallUpdateAndSaveChanges()
+    {
+        var updated = new MethodModel
+        {
+            Id = _method.Id,
+            Name = "Updated",
+            ReturnType = "int",
+            ClassId = _method.ClassId
+        };
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+        _repo.Update(updated);
+        _mockSet.Verify(m => m.Update(updated), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
