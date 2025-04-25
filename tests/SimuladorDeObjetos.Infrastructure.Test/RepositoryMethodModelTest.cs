@@ -61,4 +61,20 @@ public class RepositoryMethodModelTest
                 CollectionAssert.AreEqual(_data.ToList(), result);
             }
         }
+
+        [TestMethod]
+        public void Delete_ShouldCallRemoveAndSaveChanges()
+        {
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+            if(_method != null)
+            {
+                _repo.Delete(_method);
+
+                // Assert
+                _mockSet.Verify(m => m.Remove(_method), Times.Once);
+            }
+
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
 }
