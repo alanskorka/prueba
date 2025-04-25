@@ -25,6 +25,7 @@ public class RepositoryMethodModelTest
                 ReturnType = "void",
                 ClassId = Guid.NewGuid()
             };
+
             _data = new List<MethodModel?> { _method }.AsQueryable();
             _mockSet = new Mock<DbSet<MethodModel>>();
             _mockSet.As<IQueryable<MethodModel>>().Setup(m => m.Provider).Returns(_data.Provider);
