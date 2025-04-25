@@ -111,4 +111,11 @@ public class RepositoryMethodModelTest
         _mockSet.Verify(m => m.Update(updated), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Update_ShouldThrow_WhenMethodIsNull()
+    {
+        _repo.Update(null!);
+    }
 }
