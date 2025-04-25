@@ -39,15 +39,12 @@ public class RepositoryMethodModelTest
         [TestMethod]
         public void Add_ShouldCallAddAndSaveChanges()
         {
-            // Arrange
             _mockContext.Setup(c => c.SaveChanges()).Returns(1);
 
-            // Act
             if(_method != null)
             {
                 _repo.Add(_method);
 
-                // Assert
                 _mockSet.Verify(m => m.Add(_method), Times.Once);
             }
 
