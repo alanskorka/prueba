@@ -14,7 +14,13 @@ public class RepositoryMethodModel
         _methods = dbContext.Set<MethodModel>();
     }
 
-    public void Add(MethodModel method) => throw new NotImplementedException();
+    public void Add(MethodModel method)
+    {
+        ArgumentNullException.ThrowIfNull(method);
+        _methods.Add(method);
+        _dbContext.SaveChanges();
+    }
+
     public List<MethodModel> GetAll() => throw new NotImplementedException();
     public void Delete(MethodModel method) => throw new NotImplementedException();
     public void SaveChanges() => throw new NotImplementedException();
