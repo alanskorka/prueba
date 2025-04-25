@@ -23,7 +23,7 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
     }
 
     public List<AttributeModel> GetAll()
-        => throw new NotImplementedException();
+        => _attributes.ToList();
 
     public void Update(AttributeModel attribute)
     {
