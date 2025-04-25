@@ -35,6 +35,7 @@ public class RepositoryMethodModel
 
     public void Update(MethodModel method)
     {
+        ArgumentNullException.ThrowIfNull(method);
         _methods.Update(method);
         _dbContext.SaveChanges();
     }
