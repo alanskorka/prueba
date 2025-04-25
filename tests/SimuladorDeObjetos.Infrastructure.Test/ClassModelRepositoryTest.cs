@@ -1,10 +1,8 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
+using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
-
-namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
 public class ClassModelRepositoryTest
@@ -35,8 +33,11 @@ public class ClassModelRepositoryTest
             new ClassModel { Name = "Test1" },
             new ClassModel { Name = "Test2" }
         }.AsQueryable();
+
         SetupMocks(data);
+
         var result = _repository.GetAll().ToList();
+
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("Test1", result[0].Name);
     }
@@ -79,21 +80,24 @@ public class ClassModelRepositoryTest
     }
 
     [TestMethod]
-    public void Update_ShouldMarkEntityAsModified()
+    public void Update_ShouldModifyClassModelInDatabase()
     {
-        var classModelToUpdate = new ClassModel { Id = Guid.NewGuid(), Name = "ToUpdate" };
-        var data = new List<ClassModel> { classModelToUpdate }.AsQueryable();
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
 
-        SetupMocks(data);
+        using var context = new SimuladorDbContext(options);
+        var repository = new ClassModelRepository(context);
 
-        var mockEntry = new Mock<EntityEntry<ClassModel>>();
-        mockEntry.Setup(x => x.State).Returns(EntityState.Modified);
+        var model = new ClassModel { Id = Guid.NewGuid(), Name = "Original" };
+        context.Add(model);
+        context.SaveChanges();
 
-        _mockContext.Setup(m => m.Entry(classModelToUpdate)).Returns(mockEntry.Object);
+        model.Name = "Updated";
+        repository.Update(model);
+        repository.SaveChanges(model);
 
-        _repository.Update(classModelToUpdate);
-
-        _mockContext.Verify(m => m.Entry(classModelToUpdate), Times.Once);
-        mockEntry.VerifySet(e => e.State = EntityState.Modified, Times.Once);
+        var updated = context.Classes.First(x => x.Id == model.Id);
+        Assert.AreEqual("Updated", updated.Name);
     }
 }

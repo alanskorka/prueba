@@ -27,4 +27,14 @@ public class ClassModelRepository : IClassModelRepository
     {
         _dbContext.Set<ClassModel>().Remove(model);
     }
+
+    public void Update(ClassModel classModel)
+    {
+        _dbContext.Entry(classModel).State = EntityState.Modified;
+    }
+
+    public void SaveChanges(ClassModel classModel)
+    {
+        _dbContext.Entry(classModel).State = EntityState.Modified;
+    }
 }
