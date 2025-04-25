@@ -35,7 +35,8 @@ public class RepositoryMethodModel
 
     public void Update(MethodModel method)
     {
-        throw new NotImplementedException();
+        _methods.Update(method);
+        _dbContext.SaveChanges();
     }
 
     public void SaveChanges()
