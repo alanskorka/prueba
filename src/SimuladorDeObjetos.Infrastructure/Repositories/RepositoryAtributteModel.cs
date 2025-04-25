@@ -34,6 +34,7 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
 
     public void Delete(AttributeModel attribute)
     {
+        ArgumentNullException.ThrowIfNull(attribute);
         _attributes.Remove(attribute);
         _dbContext.SaveChanges();
     }
