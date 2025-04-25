@@ -49,4 +49,14 @@ public class RepositoryMethodModelTest
 
             _mockContext.Verify(c => c.SaveChanges(), Times.Once);
         }
+
+        [TestMethod]
+        public void GetAll_ShouldReturnAllMethods()
+        {
+            var result = _repo.GetAll();
+            if(_data != null)
+            {
+                CollectionAssert.AreEqual(_data.ToList(), result);
+            }
+        }
 }
