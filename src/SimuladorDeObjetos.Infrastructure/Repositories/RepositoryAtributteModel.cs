@@ -34,7 +34,8 @@ public class RepositoryAtributteModel : IRepositoryAtributteModel
 
     public void Delete(AttributeModel attribute)
     {
-        throw new NotImplementedException();
+        _attributes.Remove(attribute);
+        _dbContext.SaveChanges();
     }
 
     public void SaveChanges()
