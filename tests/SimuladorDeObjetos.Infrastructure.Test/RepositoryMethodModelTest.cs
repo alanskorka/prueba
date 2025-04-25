@@ -87,4 +87,12 @@ public class RepositoryMethodModelTest
     {
         _repo.Delete(null!);
     }
+
+    [TestMethod]
+    public void SaveChanges_ShouldCallContextSaveChanges()
+    {
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+        _repo.SaveChanges();
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
