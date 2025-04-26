@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/RepositoryAtributteModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/RepositoryAtributteModel.cs" afterDir="false" />
-    </list>
+    <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +51,7 @@
     ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/repositoryAtributteModel",
+    "git-widget-placeholder": "feature/repositoryParamModel",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -130,6 +128,7 @@
       <workItem from="1745494667969" duration="3873000" />
       <workItem from="1745534410674" duration="3426000" />
       <workItem from="1745595981858" duration="3694000" />
+      <workItem from="1745693853372" duration="629000" />
     </task>
     <servers />
   </component>
