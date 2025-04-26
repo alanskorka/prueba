@@ -40,5 +40,5 @@ public class RepositoryParamModel : IRepositoryParamModel
     }
 
     public void SaveChanges()
-        => throw new NotImplementedException();
+        => _dbContext.SaveChanges();
 }
