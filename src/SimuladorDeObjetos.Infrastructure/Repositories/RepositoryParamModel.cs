@@ -17,7 +17,8 @@ public class RepositoryParamModel : IRepositoryParamModel
 
     public void Add(ParamModel param)
     {
-        throw new NotImplementedException();
+        _params.Add(param);
+        _dbContext.SaveChanges();
     }
 
     public List<ParamModel> GetAll()
