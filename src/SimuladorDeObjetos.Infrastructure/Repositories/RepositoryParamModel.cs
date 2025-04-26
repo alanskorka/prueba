@@ -17,6 +17,7 @@ public class RepositoryParamModel : IRepositoryParamModel
 
     public void Add(ParamModel param)
     {
+        ArgumentNullException.ThrowIfNull(param);
         _params.Add(param);
         _dbContext.SaveChanges();
     }
