@@ -49,4 +49,11 @@ public class RepositoryParamModelTest
         _mockSet.Verify(m => m.Add(_param), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Add_ShouldThrow_WhenParamIsNull()
+    {
+        _repo.Add(null!);
+    }
 }
