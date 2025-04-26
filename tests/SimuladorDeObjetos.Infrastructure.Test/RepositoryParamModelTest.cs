@@ -38,4 +38,15 @@ public class RepositoryParamModelTest
 
         _repo = new RepositoryParamModel(_mockContext.Object);
     }
+
+    [TestMethod]
+    public void Add_ShouldCallAddAndSaveChanges()
+    {
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Add(_param ?? throw new InvalidOperationException());
+
+        _mockSet.Verify(m => m.Add(_param), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
