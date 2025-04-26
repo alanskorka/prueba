@@ -56,4 +56,11 @@ public class RepositoryParamModelTest
     {
         _repo.Add(null!);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllParams()
+    {
+        var result = _repo.GetAll();
+        CollectionAssert.AreEqual((_data ?? throw new InvalidOperationException()).ToList(), result);
+    }
 }
