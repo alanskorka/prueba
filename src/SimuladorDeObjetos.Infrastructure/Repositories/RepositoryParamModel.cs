@@ -34,6 +34,7 @@ public class RepositoryParamModel : IRepositoryParamModel
 
     public void Delete(ParamModel param)
     {
+        ArgumentNullException.ThrowIfNull(param);
         _params.Remove(param);
         _dbContext.SaveChanges();
     }
