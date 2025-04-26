@@ -27,7 +27,8 @@ public class RepositoryParamModel : IRepositoryParamModel
 
     public void Update(ParamModel param)
     {
-        throw new NotImplementedException();
+        _params.Update(param);
+        _dbContext.SaveChanges();
     }
 
     public void Delete(ParamModel param)
