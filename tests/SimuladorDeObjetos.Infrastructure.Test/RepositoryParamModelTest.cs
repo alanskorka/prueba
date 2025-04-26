@@ -93,9 +93,7 @@ public class RepositoryParamModelTest
     public void Delete_ShouldCallRemoveAndSaveChanges()
     {
         _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-
         _repo.Delete(_param ?? throw new InvalidOperationException());
-
         _mockSet.Verify(m => m.Remove(_param), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
