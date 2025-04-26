@@ -75,9 +75,7 @@ public class RepositoryParamModelTest
             MethodId = _param.MethodId
         };
         _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-
         _repo.Update(updated);
-
         _mockSet.Verify(m => m.Update(updated), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
