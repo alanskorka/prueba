@@ -23,7 +23,7 @@ public class RepositoryParamModel : IRepositoryParamModel
     }
 
     public List<ParamModel> GetAll()
-        => throw new NotImplementedException();
+        => _params.ToList();
 
     public void Update(ParamModel param)
     {
