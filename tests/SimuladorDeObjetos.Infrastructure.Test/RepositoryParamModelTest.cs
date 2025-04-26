@@ -63,4 +63,22 @@ public class RepositoryParamModelTest
         var result = _repo.GetAll();
         CollectionAssert.AreEqual((_data ?? throw new InvalidOperationException()).ToList(), result);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallUpdateAndSaveChanges()
+    {
+        var updated = new ParamModel
+        {
+            Id = _param.Id,
+            Name = "p2",
+            Type = "string",
+            MethodId = _param.MethodId
+        };
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Update(updated);
+
+        _mockSet.Verify(m => m.Update(updated), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
