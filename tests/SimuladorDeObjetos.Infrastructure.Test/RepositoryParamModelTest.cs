@@ -97,4 +97,11 @@ public class RepositoryParamModelTest
         _mockSet.Verify(m => m.Remove(_param), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenParamIsNull()
+    {
+        _repo.Delete(null!);
+    }
 }
