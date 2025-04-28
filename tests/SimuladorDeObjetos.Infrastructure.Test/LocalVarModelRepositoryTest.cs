@@ -66,21 +66,25 @@ public class LocalVarModelRepositoryTest
     }
 
     [TestMethod]
-    public void Update_ShouldMarkEntityAsModified()
+    public void Update_ShouldModifyLocalVarModelInDatabase()
     {
-        var localVar = new LocalVarModel { Id = Guid.NewGuid(), Name = "Old" };
-        var data = new List<LocalVarModel> { localVar }.AsQueryable();
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
 
-        SetupMocks(data);
+        using var context = new SimuladorDbContext(options);
+        var repository = new LocalVarModelRepository(context);
 
-        var mockEntry = new Mock<EntityEntry<LocalVarModel>>();
-        mockEntry.SetupProperty(x => x.State);
-        _mockContext!.Setup(m => m.Entry(localVar)).Returns(mockEntry.Object);
+        var model = new LocalVarModel { Id = Guid.NewGuid(), Name = "Original" };
+        context.Add(model);
+        context.SaveChanges();
 
-        _repository.Update(localVar);
+        model.Name = "Updated";
+        repository.Update(model);
+        repository.SaveChanges();
 
-        _mockContext.Verify(m => m.Entry(localVar), Times.Once);
-        mockEntry.VerifySet(e => e.State = EntityState.Modified, Times.Once);
+        var updated = context.LocalVars.First(x => x.Id == model.Id);
+        Assert.AreEqual("Updated", updated.Name);
     }
 
 }

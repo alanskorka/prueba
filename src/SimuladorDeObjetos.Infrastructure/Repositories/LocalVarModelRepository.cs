@@ -22,6 +22,11 @@ public class LocalVarModelRepository
         _dbContext.Set<LocalVarModel>().Remove(model);
     }
 
+    public void Update(LocalVarModel model)
+    {
+        _dbContext.Entry(model).State = EntityState.Modified;
+    }
+
     public IEnumerable<LocalVarModel> GetAll()
     {
         return _dbContext.Set<LocalVarModel>().ToList();
