@@ -47,4 +47,11 @@ public class RepositoryMethodCallModelTest
         _mockSet.Verify(m => m.Add(_call), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Add_ShouldThrow_WhenCallIsNull()
+    {
+        _repo.Add(null!);
+    }
 }
