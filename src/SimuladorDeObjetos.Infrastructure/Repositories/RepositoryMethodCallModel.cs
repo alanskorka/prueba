@@ -27,6 +27,7 @@ public class RepositoryMethodCallModel : IRepositoryMethodCallModel
 
     public void Update(MethodCallModel call)
     {
+        ArgumentNullException.ThrowIfNull(call);
         _calls.Update(call);
         _dbContext.SaveChanges();
     }
