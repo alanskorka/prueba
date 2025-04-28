@@ -39,4 +39,16 @@ public class LocalVarModelRepositoryTest
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("Var1", result[0].Name);
     }
+
+    [TestMethod]
+    public void Add_ShouldAddLocalVarModel()
+    {
+        var data = new List<LocalVarModel>().AsQueryable();
+        SetupMocks(data);
+
+        var localVar = new LocalVarModel { Name = "NewVar" };
+        _repository.Add(localVar);
+
+        _mockSet!.Verify(m => m.Add(localVar), Times.Once);
+    }
 }

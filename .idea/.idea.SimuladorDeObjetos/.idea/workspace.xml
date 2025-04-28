@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/LocalVarModelTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +139,7 @@
       <workItem from="1745424282679" duration="2346000" />
       <workItem from="1745494667969" duration="3873000" />
       <workItem from="1745537002360" duration="4726000" />
-      <workItem from="1745607680906" duration="770000" />
+      <workItem from="1745607680906" duration="2011000" />
     </task>
     <servers />
   </component>
