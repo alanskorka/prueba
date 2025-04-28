@@ -51,4 +51,16 @@ public class LocalVarModelRepositoryTest
 
         _mockSet!.Verify(m => m.Add(localVar), Times.Once);
     }
+
+    [TestMethod]
+    public void Delete_ShouldRemoveLocalVarModel()
+    {
+        var data = new List<LocalVarModel>().AsQueryable();
+        SetupMocks(data);
+
+        var localVar = new LocalVarModel { Name = "ToDelete" };
+        _repository.Delete(localVar);
+
+        _mockSet!.Verify(m => m.Remove(localVar), Times.Once);
+    }
 }
