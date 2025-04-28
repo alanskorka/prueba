@@ -23,7 +23,7 @@ public class RepositoryMethodCallModel : IRepositoryMethodCallModel
     }
 
     public List<MethodCallModel> GetAll()
-        => throw new NotImplementedException();
+        => _calls.ToList();
 
     public void Update(MethodCallModel call)
     {
