@@ -17,6 +17,7 @@ public class RepositoryMethodCallModel : IRepositoryMethodCallModel
 
     public void Add(MethodCallModel call)
     {
+        ArgumentNullException.ThrowIfNull(call);
         _calls.Add(call);
         _dbContext.SaveChanges();
     }
