@@ -27,7 +27,8 @@ public class RepositoryMethodCallModel : IRepositoryMethodCallModel
 
     public void Update(MethodCallModel call)
     {
-        throw new NotImplementedException();
+        _calls.Update(call);
+        _dbContext.SaveChanges();
     }
 
     public void Delete(MethodCallModel call)
