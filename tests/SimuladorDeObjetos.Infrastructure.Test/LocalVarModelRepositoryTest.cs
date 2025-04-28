@@ -86,4 +86,17 @@ public class LocalVarModelRepositoryTest
         var updated = context.LocalVars.First(x => x.Id == model.Id);
         Assert.AreEqual("Updated", updated.Name);
     }
+
+    [TestMethod]
+    public void SaveChanges_ShouldPersistChanges()
+    {
+        var data = new List<LocalVarModel>().AsQueryable();
+        SetupMocks(data);
+
+        _mockContext!.Setup(m => m.SaveChanges()).Returns(1);
+
+        _repository.SaveChanges();
+
+        _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+    }
 }
