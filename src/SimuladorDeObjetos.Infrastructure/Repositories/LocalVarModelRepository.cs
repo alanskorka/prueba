@@ -17,6 +17,11 @@ public class LocalVarModelRepository
         _dbContext.Set<LocalVarModel>().Add(model);
     }
 
+    public void Delete(LocalVarModel model)
+    {
+        _dbContext.Set<LocalVarModel>().Remove(model);
+    }
+
     public IEnumerable<LocalVarModel> GetAll()
     {
         return _dbContext.Set<LocalVarModel>().ToList();
