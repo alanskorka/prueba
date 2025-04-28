@@ -17,7 +17,8 @@ public class RepositoryMethodCallModel : IRepositoryMethodCallModel
 
     public void Add(MethodCallModel call)
     {
-        throw new NotImplementedException();
+        _calls.Add(call);
+        _dbContext.SaveChanges();
     }
 
     public List<MethodCallModel> GetAll()
