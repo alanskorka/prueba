@@ -85,4 +85,15 @@ public class RepositoryMethodCallModelTest
     {
         _repo.Update(null!);
     }
+
+    [TestMethod]
+    public void Delete_ShouldCallRemoveAndSaveChanges()
+    {
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Delete(_call ?? throw new InvalidOperationException());
+
+        _mockSet.Verify(m => m.Remove(_call), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
