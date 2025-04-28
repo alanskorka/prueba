@@ -34,6 +34,7 @@ public class RepositoryMethodCallModel : IRepositoryMethodCallModel
 
     public void Delete(MethodCallModel call)
     {
+        ArgumentNullException.ThrowIfNull(call);
         _calls.Remove(call);
         _dbContext.SaveChanges();
     }
