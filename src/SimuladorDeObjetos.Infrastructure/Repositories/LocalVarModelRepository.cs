@@ -31,4 +31,9 @@ public class LocalVarModelRepository
     {
         return _dbContext.Set<LocalVarModel>().ToList();
     }
+
+    public void SaveChanges()
+    {
+        _dbContext.SaveChanges();
+    }
 }

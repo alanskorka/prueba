@@ -8,4 +8,5 @@ public interface ILocalVarModelRepository
     void Delete(LocalVarModel model);
     void Update(LocalVarModel model);
     IEnumerable<LocalVarModel> GetAll();
+    void SaveChanges();
 }

@@ -75,7 +75,7 @@ public class LocalVarModelRepositoryTest
         using var context = new SimuladorDbContext(options);
         var repository = new LocalVarModelRepository(context);
 
-        var model = new LocalVarModel { Id = Guid.NewGuid(), Name = "Original" };
+        var model = new LocalVarModel { Id = Guid.NewGuid(), Name = "Original",  Type = "SomeType" };
         context.Add(model);
         context.SaveChanges();
 
@@ -86,5 +86,4 @@ public class LocalVarModelRepositoryTest
         var updated = context.LocalVars.First(x => x.Id == model.Id);
         Assert.AreEqual("Updated", updated.Name);
     }
-
 }
