@@ -96,4 +96,11 @@ public class RepositoryMethodCallModelTest
         _mockSet.Verify(m => m.Remove(_call), Times.Once);
         _mockContext.Verify(c => c.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenCallIsNull()
+    {
+        _repo.Delete(null!);
+    }
 }
