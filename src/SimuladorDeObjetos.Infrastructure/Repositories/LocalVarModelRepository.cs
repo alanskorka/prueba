@@ -12,6 +12,11 @@ public class LocalVarModelRepository
         _dbContext = dbContext;
     }
 
+    public void Add(LocalVarModel model)
+    {
+        _dbContext.Set<LocalVarModel>().Add(model);
+    }
+
     public IEnumerable<LocalVarModel> GetAll()
     {
         return _dbContext.Set<LocalVarModel>().ToList();
