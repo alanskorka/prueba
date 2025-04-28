@@ -36,4 +36,15 @@ public class RepositoryMethodCallModelTest
 
         _repo = new RepositoryMethodCallModel(_mockContext.Object);
     }
+
+    [TestMethod]
+    public void Add_ShouldCallAddAndSaveChanges()
+    {
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Add(_call ?? throw new InvalidOperationException());
+
+        _mockSet.Verify(m => m.Add(_call), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }

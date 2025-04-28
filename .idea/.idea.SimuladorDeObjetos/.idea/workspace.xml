@@ -10,8 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c24b420c-8435-4e99-b016-2d08a8b60860" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IRepositoryMethodCallModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/RepositoryMethodCallModelTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/RepositoryMethodCallModelTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +133,7 @@
       <workItem from="1745595981858" duration="3694000" />
       <workItem from="1745693853372" duration="2030000" />
       <workItem from="1745696735435" duration="1108000" />
-      <workItem from="1745858527268" duration="1006000" />
+      <workItem from="1745858527268" duration="1612000" />
     </task>
     <servers />
   </component>
