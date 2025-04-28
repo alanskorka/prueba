@@ -23,9 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-feature/classModelRepo
       <ProjectReference Include="..\..\src\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
-feature/infrastructure
       <ProjectReference Include="..\..\src\SimuladorDeObjetos.Infrastructure\SimuladorDeObjetos.Infrastructure.csproj" />
     </ItemGroup>
 
