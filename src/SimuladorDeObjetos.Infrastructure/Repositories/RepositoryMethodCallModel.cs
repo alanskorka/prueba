@@ -1,0 +1,38 @@
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+
+namespace SimuladorDeObjetos.Infrastructure.Repositories;
+
+public class RepositoryMethodCallModel : IRepositoryMethodCallModel
+{
+    private readonly DbContext _dbContext;
+    private readonly DbSet<MethodCallModel> _calls;
+
+    public RepositoryMethodCallModel(DbContext dbContext)
+    {
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _calls = dbContext.Set<MethodCallModel>();
+    }
+
+    public void Add(MethodCallModel call)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<MethodCallModel> GetAll()
+        => throw new NotImplementedException();
+
+    public void Update(MethodCallModel call)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Delete(MethodCallModel call)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SaveChanges()
+        => throw new NotImplementedException();
+}
