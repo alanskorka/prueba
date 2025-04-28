@@ -62,4 +62,20 @@ public class RepositoryMethodCallModelTest
 
         CollectionAssert.AreEqual((_data ?? throw new InvalidOperationException()).ToList(), result);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallUpdateAndSaveChanges()
+    {
+        var updated = new MethodCallModel
+        {
+            MethodName = "UpdatedCall",
+            ReferenceType = ReferenceTypeInvocation.Base
+        };
+        _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+        _repo.Update(updated);
+
+        _mockSet.Verify(m => m.Update(updated), Times.Once);
+        _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+    }
 }
