@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using SimuladorDeObjetos.Infrastructure.Repositories;
 
@@ -63,4 +64,23 @@ public class LocalVarModelRepositoryTest
 
         _mockSet!.Verify(m => m.Remove(localVar), Times.Once);
     }
+
+    [TestMethod]
+    public void Update_ShouldMarkEntityAsModified()
+    {
+        var localVar = new LocalVarModel { Id = Guid.NewGuid(), Name = "Old" };
+        var data = new List<LocalVarModel> { localVar }.AsQueryable();
+
+        SetupMocks(data);
+
+        var mockEntry = new Mock<EntityEntry<LocalVarModel>>();
+        mockEntry.SetupProperty(x => x.State);
+        _mockContext!.Setup(m => m.Entry(localVar)).Returns(mockEntry.Object);
+
+        _repository.Update(localVar);
+
+        _mockContext.Verify(m => m.Entry(localVar), Times.Once);
+        mockEntry.VerifySet(e => e.State = EntityState.Modified, Times.Once);
+    }
+
 }
