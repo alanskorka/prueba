@@ -15,6 +15,7 @@ public class AttributeModelService : IAttributeModelService
 
     public void Create(AttributeModel attribute)
     {
+        ArgumentNullException.ThrowIfNull(attribute);
         _repository.Add(attribute);
     }
 
