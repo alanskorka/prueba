@@ -22,7 +22,6 @@ public class ClassModelRepositoryTest
 
         _mockContext = new Mock<DbContext>();
         _mockContext.Setup(c => c.Set<ClassModel>()).Returns(_mockSet.Object);
-
         _repository = new ClassModelRepository(_mockContext.Object);
     }
 
