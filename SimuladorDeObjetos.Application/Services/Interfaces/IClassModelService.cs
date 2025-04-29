@@ -5,4 +5,5 @@ namespace SimuladorDeObjetos.Application.Interfaces;
 public interface IClassModelService
 {
     IEnumerable<ClassModel> GetAll();
+    void Add(ClassModel model);
 }

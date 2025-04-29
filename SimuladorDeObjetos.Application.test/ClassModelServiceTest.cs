@@ -18,16 +18,6 @@ public class ClassModelServiceTest
     }
 
     [TestMethod]
-    public void Add_ShouldCallRepositoryAdd()
-    {
-        var newModel = new ClassModel { Name = "NewClass" };
-
-        _service.Add(newModel);
-
-        _mockRepository.Verify(r => r.Add(newModel), Times.Once);
-    }
-
-    [TestMethod]
     public void GetAll_ShouldReturnAllClassModels()
     {
         var expectedModels = new List<ClassModel>
@@ -42,5 +32,15 @@ public class ClassModelServiceTest
 
         Assert.AreEqual(2, result.Count());
         Assert.AreEqual("Class1", result.First().Name);
+    }
+
+    [TestMethod]
+    public void Add_ShouldCallRepositoryAdd()
+    {
+        var newModel = new ClassModel { Name = "NewClass" };
+
+        _service.Add(newModel);
+
+        _mockRepository.Verify(r => r.Add(newModel), Times.Once);
     }
 }

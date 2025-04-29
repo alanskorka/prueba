@@ -17,4 +17,9 @@ public class ClassModelService : IClassModelService
     {
         return _repository.GetAll();
     }
+
+    public void Add(ClassModel model)
+    {
+        _repository.Add(model);
+    }
 }
