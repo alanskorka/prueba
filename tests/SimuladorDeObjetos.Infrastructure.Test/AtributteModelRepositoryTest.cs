@@ -7,7 +7,7 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
-public class RepositoryAtributteModelTest
+public class AtributteModelRepositoryTest
 {
     private AttributeModel? _attribute;
     private IQueryable<AttributeModel?>? _data;

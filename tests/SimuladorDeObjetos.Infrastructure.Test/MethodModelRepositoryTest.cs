@@ -7,13 +7,13 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
-public class RepositoryMethodModelTest
+public class MethodModelRepositoryTest
 {
     private MethodModel? _method;
     private IQueryable<MethodModel?>? _data;
     private Mock<DbSet<MethodModel>>? _mockSet;
     private Mock<DbContext>? _mockContext;
-    private RepositoryMethodModel? _repo;
+    private MethodModelRepository? _repo;
 
     [TestInitialize]
     public void Setup()
@@ -31,7 +31,7 @@ public class RepositoryMethodModelTest
         _mockSet.As<IQueryable<MethodModel>>().Setup(m => m.GetEnumerator()).Returns(() => _data.GetEnumerator());
         _mockContext = new Mock<DbContext>();
         _mockContext.Setup(c => c.Set<MethodModel>()).Returns(_mockSet.Object);
-        _repo = new RepositoryMethodModel(_mockContext.Object);
+        _repo = new MethodModelRepository(_mockContext.Object);
     }
 
     [TestMethod]

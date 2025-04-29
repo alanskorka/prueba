@@ -6,7 +6,7 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
-public class RepositoryParamModelTest
+public class ParamModelRepositoryTest
 {
     private ParamModel? _param;
     private IQueryable<ParamModel>? _data;
