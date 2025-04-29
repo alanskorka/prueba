@@ -9,8 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="">
+    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Test: AddMethodToClass throws exception if class does not exist">
+      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodModelService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodModelService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IMethodModelRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ClassModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ClassModelRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IClassModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IClassModelRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +66,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "RiderIisExpressOptionsPageId",
+    "settings.editor.selected.configurable": "editor.preferences.smartKeys_rider",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -136,6 +141,15 @@
       <workItem from="1745696735435" duration="1108000" />
       <workItem from="1745858527268" duration="1931000" />
     </task>
+    <task id="LOCAL-00001" summary="Test: AddMethodToClass throws exception if class does not exist">
+      <option name="closed" value="true" />
+      <created>1745954931797</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745954931797</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +174,7 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Test: AddMethodToClass throws exception if class does not exist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test: AddMethodToClass throws exception if class does not exist" />
   </component>
 </project>
