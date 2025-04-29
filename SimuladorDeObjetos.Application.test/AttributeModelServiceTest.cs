@@ -71,4 +71,11 @@ public class AttributeModelServiceTest
         _service.Delete(_attribute ?? throw new InvalidOperationException());
         _mockRepo.Verify(r => r.Delete(_attribute), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenAttributeIsNull()
+    {
+        _service.Delete(null!);
+    }
 }
