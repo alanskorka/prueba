@@ -53,4 +53,19 @@ public class ClassModelServiceTest
 
         _mockRepository.Verify(r => r.Delete(newModel), Times.Once);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallRepositoryUpdateAndSave()
+    {
+        var model = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "UpdatedClass"
+        };
+
+        _service.Update(model);
+
+        _mockRepository.Verify(r => r.Update(model), Times.Once);
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }
