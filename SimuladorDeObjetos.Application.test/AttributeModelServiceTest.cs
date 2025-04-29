@@ -64,4 +64,11 @@ public class AttributeModelServiceTest
     {
         _service.Update(null!);
     }
+
+    [TestMethod]
+    public void Delete_ShouldCallRepositoryDelete()
+    {
+        _service.Delete(_attribute ?? throw new InvalidOperationException());
+        _mockRepo.Verify(r => r.Delete(_attribute), Times.Once);
+    }
 }
