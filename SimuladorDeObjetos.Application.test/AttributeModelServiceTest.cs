@@ -25,4 +25,11 @@ public class AttributeModelServiceTest
             Accessibility = Domain.Enums.AccessibilityModifier.Public
         };
     }
+
+    [TestMethod]
+    public void Create_ShouldCallRepositoryAdd()
+    {
+        _service.Create(_attribute ?? throw new InvalidOperationException());
+        _mockRepo.Verify(r => r.Add(_attribute), Times.Once);
+    }
 }
