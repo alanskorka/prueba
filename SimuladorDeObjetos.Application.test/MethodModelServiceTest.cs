@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Moq;
+using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
@@ -28,6 +29,26 @@ public class MethodModelServiceTest
             _service!.AddMethodToClass(Guid.NewGuid(), new MethodModel()));
 
         Assert.AreEqual("Class not found", ex.Message);
+    }
+
+    [TestMethod]
+    public void AddMethodToClass_ShouldThrow_WhenClassIdIsEmpty()
+    {
+        var method = new MethodModel { Name = "MetodoInvalido" };
+
+        var ex = Assert.ThrowsException<ArgumentException>(() =>
+            _service!.AddMethodToClass(Guid.Empty, method));
+
+        Assert.AreEqual("classId is empty", ex.Message);
+    }
+
+    [TestMethod]
+    public void AddMethodToClass_ShouldThrow_WhenMethodIsNull()
+    {
+        var classId = Guid.NewGuid();
+
+        Assert.ThrowsException<ArgumentNullException>(() =>
+            _service!.AddMethodToClass(classId, null!));
     }
 
     [TestMethod]

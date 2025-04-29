@@ -40,6 +40,13 @@ public class MethodModelService : IMethodModelService
 
     public void AddMethodToClass(Guid classId, MethodModel method)
     {
+        if (classId == Guid.Empty)
+        {
+            throw new ArgumentException("classId is empty");
+        }
+
+        ArgumentNullException.ThrowIfNull(method);
+
         var classModel = _classRepo.GetById(classId);
         if (classModel == null)
         {
@@ -47,6 +54,7 @@ public class MethodModelService : IMethodModelService
         }
 
         classModel.Methods.Add(method);
+
         _classRepo.Update(classModel);
         _classRepo.SaveChanges();
     }
