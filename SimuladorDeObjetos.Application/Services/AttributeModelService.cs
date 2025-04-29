@@ -32,6 +32,6 @@ public class AttributeModelService : IAttributeModelService
 
     public void Delete(AttributeModel attribute)
     {
-        throw new NotImplementedException();
+        _repository.Delete(attribute);
     }
 }
