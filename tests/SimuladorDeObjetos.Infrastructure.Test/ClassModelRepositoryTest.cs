@@ -1,8 +1,9 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
+
+namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
 public class ClassModelRepositoryTest
