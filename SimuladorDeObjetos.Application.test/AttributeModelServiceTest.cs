@@ -57,4 +57,11 @@ public class AttributeModelServiceTest
         _service.Update(_attribute ?? throw new InvalidOperationException());
         _mockRepo.Verify(r => r.Update(_attribute), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Update_ShouldThrow_WhenAttributeIsNull()
+    {
+        _service.Update(null!);
+    }
 }
