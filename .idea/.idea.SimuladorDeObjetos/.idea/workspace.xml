@@ -9,8 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Implement CRUD and assignment logic in MethodModelService">
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodModelRepository.cs" afterDir="false" />
+    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Add GetAll method in IMethodModelRepository">
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745957323229</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add GetAll method in IMethodModelRepository">
+      <option name="closed" value="true" />
+      <created>1745958042175</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745958042175</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +211,26 @@
     <MESSAGE value="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService" />
     <MESSAGE value="Add signatures to IMethodModelService for basic CRUD and add to class" />
     <MESSAGE value="Implement CRUD and assignment logic in MethodModelService" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement CRUD and assignment logic in MethodModelService" />
+    <MESSAGE value="Add GetAll method in IMethodModelRepository" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add GetAll method in IMethodModelRepository" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs</url>
+          <line>30</line>
+          <properties documentPath="C:\Alan Facultad\DA2\Obligatorio 1\270028_267001_289871\SimuladorDeObjetos.Application.test\MethodModelServiceTest.cs" containingFunctionPresentation="Method 'AddMethodToClass_ShouldThrow_WhenClassNotFound'">
+            <startOffsets>
+              <option value="973" />
+            </startOffsets>
+            <endOffsets>
+              <option value="974" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
