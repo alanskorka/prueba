@@ -39,4 +39,15 @@ public class AttributeModelServiceTest
     {
         _service.Create(null!);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnListFromRepository()
+    {
+        var list = new List<AttributeModel> { _attribute ?? throw new InvalidOperationException() };
+        _mockRepo.Setup(r => r.GetAll()).Returns(list);
+
+        var result = _service.GetAll();
+
+        CollectionAssert.AreEqual(list, result);
+    }
 }
