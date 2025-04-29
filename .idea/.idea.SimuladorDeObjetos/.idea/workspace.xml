@@ -9,13 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Test: AddMethodToClass throws exception if class does not exist">
-      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodModelService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodModelService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IMethodModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ClassModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ClassModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IClassModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/Interfaces/IClassModelRepository.cs" afterDir="false" />
+    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService">
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodModelService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +37,9 @@
     &quot;accountId&quot;: &quot;f88afc2f-7012-4750-bb67-9e63584a2198&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/SimuladorDeObjetos.Application/Services/MethodModelService.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -77,7 +75,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http">
+  <component name="RunManager" selected="Multi-Launch.Multi-Launch: SimuladorDeObjetos">
     <configuration name="SimuladorDeObjetos.WebApi: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/SimuladorDeObjetos.WebApi.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
@@ -123,6 +121,9 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="Multi-Launch: SimuladorDeObjetos" type="com.intellij.execution.configurations.multilaunch" factoryName="MultiLaunchConfiguration">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -149,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745954931797</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService">
+      <option name="closed" value="true" />
+      <created>1745956730916</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745956730916</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +184,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Test: AddMethodToClass throws exception if class does not exist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test: AddMethodToClass throws exception if class does not exist" />
+    <MESSAGE value="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService" />
   </component>
 </project>

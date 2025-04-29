@@ -23,9 +23,7 @@ namespace SimuladorDeObjetos.Application
                 throw new Exception("Class not found");
             }
 
-            // Acá seguís con la lógica de agregar el método
             classModel.Methods.Add(method);
-
             _classRepo.Update(classModel);
             _classRepo.SaveChanges();
         }
