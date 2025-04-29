@@ -1,0 +1,36 @@
+﻿using Domain.Entities;
+using SimuladorDeObjetos.Application.Interfaces;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+
+namespace SimuladorDeObjetos.Application;
+
+public class ClassModelService : IClassModelService
+{
+    private readonly IClassModelRepository _repository;
+
+    public ClassModelService(IClassModelRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public IEnumerable<ClassModel> GetAll()
+    {
+        return _repository.GetAll();
+    }
+
+    public void Add(ClassModel model)
+    {
+        _repository.Add(model);
+    }
+
+    public void Delete(ClassModel model)
+    {
+        _repository.Delete(model);
+    }
+
+    public void Update(ClassModel model)
+    {
+        _repository.Update(model);
+        _repository.SaveChanges();
+    }
+}
