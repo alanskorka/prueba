@@ -50,4 +50,11 @@ public class AttributeModelServiceTest
 
         CollectionAssert.AreEqual(list, result);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallRepositoryUpdate()
+    {
+        _service.Update(_attribute ?? throw new InvalidOperationException());
+        _mockRepo.Verify(r => r.Update(_attribute), Times.Once);
+    }
 }
