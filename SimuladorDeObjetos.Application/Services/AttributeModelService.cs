@@ -26,7 +26,7 @@ public class AttributeModelService : IAttributeModelService
 
     public void Update(AttributeModel attribute)
     {
-        throw new NotImplementedException();
+        _repository.Update(attribute);
     }
 
     public void Delete(AttributeModel attribute)
