@@ -10,4 +10,5 @@ public interface IMethodModelRepository
     void Delete(MethodModel method);
     void Update(MethodModel method);
     void SaveChanges();
+    List<MethodModel> GetAll();
 }

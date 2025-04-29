@@ -9,10 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Add signatures to IMethodModelService for basic CRUD and add to class">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodModelService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodModelService.cs" afterDir="false" />
+    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="Implement CRUD and assignment logic in MethodModelService">
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodModelRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745957260743</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implement CRUD and assignment logic in MethodModelService">
+      <option name="closed" value="true" />
+      <created>1745957323229</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745957323229</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +202,7 @@
     <MESSAGE value="Test: AddMethodToClass throws exception if class does not exist" />
     <MESSAGE value="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService" />
     <MESSAGE value="Add signatures to IMethodModelService for basic CRUD and add to class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add signatures to IMethodModelService for basic CRUD and add to class" />
+    <MESSAGE value="Implement CRUD and assignment logic in MethodModelService" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement CRUD and assignment logic in MethodModelService" />
   </component>
 </project>
