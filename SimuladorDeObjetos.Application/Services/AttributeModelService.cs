@@ -32,6 +32,7 @@ public class AttributeModelService : IAttributeModelService
 
     public void Delete(AttributeModel attribute)
     {
+        ArgumentNullException.ThrowIfNull(attribute);
         _repository.Delete(attribute);
     }
 }
