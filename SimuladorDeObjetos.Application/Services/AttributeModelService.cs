@@ -26,6 +26,7 @@ public class AttributeModelService : IAttributeModelService
 
     public void Update(AttributeModel attribute)
     {
+        ArgumentNullException.ThrowIfNull(attribute);
         _repository.Update(attribute);
     }
 
