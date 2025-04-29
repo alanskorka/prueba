@@ -32,4 +32,11 @@ public class AttributeModelServiceTest
         _service.Create(_attribute ?? throw new InvalidOperationException());
         _mockRepo.Verify(r => r.Add(_attribute), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Create_ShouldThrow_WhenAttributeIsNull()
+    {
+        _service.Create(null!);
+    }
 }
