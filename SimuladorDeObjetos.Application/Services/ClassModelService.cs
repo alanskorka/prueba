@@ -27,4 +27,10 @@ public class ClassModelService : IClassModelService
     {
         _repository.Delete(model);
     }
+
+    public void Update(ClassModel model)
+    {
+        _repository.Update(model);
+        _repository.SaveChanges();
+    }
 }
