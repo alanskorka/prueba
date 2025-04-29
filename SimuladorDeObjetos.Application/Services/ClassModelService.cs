@@ -22,4 +22,9 @@ public class ClassModelService : IClassModelService
     {
         _repository.Add(model);
     }
+
+    public void Delete(ClassModel model)
+    {
+        _repository.Delete(model);
+    }
 }

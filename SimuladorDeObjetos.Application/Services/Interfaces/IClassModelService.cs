@@ -6,4 +6,5 @@ public interface IClassModelService
 {
     IEnumerable<ClassModel> GetAll();
     void Add(ClassModel model);
+    void Delete(ClassModel model);
 }

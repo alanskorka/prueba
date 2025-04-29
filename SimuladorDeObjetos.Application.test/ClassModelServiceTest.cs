@@ -47,10 +47,10 @@ public class ClassModelServiceTest
     [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
-        var id = Guid.NewGuid();
+        var newModel = new ClassModel { Name = "NewClass" };
 
-        _service.Delete(id);
+        _service.Delete(newModel);
 
-        _mockRepository.Verify(r => r.Delete(id), Times.Once);
+        _mockRepository.Verify(r => r.Delete(newModel), Times.Once);
     }
 }
