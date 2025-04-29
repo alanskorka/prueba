@@ -1,10 +1,41 @@
+using Domain.Entities;
+using Moq;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+
 namespace SimuladorDeObjetos.Application.test;
 
 [TestClass]
 public class ClassModelServiceTest
 {
-    [TestMethod]
-    public void TestMethod1()
+    private Mock<IClassModelRepository> _mockRepository;
+    private ClassModelService _service;
+
+    public ClassModelServiceTest(Mock<IClassModelRepository> mockRepository)
     {
+        _mockRepository = mockRepository;
+    }
+
+    [TestInitialize]
+    public void Initialize()
+    {
+        _mockRepository = new Mock<IClassModelRepository>();
+        _service = new ClassModelService(_mockRepository.Object);
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllClassModels()
+    {
+        var expectedModels = new List<ClassModel>
+        {
+            new ClassModel { Name = "Class1" },
+            new ClassModel { Name = "Class2" }
+        };
+
+        _mockRepository.Setup(r => r.GetAll()).Returns(expectedModels);
+
+        var result = _service.GetAll();
+
+        Assert.AreEqual(2, result.Count());
+        Assert.AreEqual("Class1", result.First().Name);
     }
 }
