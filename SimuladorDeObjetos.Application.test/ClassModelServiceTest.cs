@@ -43,4 +43,14 @@ public class ClassModelServiceTest
 
         _mockRepository.Verify(r => r.Add(newModel), Times.Once);
     }
+
+    [TestMethod]
+    public void Delete_ShouldCallRepositoryDelete()
+    {
+        var id = Guid.NewGuid();
+
+        _service.Delete(id);
+
+        _mockRepository.Verify(r => r.Delete(id), Times.Once);
+    }
 }
