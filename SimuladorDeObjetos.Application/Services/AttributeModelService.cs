@@ -15,7 +15,7 @@ public class AttributeModelService : IAttributeModelService
 
     public void Create(AttributeModel attribute)
     {
-        throw new NotImplementedException();
+        _repository.Add(attribute);
     }
 
     public List<AttributeModel> GetAll()
