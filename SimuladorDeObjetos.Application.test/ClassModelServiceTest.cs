@@ -7,13 +7,8 @@ namespace SimuladorDeObjetos.Application.test;
 [TestClass]
 public class ClassModelServiceTest
 {
-    private Mock<IClassModelRepository> _mockRepository;
-    private ClassModelService _service;
-
-    public ClassModelServiceTest(Mock<IClassModelRepository> mockRepository)
-    {
-        _mockRepository = mockRepository;
-    }
+    private Mock<IClassModelRepository>? _mockRepository;
+    private ClassModelService? _service;
 
     [TestInitialize]
     public void Initialize()

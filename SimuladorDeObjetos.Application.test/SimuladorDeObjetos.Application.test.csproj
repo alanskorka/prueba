@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\SimuladorDeObjetos.Application\SimuladorDeObjetos.Application.csproj" />
       <ProjectReference Include="..\src\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
       <ProjectReference Include="..\src\SimuladorDeObjetos.Infrastructure\SimuladorDeObjetos.Infrastructure.csproj" />
     </ItemGroup>

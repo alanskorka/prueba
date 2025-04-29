@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\src\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
+      <ProjectReference Include="..\src\SimuladorDeObjetos.Infrastructure\SimuladorDeObjetos.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
