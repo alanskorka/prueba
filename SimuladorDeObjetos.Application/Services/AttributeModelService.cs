@@ -21,7 +21,7 @@ public class AttributeModelService : IAttributeModelService
 
     public List<AttributeModel> GetAll()
     {
-        throw new NotImplementedException();
+        return _repository.GetAll();
     }
 
     public void Update(AttributeModel attribute)
