@@ -33,4 +33,15 @@ public class ParamModelServiceTest
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("Param1", result[0].Name);
     }
+
+    [TestMethod]
+    public void Add_ShouldCallRepositoryAddAndSave()
+    {
+        var model = new ParamModel { Id = Guid.NewGuid(), Name = "NewParam" };
+
+        _service.Add(model);
+
+        _mockRepository.Verify(r => r.Add(model), Times.Once);
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }
