@@ -17,4 +17,10 @@ public class ParamModelService : IParamModelService
     {
         return _repository.GetAll();
     }
+
+    public void Add(ParamModel model)
+    {
+        _repository.Add(model);
+        _repository.SaveChanges();
+    }
 }
