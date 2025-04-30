@@ -8,4 +8,5 @@ public interface IParamModelService
     void Add(ParamModel model);
     void Update(ParamModel model);
     void Delete(ParamModel model);
+    void SaveChanges();
 }
