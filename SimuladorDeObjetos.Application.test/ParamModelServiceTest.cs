@@ -44,4 +44,15 @@ public class ParamModelServiceTest
         _mockRepository.Verify(r => r.Add(model), Times.Once);
         _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallRepositoryUpdateAndSave()
+    {
+        var model = new ParamModel { Id = Guid.NewGuid(), Name = "UpdatedParam" };
+
+        _service.Update(model);
+
+        _mockRepository.Verify(r => r.Update(model), Times.Once);
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }
