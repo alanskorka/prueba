@@ -33,4 +33,9 @@ public class ClassModelService : IClassModelService
         _repository.Update(model);
         _repository.SaveChanges();
     }
+
+    public void SaveChanges()
+    {
+        _repository.SaveChanges();
+    }
 }
