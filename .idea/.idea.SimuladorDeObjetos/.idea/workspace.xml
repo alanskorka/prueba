@@ -9,7 +9,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac4105cf-208c-4f4d-bc3b-8068eb9708a1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +34,9 @@
     &quot;accountId&quot;: &quot;f88afc2f-7012-4750-bb67-9e63584a2198&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5aeb6167299d4cfba30c86624130edbcc90938/e0/5aa0fad8/ArgumentNullException.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
@@ -52,7 +54,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "a1779513-5dae-47ac-8b0b-0ab3aae8ca25.executor": "Debug",
-    "git-widget-placeholder": "feature/classModelService",
+    "git-widget-placeholder": "feature/attributeModelService",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,6 +62,13 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "RiderIisExpressOptionsPageId",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\User\\AppData\\Local\\Symbols\\src"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http">
@@ -112,7 +121,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ac4105cf-208c-4f4d-bc3b-8068eb9708a1" name="Changes" comment="" />
+      <changelist id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="" />
       <created>1745422900508</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -125,7 +134,7 @@
       <workItem from="1745693853372" duration="2030000" />
       <workItem from="1745696735435" duration="1108000" />
       <workItem from="1745858527268" duration="1931000" />
-      <workItem from="1745942895377" duration="795000" />
+      <workItem from="1745968952325" duration="1086000" />
     </task>
     <servers />
   </component>
@@ -133,17 +142,12 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="150" />
+    <option name="coveragePercentColumnWidth" value="15" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="331" />
+    <option name="symbolColumnWidth" value="15" />
     <coverage-tree-state>
-      <expand>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 36% 476/741" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </coverage-tree-state>
   </component>
