@@ -68,4 +68,11 @@ public class MethodCallModelServiceTest
         _service.Delete(_call ?? throw new InvalidOperationException());
         _mockRepo.Verify(r => r.Delete(_call), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenCallIsNull()
+    {
+        _service.Delete(null!);
+    }
 }
