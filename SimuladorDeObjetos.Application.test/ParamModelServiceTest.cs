@@ -1,13 +1,14 @@
 using Domain.Entities;
 using Moq;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
 
 [TestClass]
 public class ParamModelServiceTest
 {
-    private Mock<IParamModelRepository> _mockRepository;
-    private ParamModelService _service;
+    private Mock<IParamModelRepository>? _mockRepository;
+    private ParamModelService? _service;
 
     [TestInitialize]
     public void Initialize()
@@ -32,4 +33,4 @@ public class ParamModelServiceTest
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("Param1", result[0].Name);
     }
-
+}
