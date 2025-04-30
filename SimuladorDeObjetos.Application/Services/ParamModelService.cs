@@ -23,4 +23,10 @@ public class ParamModelService : IParamModelService
         _repository.Add(model);
         _repository.SaveChanges();
     }
+
+    public void Update(ParamModel model)
+    {
+        _repository.Update(model);
+        _repository.SaveChanges();
+    }
 }
