@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodCallModelService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +138,7 @@
       <workItem from="1745696735435" duration="1108000" />
       <workItem from="1745858527268" duration="1931000" />
       <workItem from="1745968952325" duration="1086000" />
-      <workItem from="1746025622670" duration="282000" />
+      <workItem from="1746025622670" duration="612000" />
     </task>
     <servers />
   </component>

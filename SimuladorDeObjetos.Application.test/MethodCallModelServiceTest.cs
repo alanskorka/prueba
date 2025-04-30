@@ -29,4 +29,11 @@ public class MethodCallModelServiceTest
         _service.Create(_call ?? throw new InvalidOperationException());
         _mockRepo.Verify(r => r.Add(_call), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Create_ShouldThrow_WhenCallIsNull()
+    {
+        _service.Create(null!);
+    }
 }
