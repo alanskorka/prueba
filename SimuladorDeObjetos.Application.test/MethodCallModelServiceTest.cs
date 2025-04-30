@@ -36,4 +36,15 @@ public class MethodCallModelServiceTest
     {
         _service.Create(null!);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnListFromRepository()
+    {
+        var list = new List<MethodCallModel> { _call ?? throw new InvalidOperationException() };
+        _mockRepo.Setup(r => r.GetAll()).Returns(list);
+
+        var result = _service.GetAll();
+
+        CollectionAssert.AreEqual(list, result);
+    }
 }
