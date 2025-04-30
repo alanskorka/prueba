@@ -32,6 +32,6 @@ public class MethodCallModelService : IMethodCallModelService
 
     public void Delete(MethodCallModel call)
     {
-        throw new NotImplementedException();
+        _repository.Delete(call);
     }
 }
