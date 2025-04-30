@@ -55,4 +55,15 @@ public class ParamModelServiceTest
         _mockRepository.Verify(r => r.Update(model), Times.Once);
         _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void Delete_ShouldCallRepositoryDeleteAndSave()
+    {
+        var id = Guid.NewGuid();
+
+        _service.Delete(id);
+
+        _mockRepository.Verify(r => r.Delete(id), Times.Once);
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }
