@@ -66,4 +66,12 @@ public class ParamModelServiceTest
         _mockRepository.Verify(r => r.Delete(model), Times.Once);
         _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void SaveChanges_ShouldCallRepositorySaveChanges()
+    {
+        _service.SaveChanges();
+
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }
