@@ -21,7 +21,7 @@ public class MethodCallModelService : IMethodCallModelService
 
     public List<MethodCallModel> GetAll()
     {
-        throw new NotImplementedException();
+        return _repository.GetAll();
     }
 
     public void Update(MethodCallModel call)
