@@ -15,6 +15,7 @@ public class MethodCallModelService : IMethodCallModelService
 
     public void Create(MethodCallModel call)
     {
+        ArgumentNullException.ThrowIfNull(call);
         _repository.Add(call);
     }
 
