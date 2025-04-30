@@ -47,4 +47,11 @@ public class MethodCallModelServiceTest
 
         CollectionAssert.AreEqual(list, result);
     }
+
+    [TestMethod]
+    public void Update_ShouldCallRepositoryUpdate()
+    {
+        _service.Update(_call ?? throw new InvalidOperationException());
+        _mockRepo.Verify(r => r.Update(_call), Times.Once);
+    }
 }
