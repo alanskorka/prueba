@@ -59,11 +59,11 @@ public class ParamModelServiceTest
     [TestMethod]
     public void Delete_ShouldCallRepositoryDeleteAndSave()
     {
-        var id = Guid.NewGuid();
+        var model = new ParamModel { Id = Guid.NewGuid(), Name = "DeletedParam" };
 
-        _service.Delete(id);
+        _service.Delete(model);
 
-        _mockRepository.Verify(r => r.Delete(id), Times.Once);
+        _mockRepository.Verify(r => r.Delete(model), Times.Once);
         _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
     }
 }

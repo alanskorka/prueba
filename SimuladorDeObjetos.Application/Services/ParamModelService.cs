@@ -29,4 +29,10 @@ public class ParamModelService : IParamModelService
         _repository.Update(model);
         _repository.SaveChanges();
     }
+
+    public void Delete(ParamModel model)
+    {
+        _repository.Delete(model);
+        _repository.SaveChanges();
+    }
 }
