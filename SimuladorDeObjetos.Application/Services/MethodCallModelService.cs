@@ -32,6 +32,7 @@ public class MethodCallModelService : IMethodCallModelService
 
     public void Delete(MethodCallModel call)
     {
+        ArgumentNullException.ThrowIfNull(call);
         _repository.Delete(call);
     }
 }
