@@ -22,4 +22,11 @@ public class MethodCallModelServiceTest
             ReferenceType = ReferenceTypeInvocation.This
         };
     }
+
+    [TestMethod]
+    public void Create_ShouldCallRepositoryAdd()
+    {
+        _service.Create(_call ?? throw new InvalidOperationException());
+        _mockRepo.Verify(r => r.Add(_call), Times.Once);
+    }
 }
