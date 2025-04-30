@@ -26,7 +26,7 @@ public class MethodCallModelService : IMethodCallModelService
 
     public void Update(MethodCallModel call)
     {
-        throw new NotImplementedException();
+        _repository.Update(call);
     }
 
     public void Delete(MethodCallModel call)
