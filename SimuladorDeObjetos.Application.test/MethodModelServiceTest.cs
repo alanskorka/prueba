@@ -66,4 +66,20 @@ public class MethodModelServiceTest
         _classRepo.Verify(r => r.Update(classModel), Times.Once);
         _classRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList()
+    {
+        var classId = Guid.NewGuid();
+        var classModel = new ClassModel { Id = classId, Methods = new List<MethodModel>() };
+        var newMethod = new MethodModel { Name = "NuevoMetodo" };
+
+        _classRepo!.Setup(r => r.GetById(classId)).Returns(classModel);
+
+        _service!.AddMethodToClass(classId, newMethod);
+
+        Assert.IsTrue(classModel.Methods.Contains(newMethod));
+        _classRepo.Verify(r => r.Update(classModel), Times.Once);
+        _classRepo.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }
