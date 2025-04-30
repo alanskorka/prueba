@@ -26,6 +26,7 @@ public class MethodCallModelService : IMethodCallModelService
 
     public void Update(MethodCallModel call)
     {
+        ArgumentNullException.ThrowIfNull(call);
         _repository.Update(call);
     }
 
