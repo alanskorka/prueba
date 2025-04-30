@@ -61,4 +61,11 @@ public class MethodCallModelServiceTest
     {
         _service.Update(null!);
     }
+
+    [TestMethod]
+    public void Delete_ShouldCallRepositoryDelete()
+    {
+        _service.Delete(_call ?? throw new InvalidOperationException());
+        _mockRepo.Verify(r => r.Delete(_call), Times.Once);
+    }
 }
