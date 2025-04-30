@@ -82,4 +82,55 @@ public class MethodModelServiceTest
         _classRepo.Verify(r => r.Update(classModel), Times.Once);
         _classRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllMethods()
+    {
+        var expectedMethods = new List<MethodModel>
+        {
+            new MethodModel { Name = "Test1" },
+            new MethodModel { Name = "Test2" }
+        };
+
+        _methodRepo!.Setup(r => r.GetAll()).Returns(expectedMethods);
+
+        var result = _service!.GetAll().ToList();
+
+        Assert.AreEqual(2, result.Count);
+        Assert.AreEqual("Test1", result[0].Name);
+        Assert.AreEqual("Test2", result[1].Name);
+    }
+
+    [TestMethod]
+    public void Add_ShouldCallAddAndSaveChanges()
+    {
+        var method = new MethodModel { Name = "Test" };
+
+        _service!.Add(method);
+
+        _methodRepo!.Verify(r => r.Add(method), Times.Once);
+        _methodRepo!.Verify(r => r.SaveChanges(), Times.Once);
+    }
+
+    [TestMethod]
+    public void Update_ShouldCallUpdateAndSaveChanges()
+    {
+        var method = new MethodModel { Name = "UpdatedMethod" };
+
+        _service!.Update(method);
+
+        _methodRepo!.Verify(r => r.Update(method), Times.Once);
+        _methodRepo!.Verify(r => r.SaveChanges(), Times.Once);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldCallDeleteAndSaveChanges()
+    {
+        var method = new MethodModel { Name = "MethodToDelete" };
+
+        _service!.Delete(method);
+
+        _methodRepo!.Verify(r => r.Delete(method), Times.Once);
+        _methodRepo!.Verify(r => r.SaveChanges(), Times.Once);
+    }
 }

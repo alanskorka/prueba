@@ -17,23 +17,27 @@ public class MethodModelService : IMethodModelService
 
     public IEnumerable<MethodModel> GetAll()
     {
-        return _methodRepo.GetAll();
+        var result = _methodRepo.GetAll();
+        return result ?? new List<MethodModel>();
     }
 
     public void Add(MethodModel method)
     {
+        ArgumentNullException.ThrowIfNull(method);
         _methodRepo.Add(method);
         _methodRepo.SaveChanges();
     }
 
     public void Update(MethodModel method)
     {
+        ArgumentNullException.ThrowIfNull(method);
         _methodRepo.Update(method);
         _methodRepo.SaveChanges();
     }
 
     public void Delete(MethodModel method)
     {
+        ArgumentNullException.ThrowIfNull(method);
         _methodRepo.Delete(method);
         _methodRepo.SaveChanges();
     }
@@ -54,7 +58,6 @@ public class MethodModelService : IMethodModelService
         }
 
         classModel.Methods ??= new List<MethodModel>();
-
         classModel.Methods.Add(method);
 
         _classRepo.Update(classModel);
