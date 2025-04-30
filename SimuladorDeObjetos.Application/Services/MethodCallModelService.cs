@@ -15,7 +15,7 @@ public class MethodCallModelService : IMethodCallModelService
 
     public void Create(MethodCallModel call)
     {
-        throw new NotImplementedException();
+        _repository.Add(call);
     }
 
     public List<MethodCallModel> GetAll()
