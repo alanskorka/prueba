@@ -54,4 +54,11 @@ public class MethodCallModelServiceTest
         _service.Update(_call ?? throw new InvalidOperationException());
         _mockRepo.Verify(r => r.Update(_call), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Update_ShouldThrow_WhenCallIsNull()
+    {
+        _service.Update(null!);
+    }
 }
