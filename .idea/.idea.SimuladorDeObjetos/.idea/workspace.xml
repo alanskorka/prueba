@@ -10,6 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodCallModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +59,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "a1779513-5dae-47ac-8b0b-0ab3aae8ca25.executor": "Debug",
-    "git-widget-placeholder": "feature/services2",
+    "git-widget-placeholder": "feature/MethodCallModelService",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -138,6 +140,7 @@
       <workItem from="1745696735435" duration="1108000" />
       <workItem from="1745858527268" duration="1931000" />
       <workItem from="1745968952325" duration="1086000" />
+      <workItem from="1746025622670" duration="282000" />
     </task>
     <servers />
   </component>
