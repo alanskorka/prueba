@@ -53,6 +53,11 @@ public class MethodModelService : IMethodModelService
             throw new Exception("Class not found");
         }
 
+        if (classModel.Methods == null)
+        {
+            classModel.Methods = new List<MethodModel>();
+        }
+
         classModel.Methods.Add(method);
 
         _classRepo.Update(classModel);
