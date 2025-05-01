@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-public interface IRepositoryParamModel
+public interface IParamModelRepository
 {
     void Add(ParamModel param);
     List<ParamModel> GetAll();

@@ -6,38 +6,38 @@ namespace SimuladorDeObjetos.Application;
 
 public class ParamModelService : IParamModelService
 {
-    private readonly IRepositoryParamModel _repository;
+    private readonly IParamModelRepository _paramModelRepository;
 
-    public ParamModelService(IRepositoryParamModel repository)
+    public ParamModelService(IParamModelRepository paramModelRepository)
     {
-        _repository = repository;
+        _paramModelRepository = paramModelRepository;
     }
 
     public IEnumerable<ParamModel> GetAll()
     {
-        return _repository.GetAll();
+        return _paramModelRepository.GetAll();
     }
 
     public void Add(ParamModel model)
     {
-        _repository.Add(model);
-        _repository.SaveChanges();
+        _paramModelRepository.Add(model);
+        _paramModelRepository.SaveChanges();
     }
 
     public void Update(ParamModel model)
     {
-        _repository.Update(model);
-        _repository.SaveChanges();
+        _paramModelRepository.Update(model);
+        _paramModelRepository.SaveChanges();
     }
 
     public void Delete(ParamModel model)
     {
-        _repository.Delete(model);
-        _repository.SaveChanges();
+        _paramModelRepository.Delete(model);
+        _paramModelRepository.SaveChanges();
     }
 
     public void SaveChanges()
     {
-        _repository.SaveChanges();
+        _paramModelRepository.SaveChanges();
     }
 }

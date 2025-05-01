@@ -6,33 +6,33 @@ namespace SimuladorDeObjetos.Application;
 
 public class AttributeModelService : IAttributeModelService
 {
-    private readonly IRepositoryAtributteModel _repository;
+    private readonly IAtributteModelRepository _atributteModelRepository;
 
-    public AttributeModelService(IRepositoryAtributteModel repository)
+    public AttributeModelService(IAtributteModelRepository atributteModelRepository)
     {
-        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        _atributteModelRepository = atributteModelRepository ?? throw new ArgumentNullException(nameof(atributteModelRepository));
     }
 
     public void Create(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        _repository.Add(attribute);
+        _atributteModelRepository.Add(attribute);
     }
 
     public List<AttributeModel> GetAll()
     {
-        return _repository.GetAll();
+        return _atributteModelRepository.GetAll();
     }
 
     public void Update(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        _repository.Update(attribute);
+        _atributteModelRepository.Update(attribute);
     }
 
     public void Delete(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        _repository.Delete(attribute);
+        _atributteModelRepository.Delete(attribute);
     }
 }

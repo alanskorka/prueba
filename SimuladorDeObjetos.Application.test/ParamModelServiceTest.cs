@@ -7,13 +7,13 @@ namespace SimuladorDeObjetos.Application.test;
 [TestClass]
 public class ParamModelServiceTest
 {
-    private Mock<IRepositoryParamModel>? _mockRepository;
+    private Mock<IParamModelRepository>? _mockRepository;
     private ParamModelService? _service;
 
     [TestInitialize]
     public void Initialize()
     {
-        _mockRepository = new Mock<IRepositoryParamModel>();
+        _mockRepository = new Mock<IParamModelRepository>();
         _service = new ParamModelService(_mockRepository.Object);
     }
 

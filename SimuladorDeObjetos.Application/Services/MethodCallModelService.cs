@@ -6,33 +6,33 @@ namespace SimuladorDeObjetos.Application;
 
 public class MethodCallModelService : IMethodCallModelService
 {
-    private readonly IRepositoryMethodCallModel _repository;
+    private readonly IMethodCallModelRepository _methodCallModelRepository;
 
-    public MethodCallModelService(IRepositoryMethodCallModel repository)
+    public MethodCallModelService(IMethodCallModelRepository methodCallModelRepository)
     {
-        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        _methodCallModelRepository = methodCallModelRepository ?? throw new ArgumentNullException(nameof(methodCallModelRepository));
     }
 
     public void Create(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _repository.Add(call);
+        _methodCallModelRepository.Add(call);
     }
 
     public List<MethodCallModel> GetAll()
     {
-        return _repository.GetAll();
+        return _methodCallModelRepository.GetAll();
     }
 
     public void Update(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _repository.Update(call);
+        _methodCallModelRepository.Update(call);
     }
 
     public void Delete(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _repository.Delete(call);
+        _methodCallModelRepository.Delete(call);
     }
 }

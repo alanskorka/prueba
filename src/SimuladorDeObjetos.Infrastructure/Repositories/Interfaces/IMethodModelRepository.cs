@@ -4,11 +4,9 @@ namespace SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 public interface IMethodModelRepository
 {
-    MethodModel GetById(Guid id);
-    IEnumerable<MethodModel> GetByClassId(Guid classId);
     void Add(MethodModel method);
+    List<MethodModel> GetAll();
     void Delete(MethodModel method);
     void Update(MethodModel method);
     void SaveChanges();
-    List<MethodModel> GetAll();
 }
