@@ -1,8 +1,9 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
+
+namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
 public class ClassModelRepositoryTest
@@ -21,7 +22,6 @@ public class ClassModelRepositoryTest
 
         _mockContext = new Mock<DbContext>();
         _mockContext.Setup(c => c.Set<ClassModel>()).Returns(_mockSet.Object);
-
         _repository = new ClassModelRepository(_mockContext.Object);
     }
 

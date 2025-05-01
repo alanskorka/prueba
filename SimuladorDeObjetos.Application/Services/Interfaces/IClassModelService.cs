@@ -8,4 +8,5 @@ public interface IClassModelService
     void Add(ClassModel model);
     void Delete(ClassModel model);
     void Update(ClassModel model);
+    void SaveChanges();
 }
