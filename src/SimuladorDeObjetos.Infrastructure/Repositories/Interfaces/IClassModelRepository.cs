@@ -9,4 +9,5 @@ public interface IClassModelRepository
     void Delete(ClassModel model);
     void Update(ClassModel model);
     void SaveChanges();
+    ClassModel? GetById(Guid id);
 }

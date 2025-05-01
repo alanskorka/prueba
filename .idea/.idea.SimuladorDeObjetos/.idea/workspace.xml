@@ -31,10 +31,10 @@
     &quot;assignee&quot;: &quot;ezequielsteinberg&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/IngSoft-DA2/270028_267001_289871.git&quot;,
-    &quot;accountId&quot;: &quot;f88afc2f-7012-4750-bb67-9e63584a2198&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/IngSoft-DA2/270028_267001_289871.git",
+    "accountId": "0b2092a7-372e-4b38-9ba4-8eebbf59183d"
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -120,6 +120,9 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="Multi-Launch: SimuladorDeObjetos" type="com.intellij.execution.configurations.multilaunch" factoryName="MultiLaunchConfiguration">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -140,6 +143,47 @@
       <workItem from="1745968952325" duration="1086000" />
       <workItem from="1746025622670" duration="914000" />
     </task>
+    <task id="LOCAL-00006" summary="Add test to add method to existing class">
+      <option name="closed" value="true" />
+      <created>1745958238247</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745958238247</updated>
+    </task>
+    <task id="LOCAL-00007" summary="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList">
+      <option name="closed" value="true" />
+      <created>1746047629311</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746047629311</updated>
+    </task>
+    <task id="LOCAL-00008" summary="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_NullMethodsList">
+      <option name="closed" value="true" />
+      <created>1746047993436</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746047993436</updated>
+    </task>
+    <task id="LOCAL-00009" summary="coverage 100%">
+      <option name="closed" value="true" />
+      <created>1746048465668</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746048465668</updated>
+    </task>
+    <task id="LOCAL-00010" summary="no 100% coverage">
+      <option name="closed" value="true" />
+      <created>1746049791774</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746049791774</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,8 +199,39 @@
       <select />
     </coverage-tree-state>
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Test: AddMethodToClass throws exception if class does not exist" />
+    <MESSAGE value="Implements GetById in ClassModelRepository and fixes repository usage in MethodModelService" />
+    <MESSAGE value="Add signatures to IMethodModelService for basic CRUD and add to class" />
+    <MESSAGE value="Implement CRUD and assignment logic in MethodModelService" />
+    <MESSAGE value="Add GetAll method in IMethodModelRepository" />
+    <MESSAGE value="Add test to add method to existing class" />
+    <MESSAGE value="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList" />
+    <MESSAGE value="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_NullMethodsList" />
+    <MESSAGE value="coverage 100%" />
+    <MESSAGE value="no 100% coverage" />
+    <option name="LAST_COMMIT_MESSAGE" value="no 100% coverage" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs</url>
+          <line>30</line>
+          <properties documentPath="C:\Alan Facultad\DA2\Obligatorio 1\270028_267001_289871\SimuladorDeObjetos.Application.test\MethodModelServiceTest.cs" containingFunctionPresentation="Method 'AddMethodToClass_ShouldThrow_WhenClassNotFound'">
+            <startOffsets>
+              <option value="970" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1017" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
