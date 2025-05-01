@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-public interface IAtributteModelRepository
+public interface IRepositoryAtributteModel
 {
     void Add(AttributeModel attribute);
     List<AttributeModel> GetAll();

@@ -7,14 +7,14 @@ namespace SimuladorDeObjetos.Application.test;
 [TestClass]
 public class AttributeModelServiceTest
 {
-    private Mock<IAtributteModelRepository>? _mockRepo;
+    private Mock<IRepositoryAtributteModel>? _mockRepo;
     private AttributeModelService? _service;
     private AttributeModel? _attribute;
 
     [TestInitialize]
     public void Setup()
     {
-        _mockRepo = new Mock<IAtributteModelRepository>();
+        _mockRepo = new Mock<IRepositoryAtributteModel>();
         _service = new AttributeModelService(_mockRepo.Object);
         _attribute = new AttributeModel
         {

@@ -7,13 +7,13 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
-public class AtributteModelRepositoryTest
+public class RepositoryAtributteModelTest
 {
     private AttributeModel? _attribute;
     private IQueryable<AttributeModel?>? _data;
     private Mock<DbSet<AttributeModel>>? _mockSet;
     private Mock<DbContext>? _mockContext;
-    private AtributteModelRepository? _repo;
+    private RepositoryAtributteModel? _repo;
 
     [TestInitialize]
     public void Setup()
@@ -38,7 +38,7 @@ public class AtributteModelRepositoryTest
         _mockContext = new Mock<DbContext>();
         _mockContext.Setup(c => c.Set<AttributeModel>()).Returns(_mockSet.Object);
 
-        _repo = new AtributteModelRepository(_mockContext.Object);
+        _repo = new RepositoryAtributteModel(_mockContext.Object);
     }
 
     [TestMethod]

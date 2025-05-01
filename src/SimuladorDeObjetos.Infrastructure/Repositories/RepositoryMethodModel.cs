@@ -4,12 +4,12 @@ using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class MethodModelRepository : IMethodModelRepository
+public class RepositoryMethodModel : IRepositoryMethodModel
 {
     private readonly DbContext _dbContext;
     private readonly DbSet<MethodModel> _methods;
 
-    public MethodModelRepository(DbContext dbContext)
+    public RepositoryMethodModel(DbContext dbContext)
     {
         _dbContext = dbContext;
         _methods = dbContext.Set<MethodModel>();

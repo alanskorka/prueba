@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-public interface IMethodModelRepository
+public interface IRepositoryMethodModel
 {
     void Add(MethodModel method);
     List<MethodModel> GetAll();

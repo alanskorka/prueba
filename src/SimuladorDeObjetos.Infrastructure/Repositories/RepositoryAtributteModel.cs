@@ -4,12 +4,12 @@ using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class AtributteModelRepository : IAtributteModelRepository
+public class RepositoryAtributteModel : IRepositoryAtributteModel
 {
     private readonly DbContext _dbContext;
     private readonly DbSet<AttributeModel> _attributes;
 
-    public AtributteModelRepository(DbContext dbContext)
+    public RepositoryAtributteModel(DbContext dbContext)
     {
         _dbContext = dbContext;
         _attributes = dbContext.Set<AttributeModel>();

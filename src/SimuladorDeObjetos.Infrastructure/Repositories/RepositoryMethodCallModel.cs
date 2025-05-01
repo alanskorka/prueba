@@ -4,12 +4,12 @@ using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class MethodCallModelRepository : IMethodCallModelRepository
+public class RepositoryMethodCallModel : IRepositoryMethodCallModel
 {
     private readonly DbContext _dbContext;
     private readonly DbSet<MethodCallModel> _calls;
 
-    public MethodCallModelRepository(DbContext dbContext)
+    public RepositoryMethodCallModel(DbContext dbContext)
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         _calls = dbContext.Set<MethodCallModel>();

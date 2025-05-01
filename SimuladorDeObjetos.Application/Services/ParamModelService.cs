@@ -6,9 +6,9 @@ namespace SimuladorDeObjetos.Application;
 
 public class ParamModelService : IParamModelService
 {
-    private readonly IParamModelRepository _repository;
+    private readonly IRepositoryParamModel _repository;
 
-    public ParamModelService(IParamModelRepository repository)
+    public ParamModelService(IRepositoryParamModel repository)
     {
         _repository = repository;
     }

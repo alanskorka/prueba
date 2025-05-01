@@ -6,13 +6,13 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
-public class ParamModelRepositoryTest
+public class RepositoryParamModelTest
 {
     private ParamModel? _param;
     private IQueryable<ParamModel>? _data;
     private Mock<DbSet<ParamModel>>? _mockSet;
     private Mock<DbContext>? _mockContext;
-    private ParamModelRepository? _repo;
+    private RepositoryParamModel? _repo;
 
     [TestInitialize]
     public void Setup()
@@ -36,7 +36,7 @@ public class ParamModelRepositoryTest
         _mockContext = new Mock<DbContext>();
         _mockContext.Setup(c => c.Set<ParamModel>()).Returns(_mockSet.Object);
 
-        _repo = new ParamModelRepository(_mockContext.Object);
+        _repo = new RepositoryParamModel(_mockContext.Object);
     }
 
     [TestMethod]

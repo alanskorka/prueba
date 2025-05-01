@@ -6,9 +6,9 @@ namespace SimuladorDeObjetos.Application;
 
 public class AttributeModelService : IAttributeModelService
 {
-    private readonly IAtributteModelRepository _repository;
+    private readonly IRepositoryAtributteModel _repository;
 
-    public AttributeModelService(IAtributteModelRepository repository)
+    public AttributeModelService(IRepositoryAtributteModel repository)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
