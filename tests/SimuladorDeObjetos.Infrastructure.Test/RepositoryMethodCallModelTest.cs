@@ -6,7 +6,7 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
-public class MethodCallModelRepositoryTest
+public class RepositoryMethodCallModelTest
 {
     private MethodCallModel? _call;
     private IQueryable<MethodCallModel>? _data;
