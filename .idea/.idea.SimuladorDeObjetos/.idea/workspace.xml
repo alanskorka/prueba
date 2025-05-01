@@ -9,8 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList">
-      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" afterDir="false" />
+    <list default="true" id="40b952d5-6b7e-4ded-a596-be5e07aaf765" name="Changes" comment="no 100% coverage">
+      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application.test/LocalVarModelServiceTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,7 @@
   }
 }]]></component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/SimuladorDeObjetos.Application/Services/MethodModelService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SimuladorDeObjetos.Application/Services/Interfaces/IMethodModelService.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
@@ -134,7 +135,7 @@
       <workItem from="1745693853372" duration="2030000" />
       <workItem from="1745696735435" duration="1108000" />
       <workItem from="1745858527268" duration="1931000" />
-      <workItem from="1746047204265" duration="467000" />
+      <workItem from="1746047204265" duration="2888000" />
     </task>
     <task id="LOCAL-00001" summary="Test: AddMethodToClass throws exception if class does not exist">
       <option name="closed" value="true" />
@@ -192,7 +193,31 @@
       <option name="project" value="LOCAL" />
       <updated>1746047629311</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_NullMethodsList">
+      <option name="closed" value="true" />
+      <created>1746047993436</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746047993436</updated>
+    </task>
+    <task id="LOCAL-00009" summary="coverage 100%">
+      <option name="closed" value="true" />
+      <created>1746048465668</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746048465668</updated>
+    </task>
+    <task id="LOCAL-00010" summary="no 100% coverage">
+      <option name="closed" value="true" />
+      <created>1746049791774</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746049791774</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,12 +227,56 @@
     <option name="coveragePercentColumnWidth" value="150" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="331" />
+    <option name="symbolColumnWidth" value="435" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 36% 476/741" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 73% 26/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="MethodModelServiceTest 62% 26/68" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 8% 524/570" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 8% 524/570" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 64% 20/55" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 17% 550/665" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 8% 524/570" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 64% 20/55" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 64% 20/55" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
@@ -224,7 +293,10 @@
     <MESSAGE value="Add GetAll method in IMethodModelRepository" />
     <MESSAGE value="Add test to add method to existing class" />
     <MESSAGE value="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList" />
-    <option name="LAST_COMMIT_MESSAGE" value="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList" />
+    <MESSAGE value="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_NullMethodsList" />
+    <MESSAGE value="coverage 100%" />
+    <MESSAGE value="no 100% coverage" />
+    <option name="LAST_COMMIT_MESSAGE" value="no 100% coverage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
