@@ -10,10 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/DTOs/AttributeDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_4_25__19_32__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_4_25__19_32__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application/DTOs/Class1Dto.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.Application/SimuladorDeObjetos.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.Application/SimuladorDeObjetos.Application.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,6 +87,10 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/DTOs",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   },
@@ -170,7 +170,7 @@
       <workItem from="1745858527268" duration="1931000" />
       <workItem from="1745968952325" duration="1086000" />
       <workItem from="1746025622670" duration="914000" />
-      <workItem from="1746211126425" duration="295000" />
+      <workItem from="1746211126425" duration="624000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
