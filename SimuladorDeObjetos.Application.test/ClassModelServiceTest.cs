@@ -1,10 +1,79 @@
+using Domain.Entities;
+using Moq;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+
 namespace SimuladorDeObjetos.Application.test;
 
 [TestClass]
 public class ClassModelServiceTest
 {
-    [TestMethod]
-    public void TestMethod1()
+    private Mock<IClassModelRepository>? _mockRepository;
+    private ClassModelService? _service;
+
+    [TestInitialize]
+    public void Initialize()
     {
+        _mockRepository = new Mock<IClassModelRepository>();
+        _service = new ClassModelService(_mockRepository.Object);
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllClassModels()
+    {
+        var expectedModels = new List<ClassModel>
+        {
+            new ClassModel { Name = "Class1" },
+            new ClassModel { Name = "Class2" }
+        };
+
+        _mockRepository.Setup(r => r.GetAll()).Returns(expectedModels);
+
+        var result = _service.GetAll();
+
+        Assert.AreEqual(2, result.Count());
+        Assert.AreEqual("Class1", result.First().Name);
+    }
+
+    [TestMethod]
+    public void Add_ShouldCallRepositoryAdd()
+    {
+        var newModel = new ClassModel { Name = "NewClass" };
+
+        _service.Add(newModel);
+
+        _mockRepository.Verify(r => r.Add(newModel), Times.Once);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldCallRepositoryDelete()
+    {
+        var newModel = new ClassModel { Name = "NewClass" };
+
+        _service.Delete(newModel);
+
+        _mockRepository.Verify(r => r.Delete(newModel), Times.Once);
+    }
+
+    [TestMethod]
+    public void Update_ShouldCallRepositoryUpdateAndSave()
+    {
+        var model = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "UpdatedClass"
+        };
+
+        _service.Update(model);
+
+        _mockRepository.Verify(r => r.Update(model), Times.Once);
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    }
+
+    [TestMethod]
+    public void SaveChanges_ShouldCallRepositorySaveChanges()
+    {
+        _service.SaveChanges();
+
+        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
     }
 }

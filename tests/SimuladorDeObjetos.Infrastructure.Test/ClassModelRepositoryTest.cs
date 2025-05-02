@@ -1,8 +1,9 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
+
+namespace SimuladorDeObjetos.Infrastructure.Test;
 
 [TestClass]
 public class ClassModelRepositoryTest
@@ -21,7 +22,6 @@ public class ClassModelRepositoryTest
 
         _mockContext = new Mock<DbContext>();
         _mockContext.Setup(c => c.Set<ClassModel>()).Returns(_mockSet.Object);
-
         _repository = new ClassModelRepository(_mockContext.Object);
     }
 
@@ -118,5 +118,40 @@ public class ClassModelRepositoryTest
         var persisted = context.Classes.FirstOrDefault(c => c.Id == model.Id);
         Assert.IsNotNull(persisted);
         Assert.AreEqual("ToPersist", persisted.Name);
+    }
+
+    [TestMethod]
+    public void GetById_ShouldReturnEntity_WhenExists()
+    {
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: "GetByIdExistsDb")
+            .Options;
+
+        using var context = new SimuladorDbContext(options);
+        var repo = new ClassModelRepository(context);
+
+        var model = new ClassModel { Id = Guid.NewGuid(), Name = "FindMe" };
+        context.Add(model);
+        context.SaveChanges();
+
+        var result = repo.GetById(model.Id);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual("FindMe", result!.Name);
+    }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNull_WhenNotExists()
+    {
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: "GetByIdNotExistsDb")
+            .Options;
+
+        using var context = new SimuladorDbContext(options);
+        var repo = new ClassModelRepository(context);
+
+        var result = repo.GetById(Guid.NewGuid());
+
+        Assert.IsNull(result);
     }
 }

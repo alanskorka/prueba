@@ -37,4 +37,9 @@ public class ClassModelRepository : IClassModelRepository
     {
         _dbContext.SaveChanges();
     }
+
+    public ClassModel? GetById(Guid id)
+    {
+        return _dbContext.Set<ClassModel>().Find(id);
+    }
 }

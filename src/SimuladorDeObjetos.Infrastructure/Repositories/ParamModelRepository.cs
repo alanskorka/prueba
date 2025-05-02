@@ -4,12 +4,12 @@ using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class RepositoryParamModel : IRepositoryParamModel
+public class ParamModelRepository : IParamModelRepository
 {
     private readonly DbContext _dbContext;
     private readonly DbSet<ParamModel> _params;
 
-    public RepositoryParamModel(DbContext dbContext)
+    public ParamModelRepository(DbContext dbContext)
     {
         _dbContext = dbContext;
         _params = dbContext.Set<ParamModel>();
