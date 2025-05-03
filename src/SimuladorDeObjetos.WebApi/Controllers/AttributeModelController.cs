@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using SimuladorDeObjetos.Application.Interfaces;
 
@@ -19,5 +20,12 @@ public class AttributeModelController : ControllerBase
     {
         var result = _service.GetAll();
         return Ok(result);
+    }
+
+    [HttpPost]
+    public IActionResult Add([FromBody] AttributeModel model)
+    {
+        _service.Create(model);
+        return Ok();
     }
 }
