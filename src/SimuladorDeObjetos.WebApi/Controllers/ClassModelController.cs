@@ -28,4 +28,11 @@ public class ClassModelController : ControllerBase
         _service.Add(model);
         return Ok();
     }
+
+    [HttpPut]
+    public IActionResult Update([FromBody] ClassModel model)
+    {
+        _service.Update(model);
+        return Ok();
+    }
 }
