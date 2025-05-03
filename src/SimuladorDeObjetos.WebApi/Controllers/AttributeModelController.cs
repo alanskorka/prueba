@@ -35,4 +35,11 @@ public class AttributeModelController : ControllerBase
         _service.Update(model);
         return Ok();
     }
+
+    [HttpDelete]
+    public IActionResult Delete([FromBody] AttributeModel model)
+    {
+        _service.Delete(model);
+        return Ok();
+    }
 }
