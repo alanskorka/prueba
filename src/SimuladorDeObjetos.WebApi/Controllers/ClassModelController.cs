@@ -35,4 +35,11 @@ public class ClassModelController : ControllerBase
         _service.Update(model);
         return Ok();
     }
+
+    [HttpDelete]
+    public IActionResult Delete([FromBody] ClassModel model)
+    {
+        _service.Delete(model);
+        return Ok();
+    }
 }
