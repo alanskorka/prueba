@@ -19,4 +19,11 @@ public class LocalVarModelController : ControllerBase
         var result = _service.GetAll();
         return Ok(result);
     }
+
+    [HttpPost]
+    public IActionResult Add([FromBody] LocalVarModel model)
+    {
+        _service.Add(model);
+        return Ok();
+    }
 }
