@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="inject MethodModelService into MethodModelController" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="add AddMethodToClass endpoint to MethodModelController">
+      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/ClassModelController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +75,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/51703360985c38f9b2d57b9af7ddebf7ea37d170bdf079c36801eb6d5b8aa9a/Profile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.WebApi/Controllers/MethodModelController.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProblemsViewState">
@@ -234,7 +236,47 @@
       <option name="project" value="LOCAL" />
       <updated>1746306383516</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add GET endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306432665</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306432665</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add POST endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306546874</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306546874</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add PUT endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306575497</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306575497</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add DELETE endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306600464</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306600464</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add AddMethodToClass endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306629329</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306629329</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,6 +347,11 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="create empty MethodModelController" />
     <MESSAGE value="inject MethodModelService into MethodModelController" />
-    <option name="LAST_COMMIT_MESSAGE" value="inject MethodModelService into MethodModelController" />
+    <MESSAGE value="add GET endpoint to MethodModelController" />
+    <MESSAGE value="add POST endpoint to MethodModelController" />
+    <MESSAGE value="add PUT endpoint to MethodModelController" />
+    <MESSAGE value="add DELETE endpoint to MethodModelController" />
+    <MESSAGE value="add AddMethodToClass endpoint to MethodModelController" />
+    <option name="LAST_COMMIT_MESSAGE" value="add AddMethodToClass endpoint to MethodModelController" />
   </component>
 </project>
