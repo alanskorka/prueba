@@ -1,3 +1,4 @@
+namespace Domain.Enums;
 public enum ReferenceTypeInvocation
 {
     This,

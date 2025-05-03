@@ -1,3 +1,5 @@
+using Domain.Enums;
+
 namespace Tests;
 
  [TestClass]
