@@ -1,5 +1,16 @@
+using Microsoft.AspNetCore.Mvc;
+using SimuladorDeObjetos.Application.Interfaces;
+
 namespace SimuladorDeObjetos.WebApi.Controllers;
 
-public class ClassModelController
+[ApiController]
+[Route("api/[controller]")]
+public class ClassModelController : ControllerBase
 {
+    private readonly IClassModelService _service;
+
+    public ClassModelController(IClassModelService service)
+    {
+        _service = service;
+    }
 }
