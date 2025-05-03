@@ -1,5 +1,15 @@
-namespace SimuladorDeObjetos.WebApi.Controllers;
+using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+using SimuladorDeObjetos.Application.Interfaces;
 
-public class LocalVarModelController
+[ApiController]
+[Route("api/[controller]")]
+public class LocalVarModelController : ControllerBase
 {
+    private readonly ILocalVarModelService _service;
+
+    public LocalVarModelController(ILocalVarModelService service)
+    {
+        _service = service;
+    }
 }
