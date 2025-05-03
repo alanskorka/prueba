@@ -28,4 +28,11 @@ public class MethodModelController : ControllerBase
         _service.Add(method);
         return Ok();
     }
+
+    [HttpPut]
+    public IActionResult Update([FromBody] MethodModel method)
+    {
+        _service.Update(method);
+        return Ok();
+    }
 }
