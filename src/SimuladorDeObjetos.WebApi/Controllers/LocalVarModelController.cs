@@ -2,6 +2,8 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using SimuladorDeObjetos.Application.Interfaces;
 
+namespace SimuladorDeObjetos.WebApi.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class LocalVarModelController : ControllerBase
