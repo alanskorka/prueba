@@ -33,4 +33,11 @@ public class LocalVarModelController : ControllerBase
         _service.Update(model);
         return Ok();
     }
+
+    [HttpDelete]
+    public IActionResult Delete([FromBody] LocalVarModel model)
+    {
+        _service.Delete(model);
+        return Ok();
+    }
 }
