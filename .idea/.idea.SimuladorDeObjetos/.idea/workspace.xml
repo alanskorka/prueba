@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="add POST endpoint to AttributeModelController" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="feat(controller): inject ILocalVarModelService into LocalVarModelController">
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/LocalVarModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/LocalVarModelController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -354,7 +356,39 @@
       <option name="project" value="LOCAL" />
       <updated>1746307327207</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="add PUT endpoint to AttributeModelController">
+      <option name="closed" value="true" />
+      <created>1746307623543</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307623543</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add DELETE endpoint to AttributeModelController">
+      <option name="closed" value="true" />
+      <created>1746307649977</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307649977</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat(controller): add empty controller for LocalVarModel">
+      <option name="closed" value="true" />
+      <created>1746307817661</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307817661</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat(controller): inject ILocalVarModelService into LocalVarModelController">
+      <option name="closed" value="true" />
+      <created>1746307889367</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307889367</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,6 +474,10 @@
     <MESSAGE value="inject AttributeModelService into controller" />
     <MESSAGE value="add GET endpoint to AttributeModelController" />
     <MESSAGE value="add POST endpoint to AttributeModelController" />
-    <option name="LAST_COMMIT_MESSAGE" value="add POST endpoint to AttributeModelController" />
+    <MESSAGE value="add PUT endpoint to AttributeModelController" />
+    <MESSAGE value="add DELETE endpoint to AttributeModelController" />
+    <MESSAGE value="feat(controller): add empty controller for LocalVarModel" />
+    <MESSAGE value="feat(controller): inject ILocalVarModelService into LocalVarModelController" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(controller): inject ILocalVarModelService into LocalVarModelController" />
   </component>
 </project>
