@@ -13,4 +13,11 @@ public class AttributeModelController : ControllerBase
     {
         _service = service;
     }
+
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var result = _service.GetAll();
+        return Ok(result);
+    }
 }
