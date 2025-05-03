@@ -1,9 +1,10 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class LocalVarModelRepository
+public class LocalVarModelRepository : ILocalVarModelRepository
 {
     private readonly DbContext _dbContext;
 
