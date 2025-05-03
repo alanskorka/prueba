@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using SimuladorDeObjetos.Application.Interfaces;
 
@@ -21,4 +22,10 @@ public class MethodModelController : ControllerBase
         return Ok(result);
     }
 
+    [HttpPost]
+    public IActionResult Add([FromBody] MethodModel method)
+    {
+        _service.Add(method);
+        return Ok();
+    }
 }
