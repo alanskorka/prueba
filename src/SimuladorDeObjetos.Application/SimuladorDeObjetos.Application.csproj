@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
-      <ProjectReference Include="..\src\SimuladorDeObjetos.Infrastructure\SimuladorDeObjetos.Infrastructure.csproj" />
+      <ProjectReference Include="..\SimuladorDeObjetos.BusinessLogic\SimuladorDeObjetos.BusinessLogic.csproj" />
+      <ProjectReference Include="..\SimuladorDeObjetos.Infrastructure\SimuladorDeObjetos.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="14.0.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     </ItemGroup>
 
