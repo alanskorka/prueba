@@ -42,4 +42,11 @@ public class MethodModelController : ControllerBase
         _service.Delete(method);
         return Ok();
     }
+
+    [HttpPost("add-to-class")]
+    public IActionResult AddToClass(Guid classId, [FromBody] MethodModel method)
+    {
+        _service.AddMethodToClass(classId, method);
+        return Ok();
+    }
 }
