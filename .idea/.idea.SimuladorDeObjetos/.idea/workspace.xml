@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="add DELETE endpoint to ClassModelController" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="add POST endpoint to AttributeModelController" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -322,7 +322,39 @@
       <option name="project" value="LOCAL" />
       <updated>1746307012697</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="create empty AttributeModelController">
+      <option name="closed" value="true" />
+      <created>1746307148999</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307148999</updated>
+    </task>
+    <task id="LOCAL-00025" summary="inject AttributeModelService into controller">
+      <option name="closed" value="true" />
+      <created>1746307170264</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307170264</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add GET endpoint to AttributeModelController">
+      <option name="closed" value="true" />
+      <created>1746307195714</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307195714</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add POST endpoint to AttributeModelController">
+      <option name="closed" value="true" />
+      <created>1746307327207</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1746307327207</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -404,6 +436,10 @@
     <MESSAGE value="add POST endpoint to ClassModelController" />
     <MESSAGE value="add PUT endpoint to ClassModelController" />
     <MESSAGE value="add DELETE endpoint to ClassModelController" />
-    <option name="LAST_COMMIT_MESSAGE" value="add DELETE endpoint to ClassModelController" />
+    <MESSAGE value="create empty AttributeModelController" />
+    <MESSAGE value="inject AttributeModelService into controller" />
+    <MESSAGE value="add GET endpoint to AttributeModelController" />
+    <MESSAGE value="add POST endpoint to AttributeModelController" />
+    <option name="LAST_COMMIT_MESSAGE" value="add POST endpoint to AttributeModelController" />
   </component>
 </project>

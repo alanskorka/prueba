@@ -28,4 +28,11 @@ public class AttributeModelController : ControllerBase
         _service.Create(model);
         return Ok();
     }
+
+    [HttpPut]
+    public IActionResult Update([FromBody] AttributeModel model)
+    {
+        _service.Update(model);
+        return Ok();
+    }
 }
