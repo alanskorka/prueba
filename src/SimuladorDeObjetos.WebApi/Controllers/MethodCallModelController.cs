@@ -30,7 +30,10 @@ public class MethodCallModelController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] MethodCallDto dto)
     {
-        throw new NotImplementedException();
+        var model = _mapper.Map<MethodCallModel>(dto);
+        _service.Create(model);
+        var createdDto = _mapper.Map<MethodCallDto>(model);
+        return CreatedAtAction(nameof(GetAll), null, createdDto);
     }
 
     [HttpPut]
