@@ -39,7 +39,9 @@ public class MethodCallModelController : ControllerBase
     [HttpPut]
     public IActionResult Update([FromBody] MethodCallDto dto)
     {
-        throw new NotImplementedException();
+        var model = _mapper.Map<MethodCallModel>(dto);
+        _service.Update(model);
+        return NoContent();
     }
 
     [HttpDelete]
