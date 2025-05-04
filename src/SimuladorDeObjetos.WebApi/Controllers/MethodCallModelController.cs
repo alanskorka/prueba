@@ -22,7 +22,9 @@ public class MethodCallModelController : ControllerBase
     [HttpGet]
     public ActionResult<List<MethodCallDto>> GetAll()
     {
-        throw new NotImplementedException();
+        var models = _service.GetAll();
+        var dtos = _mapper.Map<List<MethodCallDto>>(models);
+        return Ok(dtos);
     }
 
     [HttpPost]
