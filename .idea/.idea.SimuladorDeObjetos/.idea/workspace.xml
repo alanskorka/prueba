@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="feat(controller): inject ILocalVarModelService into LocalVarModelController">
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/LocalVarModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/LocalVarModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/MethodCallModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/MethodCallModelController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,12 +74,13 @@
     ]
   }
 }</component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.WebApi/Controllers/MethodModelController.cs" root0="SKIP_HIGHLIGHTING" />
-  </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -94,7 +95,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/controllers-alan",
+    "git-widget-placeholder": "feature/methodCallController",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -179,6 +180,7 @@
       <workItem from="1746212668683" duration="3011000" />
       <workItem from="1746293362654" duration="5000" />
       <workItem from="1746303542295" duration="358000" />
+      <workItem from="1746380564429" duration="1956000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
