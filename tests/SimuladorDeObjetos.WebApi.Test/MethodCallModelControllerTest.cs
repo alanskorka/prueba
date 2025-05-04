@@ -74,4 +74,17 @@ public class MethodCallModelControllerTest
         Assert.IsInstanceOfType(result, typeof(NoContentResult));
         _mockService.Verify(s => s.Update(model), Times.Once);
     }
+
+    [TestMethod]
+    public void Delete_ReturnsNoContent()
+    {
+        var dto = new MethodCallDto { MethodName = "M4", ReferenceType = ReferenceTypeInvocation.LocalVar };
+        var model = new MethodCallModel { MethodName = "M4", ReferenceType = ReferenceTypeInvocation.LocalVar };
+        _mockMapper.Setup(m => m.Map<MethodCallModel>(dto)).Returns(model);
+
+        var result = _controller.Delete(dto);
+
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        _mockService.Verify(s => s.Delete(model), Times.Once);
+    }
 }
