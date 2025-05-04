@@ -44,4 +44,21 @@ public class MethodCallModelControllerTest
         Assert.IsNotNull(ok);
         CollectionAssert.AreEqual(dtos, (List<MethodCallDto>)ok.Value);
     }
+
+    [TestMethod]
+    public void Create_ReturnsCreatedAtAction()
+    {
+        var dto = new MethodCallDto { MethodName = "M2", ReferenceType = ReferenceTypeInvocation.Base };
+        var model = new MethodCallModel { MethodName = "M2", ReferenceType = ReferenceTypeInvocation.Base };
+        _mockMapper.Setup(m => m.Map<MethodCallModel>(dto)).Returns(model);
+        _mockMapper.Setup(m => m.Map<MethodCallDto>(model)).Returns(dto);
+
+        var result = _controller.Create(dto);
+
+        var created = result as CreatedAtActionResult;
+        Assert.IsNotNull(created);
+        Assert.AreEqual(nameof(_controller.GetAll), created.ActionName);
+        Assert.AreEqual(dto, created.Value);
+        _mockService.Verify(s => s.Create(model), Times.Once);
+    }
 }

@@ -74,6 +74,7 @@
     ]
   }
 }</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
   <component name="KubernetesApiProvider"><![CDATA[{
   "isMigrated": true
 }]]></component>
