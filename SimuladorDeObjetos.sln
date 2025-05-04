@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimuladorDeObjetos.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimuladorDeObjetos.Application.test", "tests\SimuladorDeObjetos.Application.test\SimuladorDeObjetos.Application.test.csproj", "{A51E7478-BD5C-415A-99E3-E27D39B0C906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimuladorDeObjetos.WepApi.Test", "SimuladorDeObjetos.WepApi.Test\SimuladorDeObjetos.WepApi.Test.csproj", "{E74D3A4A-9D6B-45C7-8AF5-3B0677B9F272}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{A51E7478-BD5C-415A-99E3-E27D39B0C906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A51E7478-BD5C-415A-99E3-E27D39B0C906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A51E7478-BD5C-415A-99E3-E27D39B0C906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E74D3A4A-9D6B-45C7-8AF5-3B0677B9F272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E74D3A4A-9D6B-45C7-8AF5-3B0677B9F272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E74D3A4A-9D6B-45C7-8AF5-3B0677B9F272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E74D3A4A-9D6B-45C7-8AF5-3B0677B9F272}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E9EE7B93-4A1E-4A9F-BFB5-3B497ADA43F9} = {9871EFEF-BC3F-455C-9621-305F6034F8BC}
@@ -67,5 +73,6 @@ Global
 		{64473057-1AB1-49F9-A898-5E35EB708B44} = {9871EFEF-BC3F-455C-9621-305F6034F8BC}
 		{FFC16029-CF85-410D-AE04-E16912D094BD} = {63A86650-1FD1-45B9-B7F0-D693FF6B3136}
 		{A51E7478-BD5C-415A-99E3-E27D39B0C906} = {9871EFEF-BC3F-455C-9621-305F6034F8BC}
+		{E74D3A4A-9D6B-45C7-8AF5-3B0677B9F272} = {9871EFEF-BC3F-455C-9621-305F6034F8BC}
 	EndGlobalSection
 EndGlobal
