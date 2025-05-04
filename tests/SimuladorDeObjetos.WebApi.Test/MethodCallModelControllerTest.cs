@@ -61,4 +61,17 @@ public class MethodCallModelControllerTest
         Assert.AreEqual(dto, created.Value);
         _mockService.Verify(s => s.Create(model), Times.Once);
     }
+
+    [TestMethod]
+    public void Update_ReturnsNoContent()
+    {
+        var dto = new MethodCallDto { MethodName = "M3", ReferenceType = ReferenceTypeInvocation.Attribute };
+        var model = new MethodCallModel { MethodName = "M3", ReferenceType = ReferenceTypeInvocation.Attribute };
+        _mockMapper.Setup(m => m.Map<MethodCallModel>(dto)).Returns(model);
+
+        var result = _controller.Update(dto);
+
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        _mockService.Verify(s => s.Update(model), Times.Once);
+    }
 }
