@@ -47,6 +47,8 @@ public class MethodCallModelController : ControllerBase
     [HttpDelete]
     public IActionResult Delete([FromBody] MethodCallDto dto)
     {
-        throw new NotImplementedException();
+        var model = _mapper.Map<MethodCallModel>(dto);
+        _service.Delete(model);
+        return NoContent();
     }
 }
