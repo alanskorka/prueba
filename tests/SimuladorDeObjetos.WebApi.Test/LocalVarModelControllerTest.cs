@@ -36,4 +36,15 @@ public class LocalVarModelControllerTest
         var returned = result.Value as IEnumerable<LocalVarModel>;
         Assert.AreEqual(2, returned!.Count());
     }
+
+    [TestMethod]
+    public void Add_ShouldReturnOk()
+    {
+        var model = new LocalVarModel { Name = "NewVar" };
+
+        var result = _controller!.Add(model);
+
+        _mockService!.Verify(s => s.Add(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
