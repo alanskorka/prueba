@@ -58,4 +58,15 @@ public class LocalVarModelControllerTest
         _mockService!.Verify(s => s.Update(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Delete_ShouldReturnOk()
+    {
+        var model = new LocalVarModel { Name = "DeleteVar" };
+
+        var result = _controller!.Delete(model);
+
+        _mockService!.Verify(s => s.Delete(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
