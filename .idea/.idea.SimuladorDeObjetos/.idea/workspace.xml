@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="RED-GREEN-REFACTOR: add Delete test for MethodModelController" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty LocalVarModelControllerTest">
+      <change afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.WebApi.Test/LocalVarModelControllerTest.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -439,7 +441,63 @@
       <option name="project" value="LOCAL" />
       <updated>1746473655295</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="add empty ClassModelControllerTest">
+      <option name="closed" value="true" />
+      <created>1746473739444</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473739444</updated>
+    </task>
+    <task id="LOCAL-00039" summary="RED-GREEN-REFACTOR: scaffold ClassModelControllerTest">
+      <option name="closed" value="true" />
+      <created>1746473764736</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473764736</updated>
+    </task>
+    <task id="LOCAL-00040" summary="RED-GREEN-REFACTOR: add GetAll test for ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746473822670</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473822670</updated>
+    </task>
+    <task id="LOCAL-00041" summary="RED-GREEN-REFACTOR: add Add test for ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746473913668</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473913668</updated>
+    </task>
+    <task id="LOCAL-00042" summary="RED-GREEN-REFACTOR: add Update test for ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746473946046</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473946046</updated>
+    </task>
+    <task id="LOCAL-00043" summary="RED-GREEN-REFACTOR: add Delete test for ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746473990386</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473990386</updated>
+    </task>
+    <task id="LOCAL-00044" summary="create empty LocalVarModelControllerTest">
+      <option name="closed" value="true" />
+      <created>1746474057936</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1746474057936</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,34 +512,34 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1098/1098" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1128/1128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1098/1098" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 0% 215/215" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1128/1128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 0% 245/245" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1098/1098" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 0% 215/215" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1128/1128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 0% 245/245" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1098/1098" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 0% 215/215" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1128/1128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 0% 245/245" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1098/1098" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1128/1128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="src 0% 883/883" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1098/1098" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1128/1128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="src 0% 883/883" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="SimuladorDeObjetos.Application 0% 217/217" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
@@ -493,13 +551,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="add GET endpoint to MethodModelController" />
-    <MESSAGE value="add POST endpoint to MethodModelController" />
-    <MESSAGE value="add PUT endpoint to MethodModelController" />
-    <MESSAGE value="add DELETE endpoint to MethodModelController" />
-    <MESSAGE value="add AddMethodToClass endpoint to MethodModelController" />
-    <MESSAGE value="create empty ClassModelController" />
-    <MESSAGE value="inject ClassModelService into ClassModelController" />
     <MESSAGE value="add GET endpoint to ClassModelController" />
     <MESSAGE value="add POST endpoint to ClassModelController" />
     <MESSAGE value="add PUT endpoint to ClassModelController" />
@@ -518,6 +569,13 @@
     <MESSAGE value="RED-GREEN-REFACTOR: add Create test for MethodModelController" />
     <MESSAGE value="RED-GREEN-REFACTOR: add Update test for MethodModelController" />
     <MESSAGE value="RED-GREEN-REFACTOR: add Delete test for MethodModelController" />
-    <option name="LAST_COMMIT_MESSAGE" value="RED-GREEN-REFACTOR: add Delete test for MethodModelController" />
+    <MESSAGE value="add empty ClassModelControllerTest" />
+    <MESSAGE value="RED-GREEN-REFACTOR: scaffold ClassModelControllerTest" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add GetAll test for ClassModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Add test for ClassModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Update test for ClassModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Delete test for ClassModelController" />
+    <MESSAGE value="create empty LocalVarModelControllerTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="create empty LocalVarModelControllerTest" />
   </component>
 </project>
