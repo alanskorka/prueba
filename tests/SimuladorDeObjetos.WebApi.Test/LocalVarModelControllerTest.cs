@@ -47,4 +47,15 @@ public class LocalVarModelControllerTest
         _mockService!.Verify(s => s.Add(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Update_ShouldReturnOk()
+    {
+        var model = new LocalVarModel { Name = "UpdatedVar" };
+
+        var result = _controller!.Update(model);
+
+        _mockService!.Verify(s => s.Update(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
