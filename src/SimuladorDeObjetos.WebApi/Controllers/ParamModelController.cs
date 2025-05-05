@@ -35,4 +35,11 @@ public class ParamModelController : ControllerBase
         _service.Update(param);
         return Ok();
     }
+
+    [HttpDelete]
+    public IActionResult Delete([FromBody] ParamModel param)
+    {
+        _service.Delete(param);
+        return Ok();
+    }
 }
