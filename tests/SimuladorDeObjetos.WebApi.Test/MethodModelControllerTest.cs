@@ -36,4 +36,15 @@ public class MethodModelControllerTest
         var returned = result.Value as IEnumerable<MethodModel>;
         Assert.AreEqual(2, returned!.Count());
     }
+
+    [TestMethod]
+    public void Add_ShouldReturnOk()
+    {
+        var method = new MethodModel { Name = "NewMethod" };
+
+        var result = _controller!.Add(method);
+
+        _mockService!.Verify(s => s.Add(method), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
