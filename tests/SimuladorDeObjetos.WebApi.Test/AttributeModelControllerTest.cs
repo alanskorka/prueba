@@ -18,4 +18,22 @@ public class AttributeModelControllerTest
         _mockService = new Mock<IAttributeModelService>();
         _controller = new AttributeModelController(_mockService.Object);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllAttributes()
+    {
+        var expected = new List<AttributeModel>
+        {
+            new AttributeModel { Name = "Attr1" },
+            new AttributeModel { Name = "Attr2" }
+        };
+
+        _mockService!.Setup(s => s.GetAll()).Returns(expected);
+
+        var result = _controller!.GetAll() as OkObjectResult;
+
+        Assert.IsNotNull(result);
+        var returned = result.Value as IEnumerable<AttributeModel>;
+        Assert.AreEqual(2, returned!.Count());
+    }
 }
