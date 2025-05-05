@@ -36,4 +36,15 @@ public class ClassModelControllerTest
         var returned = result.Value as IEnumerable<ClassModel>;
         Assert.AreEqual(2, returned!.Count());
     }
+
+    [TestMethod]
+    public void Add_ShouldReturnOk()
+    {
+        var model = new ClassModel { Name = "NewClass" };
+
+        var result = _controller!.Add(model);
+
+        _mockService!.Verify(s => s.Add(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
