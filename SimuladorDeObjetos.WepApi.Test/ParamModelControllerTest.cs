@@ -46,4 +46,15 @@ public class ParamModelControllerTest
         _mockService.Verify(s => s.Add(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Update_ShouldCallUpdateMethod()
+    {
+        var model = new ParamModel { Name = "param", Type = "bool" };
+
+        var result = _controller.Update(model);
+
+        _mockService.Verify(s => s.Update(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
