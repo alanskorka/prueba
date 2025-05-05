@@ -18,4 +18,22 @@ public class ClassModelControllerTest
         _mockService = new Mock<IClassModelService>();
         _controller = new ClassModelController(_mockService.Object);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllClasses()
+    {
+        var expected = new List<ClassModel>
+        {
+            new ClassModel { Name = "Class1" },
+            new ClassModel { Name = "Class2" }
+        };
+
+        _mockService!.Setup(s => s.GetAll()).Returns(expected);
+
+        var result = _controller!.GetAll() as OkObjectResult;
+
+        Assert.IsNotNull(result);
+        var returned = result.Value as IEnumerable<ClassModel>;
+        Assert.AreEqual(2, returned!.Count());
+    }
 }
