@@ -35,4 +35,15 @@ public class ParamModelControllerTest
         Assert.IsNotNull(returned);
         Assert.AreEqual(2, returned.Count());
     }
+
+    [TestMethod]
+    public void Add_ShouldCallAddMethod()
+    {
+        var model = new ParamModel { Name = "param", Type = "bool" };
+
+        var result = _controller.Add(model);
+
+        _mockService.Verify(s => s.Add(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
