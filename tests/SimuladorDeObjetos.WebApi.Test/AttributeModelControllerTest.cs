@@ -47,4 +47,15 @@ public class AttributeModelControllerTest
         _mockService!.Verify(s => s.Create(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Update_ShouldReturnOk()
+    {
+        var model = new AttributeModel { Name = "UpdatedAttr" };
+
+        var result = _controller!.Update(model);
+
+        _mockService!.Verify(s => s.Update(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
