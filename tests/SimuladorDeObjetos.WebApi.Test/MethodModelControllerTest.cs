@@ -18,4 +18,22 @@ public class MethodModelControllerTest
         _mockService = new Mock<IMethodModelService>();
         _controller = new MethodModelController(_mockService.Object);
     }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllMethods()
+    {
+        var expected = new List<MethodModel>
+        {
+            new MethodModel { Name = "Method1" },
+            new MethodModel { Name = "Method2" }
+        };
+
+        _mockService!.Setup(s => s.GetAll()).Returns(expected);
+
+        var result = _controller!.GetAll() as OkObjectResult;
+
+        Assert.IsNotNull(result);
+        var returned = result.Value as IEnumerable<MethodModel>;
+        Assert.AreEqual(2, returned!.Count());
+    }
 }

@@ -9,7 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty MethodModelControllerTest" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="chore(test): add skeleton for MethodModelControllerTest">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.WebApi.Test/MethodModelControllerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.WebApi.Test/MethodModelControllerTest.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -399,7 +402,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746473086079</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="chore(test): add skeleton for MethodModelControllerTest">
+      <option name="closed" value="true" />
+      <created>1746473398788</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1746473398788</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,51 +425,36 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1072/1072" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 56% 55/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1072/1072" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 0% 189/189" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 56% 55/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application.test 56% 55/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1072/1072" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 0% 189/189" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 56% 55/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application.test 56% 55/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application.test 56% 55/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1072/1072" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="tests 0% 189/189" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 8% 543/589" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1072/1072" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 0% 883/883" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 8% 543/589" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 47% 39/74" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 8% 543/589" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 47% 39/74" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 47% 39/74" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 598/713" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 8% 543/589" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 47% 39/74" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 47% 39/74" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="MethodModelService 47% 20/38" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 0% 1072/1072" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 0% 883/883" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 0% 217/217" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
@@ -490,6 +486,7 @@
     <MESSAGE value="feat(controller): add empty controller for LocalVarModel" />
     <MESSAGE value="feat(controller): inject ILocalVarModelService into LocalVarModelController" />
     <MESSAGE value="create empty MethodModelControllerTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="create empty MethodModelControllerTest" />
+    <MESSAGE value="chore(test): add skeleton for MethodModelControllerTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore(test): add skeleton for MethodModelControllerTest" />
   </component>
 </project>
