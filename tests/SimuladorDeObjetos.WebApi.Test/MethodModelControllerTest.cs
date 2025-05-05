@@ -47,4 +47,15 @@ public class MethodModelControllerTest
         _mockService!.Verify(s => s.Add(method), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Update_ShouldReturnOk()
+    {
+        var method = new MethodModel { Name = "UpdatedMethod" };
+
+        var result = _controller!.Update(method);
+
+        _mockService!.Verify(s => s.Update(method), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
