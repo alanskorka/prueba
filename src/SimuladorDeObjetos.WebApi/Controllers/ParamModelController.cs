@@ -28,4 +28,11 @@ public class ParamModelController : ControllerBase
         _service.Add(param);
         return Ok();
     }
+
+    [HttpPut]
+    public IActionResult Update([FromBody] ParamModel param)
+    {
+        _service.Update(param);
+        return Ok();
+    }
 }
