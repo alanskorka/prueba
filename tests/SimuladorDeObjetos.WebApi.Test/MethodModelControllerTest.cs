@@ -58,4 +58,15 @@ public class MethodModelControllerTest
         _mockService!.Verify(s => s.Update(method), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Delete_ShouldReturnOk()
+    {
+        var method = new MethodModel { Name = "ToDelete" };
+
+        var result = _controller!.Delete(method);
+
+        _mockService!.Verify(s => s.Delete(method), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
 }
