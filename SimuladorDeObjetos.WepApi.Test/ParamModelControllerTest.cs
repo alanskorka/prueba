@@ -1,15 +1,15 @@
 using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SimuladorDeObjetos.Application.Interfaces;
-
+using SimuladorDeObjetos.WebApi.Controllers;
 namespace SimuladorDeObjetos.WepApi.Test;
-
 
 [TestClass]
 public class ParamModelControllerTest
 {
-    private Mock<IParamModelService> _mockService;
-    private ParamModelController _controller;
+    private Mock<IParamModelService>? _mockService;
+    private ParamModelController? _controller;
 
     [TestInitialize]
     public void Setup()
@@ -23,7 +23,8 @@ public class ParamModelControllerTest
     {
         var expected = new List<ParamModel>
         {
-            new ParamModel { Name = "param1", Type = "string" }, new ParamModel { Name = "param2", Type = "int" }
+            new ParamModel { Name = "param1", Type = "string" },
+            new ParamModel { Name = "param2", Type = "int" }
         };
         _mockService.Setup(s => s.GetAll()).Returns(expected);
 
@@ -31,6 +32,7 @@ public class ParamModelControllerTest
 
         Assert.IsNotNull(result);
         var returned = result.Value as IEnumerable<ParamModel>;
+        Assert.IsNotNull(returned);
         Assert.AreEqual(2, returned.Count());
     }
 }

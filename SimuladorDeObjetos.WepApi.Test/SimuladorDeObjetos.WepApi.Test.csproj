@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\src\SimuladorDeObjetos.Application\SimuladorDeObjetos.Application.csproj" />
+      <ProjectReference Include="..\src\SimuladorDeObjetos.WebApi\SimuladorDeObjetos.WebApi.csproj" />
     </ItemGroup>
 
 </Project>

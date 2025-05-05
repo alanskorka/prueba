@@ -10,7 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="feat(controller): inject ILocalVarModelService into LocalVarModelController">
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/LocalVarModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/LocalVarModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.WepApi.Test/ParamModelControllerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.WepApi.Test/ParamModelControllerTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimuladorDeObjetos.WepApi.Test/SimuladorDeObjetos.WepApi.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SimuladorDeObjetos.WepApi.Test/SimuladorDeObjetos.WepApi.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/ParamModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/ParamModelController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Develop" />
+        <entry key="$PROJECT_DIR$" value="feature/controllers" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,7 +96,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/controllers-alan",
+    "git-widget-placeholder": "feature/paramModelController",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
