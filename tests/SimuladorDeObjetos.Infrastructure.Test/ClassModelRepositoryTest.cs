@@ -1,157 +1,126 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
 
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
-[TestClass]
-public class ClassModelRepositoryTest
-{
-    private Mock<DbSet<ClassModel>>? _mockSet;
-    private Mock<DbContext>? _mockContext;
-    private ClassModelRepository? _repository;
-
-    private void SetupMocks(IQueryable<ClassModel> data)
+    [TestClass]
+    public class ClassModelRepositoryTest
     {
-        _mockSet = new Mock<DbSet<ClassModel>>();
-        _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.Provider).Returns(data.Provider);
-        _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.Expression).Returns(data.Expression);
-        _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-        _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+        private ClassModel _model = null!;
+        private IQueryable<ClassModel> _data = null!;
+        private Mock<DbSet<ClassModel>> _mockSet = null!;
+        private Mock<SimuladorDbContext> _mockContext = null!;
+        private ClassModelRepository _repo = null!;
 
-        _mockContext = new Mock<DbContext>();
-        _mockContext.Setup(c => c.Set<ClassModel>()).Returns(_mockSet.Object);
-        _repository = new ClassModelRepository(_mockContext.Object);
-    }
-
-    [TestMethod]
-    public void Add_ShouldStoreClassModel()
-    {
-        var data = new List<ClassModel>
+        [TestInitialize]
+        public void Setup()
         {
-            new ClassModel { Name = "Test1" },
-            new ClassModel { Name = "Test2" }
-        }.AsQueryable();
+            _model = new ClassModel { Id = Guid.NewGuid(), Name = "TestClass" };
 
-        SetupMocks(data);
+            _data = new List<ClassModel> { _model }.AsQueryable();
 
-        var result = _repository.GetAll().ToList();
+            _mockSet = new Mock<DbSet<ClassModel>>();
+            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.Provider).Returns(_data.Provider);
+            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.Expression).Returns(_data.Expression);
+            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.ElementType).Returns(_data.ElementType);
+            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.GetEnumerator()).Returns(() => _data.GetEnumerator());
+            _mockSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids =>
+                _data.SingleOrDefault(e => e.Id == (Guid)ids[0]));
 
-        Assert.AreEqual(2, result.Count);
-        Assert.AreEqual("Test1", result[0].Name);
-    }
+            var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+                .UseInMemoryDatabase("TestDb").Options;
+            _mockContext = new Mock<SimuladorDbContext>(options);
 
-    [TestMethod]
-    public void GetAll_ShouldReturnAllClassModels()
-    {
-        var data = new List<ClassModel>
+            _mockContext.Setup(c => c.Set<ClassModel>()).Returns(_mockSet.Object);
+            _mockContext.Setup(c => c.Add(It.IsAny<ClassModel>())).Verifiable();
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+            _repo = new ClassModelRepository(_mockContext.Object);
+        }
+
+        [TestMethod]
+        public void Add_ShouldCallAddAndSaveChanges()
         {
-            new ClassModel { Name = "ClassA" },
-            new ClassModel { Name = "ClassB" },
-            new ClassModel { Name = "ClassC" }
-        }.AsQueryable();
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+            _repo.Add(_model);
+            _mockSet.Verify(s => s.Add(_model), Times.Once);
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
 
-        SetupMocks(data);
-
-        var result = _repository.GetAll().ToList();
-
-        Assert.AreEqual(3, result.Count);
-        Assert.AreEqual("ClassA", result[0].Name);
-        Assert.AreEqual("ClassB", result[1].Name);
-        Assert.AreEqual("ClassC", result[2].Name);
-    }
-
-    [TestMethod]
-    public void Delete_ShouldRemoveClassModel()
-    {
-        var classModelToDelete = new ClassModel { Id = Guid.NewGuid(), Name = "ToDelete" };
-        var data = new List<ClassModel>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Add_ShouldThrow_WhenModelIsNull()
         {
-            classModelToDelete,
-            new ClassModel { Id = Guid.NewGuid(), Name = "KeepMe" }
-        }.AsQueryable();
+            _repo.Add(null!);
+        }
 
-        SetupMocks(data);
+        [TestMethod]
+        public void GetAll_ShouldReturnAllEntities()
+        {
+            var result = _repo.GetAll().ToList();
+            CollectionAssert.AreEqual(_data.ToList(), result);
+        }
 
-        _repository.Delete(classModelToDelete);
+        [TestMethod]
+        public void Update_ShouldCallUpdateAndSaveChanges()
+        {
+            var updated = new ClassModel { Id = _model.Id, Name = "Updated" };
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+            _repo.Update(updated);
+            _mockSet.Verify(s => s.Update(updated), Times.Once);
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
 
-        _mockSet.Verify(m => m.Remove(classModelToDelete), Times.Once);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Update_ShouldThrow_WhenModelIsNull()
+        {
+            _repo.Update(null!);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldCallRemoveAndSaveChanges()
+        {
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+            _repo.Delete(_model);
+            _mockSet.Verify(s => s.Remove(_model), Times.Once);
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Delete_ShouldThrow_WhenModelIsNull()
+        {
+            _repo.Delete(null!);
+        }
+
+        [TestMethod]
+        public void SaveChanges_ShouldCallContextSaveChanges()
+        {
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+            _repo.SaveChanges();
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetById_ShouldReturnEntity_WhenExists()
+        {
+            var result = _repo.GetById(_model.Id);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(_model.Name, result!.Name);
+        }
+
+        [TestMethod]
+        public void GetById_ShouldReturnNull_WhenNotExists()
+        {
+            var result = _repo.GetById(Guid.NewGuid());
+            Assert.IsNull(result);
+        }
     }
-
-    [TestMethod]
-    public void Update_ShouldModifyClassModelInDatabase()
-    {
-        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-            .Options;
-
-        using var context = new SimuladorDbContext(options);
-        var repository = new ClassModelRepository(context);
-
-        var model = new ClassModel { Id = Guid.NewGuid(), Name = "Original" };
-        context.Add(model);
-        context.SaveChanges();
-
-        model.Name = "Updated";
-        repository.Update(model);
-        repository.SaveChanges();
-
-        var updated = context.Classes.First(x => x.Id == model.Id);
-        Assert.AreEqual("Updated", updated.Name);
-    }
-
-    [TestMethod]
-    public void SaveChanges_ShouldPersistChanges()
-    {
-        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-            .UseInMemoryDatabase(databaseName: "SaveChangesTestDb")
-            .Options;
-
-        using var context = new SimuladorDbContext(options);
-        var repository = new ClassModelRepository(context);
-
-        var model = new ClassModel { Id = Guid.NewGuid(), Name = "ToPersist" };
-        repository.Add(model);
-        repository.SaveChanges();
-
-        var persisted = context.Classes.FirstOrDefault(c => c.Id == model.Id);
-        Assert.IsNotNull(persisted);
-        Assert.AreEqual("ToPersist", persisted.Name);
-    }
-
-    [TestMethod]
-    public void GetById_ShouldReturnEntity_WhenExists()
-    {
-        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-            .UseInMemoryDatabase(databaseName: "GetByIdExistsDb")
-            .Options;
-
-        using var context = new SimuladorDbContext(options);
-        var repo = new ClassModelRepository(context);
-
-        var model = new ClassModel { Id = Guid.NewGuid(), Name = "FindMe" };
-        context.Add(model);
-        context.SaveChanges();
-
-        var result = repo.GetById(model.Id);
-
-        Assert.IsNotNull(result);
-        Assert.AreEqual("FindMe", result!.Name);
-    }
-
-    [TestMethod]
-    public void GetById_ShouldReturnNull_WhenNotExists()
-    {
-        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-            .UseInMemoryDatabase(databaseName: "GetByIdNotExistsDb")
-            .Options;
-
-        using var context = new SimuladorDbContext(options);
-        var repo = new ClassModelRepository(context);
-
-        var result = repo.GetById(Guid.NewGuid());
-
-        Assert.IsNull(result);
-    }
-}

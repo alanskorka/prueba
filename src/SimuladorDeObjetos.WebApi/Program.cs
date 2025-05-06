@@ -13,30 +13,32 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddDbContext<SimuladorDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("SimuladorDb")));
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-var mappingConfig = new MapperConfiguration(cfg =>
+var connectionString = configuration.GetConnectionString("SimuladorDb");
+if(string.IsNullOrEmpty(connectionString))
 {
-    cfg.AddProfile<MappingProfile>();
-});
-IMapper mapper = mappingConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
+    throw new Exception("Missing connection string");
+}
 
-builder.Services.AddScoped<IClassModelRepository, ClassModelRepository>();
-builder.Services.AddScoped<IAtributteModelRepository, AtributteModelRepository>();
-builder.Services.AddScoped<ILocalVarModelRepository, LocalVarModelRepository>();
-builder.Services.AddScoped<IMethodCallModelRepository, MethodCallModelRepository>();
-builder.Services.AddScoped<IMethodModelRepository, MethodModelRepository>();
-builder.Services.AddScoped<IParamModelRepository, ParamModelRepository>();
+services.AddDbContext<DbContext, SimuladorDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<IClassModelService, ClassModelService>();
-builder.Services.AddScoped<IAttributeModelService, AttributeModelService>();
-builder.Services.AddScoped<IMethodModelService, MethodModelService>();
-builder.Services.AddScoped<IParamModelService, ParamModelService>();
-builder.Services.AddScoped<ILocalVarModelService, LocalVarModelService>();
-builder.Services.AddScoped<IMethodCallModelService, MethodCallModelService>();
+services.AddScoped<IClassModelRepository, ClassModelRepository>();
+services.AddScoped<IAtributteModelRepository, AtributteModelRepository>();
+services.AddScoped<ILocalVarModelRepository, LocalVarModelRepository>();
+services.AddScoped<IMethodCallModelRepository, MethodCallModelRepository>();
+services.AddScoped<IMethodModelRepository, MethodModelRepository>();
+services.AddScoped<IParamModelRepository, ParamModelRepository>();
+
+services.AddScoped<IClassModelService, ClassModelService>();
+services.AddScoped<IAttributeModelService, AttributeModelService>();
+services.AddScoped<IMethodModelService, MethodModelService>();
+services.AddScoped<IParamModelService, ParamModelService>();
+services.AddScoped<ILocalVarModelService, LocalVarModelService>();
+services.AddScoped<IMethodCallModelService, MethodCallModelService>();
 
 var app = builder.Build();
 

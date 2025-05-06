@@ -1,102 +1,125 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
 
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
-[TestClass]
-public class LocalVarModelRepositoryTest
-{
-    private Mock<DbSet<LocalVarModel>>? _mockSet;
-    private Mock<DbContext>? _mockContext;
-    private LocalVarModelRepository? _repository;
-
-    private void SetupMocks(IQueryable<LocalVarModel> data)
+    [TestClass]
+    public class LocalVarModelRepositoryTest
     {
-        _mockSet = new Mock<DbSet<LocalVarModel>>();
-        _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.Provider).Returns(data.Provider);
-        _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.Expression).Returns(data.Expression);
-        _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-        _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+        private LocalVarModel _model = null!;
+        private IQueryable<LocalVarModel> _data = null!;
+        private Mock<DbSet<LocalVarModel>> _mockSet = null!;
+        private Mock<SimuladorDbContext> _mockContext = null!;
+        private LocalVarModelRepository _repo = null!;
 
-        _mockContext = new Mock<DbContext>();
-        _mockContext.Setup(c => c.Set<LocalVarModel>()).Returns(_mockSet.Object);
+        [TestInitialize]
+        public void Setup()
+        {
+            _model = new LocalVarModel
+            {
+                Id = Guid.NewGuid(),
+                Name = "var1",
+                Type = "int",
+                MethodId = Guid.NewGuid()
+            };
+            _data = new List<LocalVarModel> { _model }.AsQueryable();
+            _mockSet = new Mock<DbSet<LocalVarModel>>();
+            _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.Provider).Returns(_data.Provider);
+            _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.Expression).Returns(_data.Expression);
+            _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.ElementType).Returns(_data.ElementType);
+            _mockSet.As<IQueryable<LocalVarModel>>().Setup(m => m.GetEnumerator()).Returns(() => _data.GetEnumerator());
 
-        _repository = new LocalVarModelRepository(_mockContext.Object);
+            var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+                .UseInMemoryDatabase("LocalVarTestDb").Options;
+            _mockContext = new Mock<SimuladorDbContext>(options);
+
+            _mockContext.Setup(c => c.Set<LocalVarModel>()).Returns(_mockSet.Object);
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+            _repo = new LocalVarModelRepository(_mockContext.Object);
+        }
+
+        [TestMethod]
+        public void Add_ShouldCallAddAndSaveChanges()
+        {
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+            _repo.Add(_model);
+
+            _mockSet.Verify(s => s.Add(_model), Times.Once);
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Add_ShouldThrow_WhenModelIsNull()
+        {
+            _repo.Add(null!);
+        }
+
+        [TestMethod]
+        public void GetAll_ShouldReturnAllItems()
+        {
+            var list = _repo.GetAll().ToList();
+            CollectionAssert.AreEqual(_data.ToList(), list);
+        }
+
+        [TestMethod]
+        public void Update_ShouldCallUpdateAndSaveChanges()
+        {
+            var updated = new LocalVarModel
+            {
+                Id = _model.Id,
+                Name = "var2",
+                Type = "string",
+                MethodId = _model.MethodId
+            };
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+            _repo.Update(updated);
+
+            _mockSet.Verify(s => s.Update(updated), Times.Once);
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Update_ShouldThrow_WhenModelIsNull()
+        {
+            _repo.Update(null!);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldCallRemoveAndSaveChanges()
+        {
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+            _repo.Delete(_model);
+
+            _mockSet.Verify(s => s.Remove(_model), Times.Once);
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Delete_ShouldThrow_WhenModelIsNull()
+        {
+            _repo.Delete(null!);
+        }
+
+        [TestMethod]
+        public void SaveChanges_ShouldCallContextSaveChanges()
+        {
+            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
+
+            _repo.SaveChanges();
+
+            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
+        }
     }
-
-    [TestMethod]
-    public void GetAll_ShouldReturnAllLocalVarModels()
-    {
-        var data = new List<LocalVarModel> { new LocalVarModel { Name = "Var1" }, new LocalVarModel { Name = "Var2" } }
-            .AsQueryable();
-
-        SetupMocks(data);
-
-        var result = _repository.GetAll().ToList();
-
-        Assert.AreEqual(2, result.Count);
-        Assert.AreEqual("Var1", result[0].Name);
-    }
-
-    [TestMethod]
-    public void Add_ShouldAddLocalVarModel()
-    {
-        var data = new List<LocalVarModel>().AsQueryable();
-        SetupMocks(data);
-
-        var localVar = new LocalVarModel { Name = "NewVar" };
-        _repository.Add(localVar);
-
-        _mockSet!.Verify(m => m.Add(localVar), Times.Once);
-    }
-
-    [TestMethod]
-    public void Delete_ShouldRemoveLocalVarModel()
-    {
-        var data = new List<LocalVarModel>().AsQueryable();
-        SetupMocks(data);
-
-        var localVar = new LocalVarModel { Name = "ToDelete" };
-        _repository.Delete(localVar);
-
-        _mockSet!.Verify(m => m.Remove(localVar), Times.Once);
-    }
-
-    [TestMethod]
-    public void Update_ShouldModifyLocalVarModelInDatabase()
-    {
-        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-            .Options;
-
-        using var context = new SimuladorDbContext(options);
-        var repository = new LocalVarModelRepository(context);
-
-        var model = new LocalVarModel { Id = Guid.NewGuid(), Name = "Original",  Type = "SomeType" };
-        context.Add(model);
-        context.SaveChanges();
-
-        model.Name = "Updated";
-        repository.Update(model);
-        repository.SaveChanges();
-
-        var updated = context.LocalVars.First(x => x.Id == model.Id);
-        Assert.AreEqual("Updated", updated.Name);
-    }
-
-    [TestMethod]
-    public void SaveChanges_ShouldPersistChanges()
-    {
-        var data = new List<LocalVarModel>().AsQueryable();
-        SetupMocks(data);
-
-        _mockContext!.Setup(m => m.SaveChanges()).Returns(1);
-
-        _repository.SaveChanges();
-
-        _mockContext.Verify(m => m.SaveChanges(), Times.Once);
-    }
-}

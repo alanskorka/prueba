@@ -6,16 +6,18 @@ namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
 public class ClassModelRepository : IClassModelRepository
 {
-    private readonly DbContext _dbContext;
+    private readonly SimuladorDbContext _dbContext;
 
-    public ClassModelRepository(DbContext dbContext)
+    public ClassModelRepository(SimuladorDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
     public void Add(ClassModel classModel)
     {
-        _dbContext.Add(classModel);
+        ArgumentNullException.ThrowIfNull(classModel);
+        _dbContext.Set<ClassModel>().Add(classModel);
+        _dbContext.SaveChanges();
     }
 
     public IEnumerable<ClassModel> GetAll()
@@ -25,12 +27,16 @@ public class ClassModelRepository : IClassModelRepository
 
     public void Delete(ClassModel model)
     {
+        ArgumentNullException.ThrowIfNull(model);
         _dbContext.Set<ClassModel>().Remove(model);
+        _dbContext.SaveChanges();
     }
 
     public void Update(ClassModel classModel)
     {
-        _dbContext.Entry(classModel).State = EntityState.Modified;
+        ArgumentNullException.ThrowIfNull(classModel);
+        _dbContext.Set<ClassModel>().Update(classModel);
+        _dbContext.SaveChanges();
     }
 
     public void SaveChanges()
