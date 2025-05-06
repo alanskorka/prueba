@@ -6,36 +6,34 @@ namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
 public class MethodCallModelRepository : IMethodCallModelRepository
 {
-    private readonly DbContext _dbContext;
-    private readonly DbSet<MethodCallModel> _calls;
+    private readonly SimuladorDbContext _dbContext;
 
-    public MethodCallModelRepository(DbContext dbContext)
+    public MethodCallModelRepository(SimuladorDbContext dbContext)
     {
-        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        _calls = dbContext.Set<MethodCallModel>();
+        _dbContext = dbContext;
     }
 
     public void Add(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _calls.Add(call);
+        _dbContext.Set<MethodCallModel>().Add(call);
         _dbContext.SaveChanges();
     }
 
     public List<MethodCallModel> GetAll()
-        => _calls.ToList();
+        => _dbContext.Set<MethodCallModel>().ToList();
 
     public void Update(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _calls.Update(call);
+        _dbContext.Set<MethodCallModel>().Update(call);
         _dbContext.SaveChanges();
     }
 
     public void Delete(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _calls.Remove(call);
+        _dbContext.Set<MethodCallModel>().Remove(call);
         _dbContext.SaveChanges();
     }
 

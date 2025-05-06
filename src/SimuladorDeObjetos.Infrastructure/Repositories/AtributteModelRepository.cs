@@ -6,36 +6,34 @@ namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
 public class AtributteModelRepository : IAtributteModelRepository
 {
-    private readonly DbContext _dbContext;
-    private readonly DbSet<AttributeModel> _attributes;
+    private readonly SimuladorDbContext _dbContext;
 
-    public AtributteModelRepository(DbContext dbContext)
+    public AtributteModelRepository(SimuladorDbContext dbContext)
     {
         _dbContext = dbContext;
-        _attributes = dbContext.Set<AttributeModel>();
     }
 
     public void Add(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        _attributes.Add(attribute);
+        _dbContext.Set<AttributeModel>().Add(attribute);
         _dbContext.SaveChanges();
     }
 
     public List<AttributeModel> GetAll()
-        => _attributes.ToList();
+        => _dbContext.Set<AttributeModel>().ToList();
 
     public void Update(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        _attributes.Update(attribute);
+        _dbContext.Set<AttributeModel>().Update(attribute);
         _dbContext.SaveChanges();
     }
 
     public void Delete(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        _attributes.Remove(attribute);
+        _dbContext.Set<AttributeModel>().Remove(attribute);
         _dbContext.SaveChanges();
     }
 

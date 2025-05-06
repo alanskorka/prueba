@@ -6,38 +6,36 @@ namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
 public class MethodModelRepository : IMethodModelRepository
 {
-    private readonly DbContext _dbContext;
-    private readonly DbSet<MethodModel> _methods;
+    private readonly SimuladorDbContext _dbContext;
 
-    public MethodModelRepository(DbContext dbContext)
+    public MethodModelRepository(SimuladorDbContext dbContext)
     {
         _dbContext = dbContext;
-        _methods = dbContext.Set<MethodModel>();
     }
 
     public void Add(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
-        _methods.Add(method);
+        _dbContext.Set<MethodModel>().Add(method);
         _dbContext.SaveChanges();
     }
 
     public List<MethodModel> GetAll()
     {
-        return _methods.ToList();
+        return _dbContext.Set<MethodModel>().ToList();
     }
 
     public void Delete(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
-        _methods.Remove(method);
+        _dbContext.Set<MethodModel>().Remove(method);
         _dbContext.SaveChanges();
     }
 
     public void Update(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
-        _methods.Update(method);
+        _dbContext.Set<MethodModel>().Update(method);
         _dbContext.SaveChanges();
     }
 

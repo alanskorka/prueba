@@ -6,36 +6,34 @@ namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
 public class ParamModelRepository : IParamModelRepository
 {
-    private readonly DbContext _dbContext;
-    private readonly DbSet<ParamModel> _params;
+    private readonly SimuladorDbContext _dbContext;
 
-    public ParamModelRepository(DbContext dbContext)
+    public ParamModelRepository(SimuladorDbContext dbContext)
     {
         _dbContext = dbContext;
-        _params = dbContext.Set<ParamModel>();
     }
 
     public void Add(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _params.Add(param);
+        _dbContext.Set<ParamModel>().Add(param);
         _dbContext.SaveChanges();
     }
 
     public List<ParamModel> GetAll()
-        => _params.ToList();
+        => _dbContext.Set<ParamModel>().ToList();
 
     public void Update(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _params.Update(param);
+        _dbContext.Set<ParamModel>().Update(param);
         _dbContext.SaveChanges();
     }
 
     public void Delete(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _params.Remove(param);
+        _dbContext.Set<ParamModel>().Remove(param);
         _dbContext.SaveChanges();
     }
 
