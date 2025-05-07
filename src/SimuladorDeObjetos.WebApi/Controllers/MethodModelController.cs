@@ -54,6 +54,7 @@ public class MethodModelController : ControllerBase
     [HttpPost("simulate")]
     public IActionResult Simulate([FromBody] SimulationRequest req)
     {
-        throw new NotImplementedException();
+        var resp = _service.SimulateMethodExecution(req);
+        return Ok(resp);
     }
 }
