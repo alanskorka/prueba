@@ -77,11 +77,35 @@ public class MethodModelService : IMethodModelService
         var method = _methodRepo.GetById(req.MethodId)
             ?? throw new ArgumentException("Método no encontrado");
 
-        return null;
+        var lines = new List<string>();
+
+        lines.Add($"{req.ConcreteTypeId}.{method.Name}()");
+
+        foreach (var call in _methodRepo.GetMethodCalls(method.Id))
+        {
+            AppendCall(lines, call, 1);
+        }
+
+        return new SimulationResponse { Lines = lines };
     }
 
     private void AppendCall(List<string> outLines, MethodCallModel call, int indentLevel)
     {
-        throw new NotImplementedException();
+        var indent = new string(' ', indentLevel * 2);
+
+        var prefix = call.ReferenceType switch {
+            ReferenceTypeInvocation.This      => "this",
+            ReferenceTypeInvocation.Base      => "base",
+            ReferenceTypeInvocation.Attribute => $"obj_{call.ReferenceName}",
+            ReferenceTypeInvocation.Parameter => $"param_{call.ReferenceName}",
+            ReferenceTypeInvocation.LocalVar  => $"var_{call.ReferenceName}",
+            _ => call.ReferenceType.ToString()
+        };
+        outLines.Add($"{indent}{prefix}.{call.MethodName}()");
+
+        foreach (var nested in _methodRepo.GetMethodCalls(call.Id))
+        {
+            AppendCall(outLines, nested, indentLevel + 1);
+        }
     }
 }
