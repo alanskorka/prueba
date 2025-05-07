@@ -22,7 +22,7 @@ public class ClassModelRepository : IClassModelRepository
 
     public IEnumerable<ClassModel> GetAll()
     {
-        return _dbContext.Set<ClassModel>().Include(c => c.Attributes).ToList();
+        return _dbContext.Set<ClassModel>().Include(c => c.Attributes).Include(c => c.Methods).ToList();
     }
 
     public void Delete(ClassModel model)

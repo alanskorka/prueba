@@ -10,6 +10,7 @@ public class SimuladorDbContext : DbContext
     public DbSet<MethodModel> Methods { get; set; }
     public DbSet<ParamModel> Params { get; set; }
     public DbSet<LocalVarModel> LocalVars { get; set; }
+    public DbSet<MethodCallModel> MethodCalls { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ClassModel>(entity =>
@@ -48,18 +49,6 @@ public class SimuladorDbContext : DbContext
                       .WithMany(c => c.Methods)
                       .HasForeignKey(m => m.ClassId)
                       .OnDelete(DeleteBehavior.Cascade);
-
-                entity.OwnsMany(m => m.MethodsCalled, mcBuilder =>
-                {
-                    mcBuilder.WithOwner()
-                             .HasForeignKey("MethodModelId");
-                    mcBuilder.Property<Guid>("Id");
-                    mcBuilder.HasKey("Id");
-                    mcBuilder.Property(c => c.MethodName)
-                             .IsRequired();
-                    mcBuilder.Property(c => c.ReferenceType)
-                             .IsRequired();
-                });
             });
 
             modelBuilder.Entity<ParamModel>(entity =>
@@ -88,6 +77,18 @@ public class SimuladorDbContext : DbContext
                       .WithMany(m => m.Vars)
                       .HasForeignKey(v => v.MethodId)
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<MethodCallModel>(entity =>
+            {
+                entity.HasKey(c => c.Id);
+                entity.Property(c => c.MethodName).IsRequired();
+                entity.Property(c => c.ReferenceType).IsRequired();
+
+                entity.HasOne<MethodModel>()
+                    .WithMany(m => m.MethodsCalled)
+                    .HasForeignKey(c => c.ParentMethodId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             base.OnModelCreating(modelBuilder);
