@@ -133,4 +133,29 @@ public class MethodModelServiceTest
         _methodRepo!.Verify(r => r.Delete(method), Times.Once);
         _methodRepo!.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void GetByName_ReturnsMethodModel_WhenClassIdAndMethodNameMatch()
+    {
+        var classId = Guid.NewGuid();
+        var methodName = "MyMethod";
+        var methodId = Guid.NewGuid();
+
+        var fakeMethods = new List<MethodModel>
+        {
+            new MethodModel { Id = methodId, ClassId = classId, Name = methodName },
+            new MethodModel { Id = Guid.NewGuid(), ClassId = classId, Name = "OtherMethod" }
+        };
+
+        var repositoryMock = new Mock<IMethodModelRepository>();
+        repositoryMock.Setup(r => r.GetAll()).Returns(fakeMethods);
+
+        var service = new MethodModelService(repositoryMock.Object);
+
+
+        var result = service.GetByName(classId, methodName);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(methodId, result.Id);
+    }
 }
