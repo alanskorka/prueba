@@ -1,4 +1,6 @@
 using Domain.Entities;
+using Domain.Enums;
+using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
@@ -68,5 +70,15 @@ public class MethodModelService : IMethodModelService
     {
         return _methodRepo.GetAll()
             .FirstOrDefault(m => m.ClassId == classId && m.Name == methodName);
+    }
+
+    public SimulationResponse SimulateMethodExecution(SimulationRequest req)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void AppendCall(List<string> outLines, MethodCallModel call, int indentLevel)
+    {
+        throw new NotImplementedException();
     }
 }

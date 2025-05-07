@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Moq;
+using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
@@ -158,5 +159,21 @@ public class MethodModelServiceTest
 
         Assert.IsNotNull(result);
         Assert.AreEqual(methodId, result.Id);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentException))]
+    public void SimulateMethodExecution_ShouldThrow_WhenMethodNotFound()
+    {
+        _methodRepo.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((MethodModel?)null);
+
+        var req = new SimulationRequest
+        {
+            ReferenceTypeId = Guid.NewGuid(),
+            ConcreteTypeId = Guid.NewGuid(),
+            MethodId = Guid.NewGuid()
+        };
+
+        _service.SimulateMethodExecution(req);
     }
 }

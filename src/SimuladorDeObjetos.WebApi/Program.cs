@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,16 @@ if(string.IsNullOrEmpty(connectionString))
 {
     throw new Exception("Missing connection string");
 }
+
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter(
+                JsonNamingPolicy.CamelCase,
+                allowIntegerValues: false));
+    });
 
 services.AddDbContext<DbContext, SimuladorDbContext>(options => options.UseSqlServer(connectionString));
 

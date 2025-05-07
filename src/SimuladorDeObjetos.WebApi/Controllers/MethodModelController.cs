@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
 
 namespace SimuladorDeObjetos.WebApi.Controllers;

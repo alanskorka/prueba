@@ -43,4 +43,12 @@ public class MethodModelRepository : IMethodModelRepository
     {
         _dbContext.SaveChanges();
     }
+
+    public MethodModel? GetById(Guid id)
+        => _dbContext.Set<MethodModel>().Include(m => m.MethodsCalled).FirstOrDefault(m => m.Id == id);
+
+    public IEnumerable<MethodCallModel> GetMethodCalls(Guid methodId)
+        => _dbContext.Set<MethodCallModel>()
+            .Where(c => c.ParentMethodId == methodId)
+            .ToList();
 }
