@@ -74,7 +74,10 @@ public class MethodModelService : IMethodModelService
 
     public SimulationResponse SimulateMethodExecution(SimulationRequest req)
     {
-        throw new NotImplementedException();
+        var method = _methodRepo.GetById(req.MethodId)
+            ?? throw new ArgumentException("Método no encontrado");
+
+        return null;
     }
 
     private void AppendCall(List<string> outLines, MethodCallModel call, int indentLevel)
