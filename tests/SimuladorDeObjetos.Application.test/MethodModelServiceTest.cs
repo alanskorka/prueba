@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
@@ -176,4 +177,82 @@ public class MethodModelServiceTest
 
         _service.SimulateMethodExecution(req);
     }
+
+    [TestMethod]
+        public void SimulateMethodExecution_ShouldReturnOnlyInitialLine_IfNoCalls()
+        {
+            var methodId = Guid.NewGuid();
+            var method = new MethodModel { Id = methodId, Name = "DoWork" };
+
+            _methodRepo.Setup(r => r.GetById(methodId)).Returns(method);
+            _methodRepo.Setup(r => r.GetMethodCalls(methodId)).Returns(new List<MethodCallModel>());
+
+            var req = new SimulationRequest
+            {
+                ReferenceTypeId = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                ConcreteTypeId = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
+                MethodId = methodId
+            };
+
+            var resp = _service.SimulateMethodExecution(req);
+
+            Assert.AreEqual(1, resp.Lines.Count);
+            Assert.AreEqual(
+                "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb.DoWork()",
+                resp.Lines[0]);
+        }
+
+        [TestMethod]
+        public void SimulateMethodExecution_ShouldIndentCalls_Correctly()
+        {
+            var methodId = Guid.NewGuid();
+            var method = new MethodModel { Id = methodId, Name = "Main" };
+
+            var call1 = new MethodCallModel
+            {
+                Id = Guid.NewGuid(),
+                MethodName = "Step1",
+                ReferenceType = ReferenceTypeInvocation.This,
+                ReferenceName = null
+            };
+            var call2 = new MethodCallModel
+            {
+                Id = Guid.NewGuid(),
+                MethodName = "Step2",
+                ReferenceType = ReferenceTypeInvocation.Attribute,
+                ReferenceName = "repo"
+            };
+            var nested = new MethodCallModel
+            {
+                Id = Guid.NewGuid(),
+                MethodName = "Nested",
+                ReferenceType = ReferenceTypeInvocation.Base,
+                ReferenceName = null
+            };
+
+            _methodRepo.Setup(r => r.GetById(methodId)).Returns(method);
+            _methodRepo.Setup(r => r.GetMethodCalls(methodId))
+                       .Returns(new List<MethodCallModel> { call1, call2 });
+            _methodRepo.Setup(r => r.GetMethodCalls(call1.Id)).Returns(new List<MethodCallModel>());
+            _methodRepo.Setup(r => r.GetMethodCalls(call2.Id)).Returns(new List<MethodCallModel> { nested });
+            _methodRepo.Setup(r => r.GetMethodCalls(nested.Id)).Returns(new List<MethodCallModel>());
+
+            var req = new SimulationRequest
+            {
+                ReferenceTypeId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                ConcreteTypeId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                MethodId = methodId
+            };
+
+            var resp = _service.SimulateMethodExecution(req);
+
+            var expected = new[]
+            {
+                "22222222-2222-2222-2222-222222222222.Main()",
+                "  this.Step1()",
+                "  obj_repo.Step2()",
+                "    base.Nested()"
+            };
+            CollectionAssert.AreEqual(expected, resp.Lines);
+        }
 }
