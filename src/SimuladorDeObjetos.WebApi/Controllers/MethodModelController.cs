@@ -50,4 +50,10 @@ public class MethodModelController : ControllerBase
         _service.AddMethodToClass(classId, method);
         return Ok();
     }
+
+    [HttpPost("simulate")]
+    public IActionResult Simulate([FromBody] SimulationRequest req)
+    {
+        throw new NotImplementedException();
+    }
 }

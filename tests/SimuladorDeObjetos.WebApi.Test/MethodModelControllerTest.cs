@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.WebApi.Controllers;
 
@@ -78,5 +79,33 @@ public class MethodModelControllerTest
         var result = _controller!.AddToClass(classId, method);
         _mockService!.Verify(s => s.AddMethodToClass(classId, method), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
+
+    [TestMethod]
+    public void Simulate_ShouldReturnOkWithSimulationResponse()
+    {
+        var req = new SimulationRequest
+        {
+            ReferenceTypeId = Guid.NewGuid(),
+            ConcreteTypeId = Guid.NewGuid(),
+            MethodId = Guid.NewGuid()
+        };
+        var expectedResponse = new SimulationResponse
+        {
+            Lines = new List<string>
+            {
+                "SomeClass.SomeMethod()",
+                "  this.SubCall()"
+            }
+        };
+        _mockService!
+            .Setup(s => s.SimulateMethodExecution(req))
+            .Returns(expectedResponse);
+
+        var actionResult = _controller!.Simulate(req) as OkObjectResult;
+
+        Assert.IsNotNull(actionResult, "Debe devolver OkObjectResult");
+        Assert.AreSame(expectedResponse, actionResult!.Value, "El valor devuelto debe ser el SimulationResponse del servicio");
+        _mockService.Verify(s => s.SimulateMethodExecution(req), Times.Once);
     }
 }
