@@ -76,4 +76,28 @@ public class ClassModelServiceTest
 
         _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
     }
+
+    [TestMethod]
+    public void GetByName_ReturnsClassModel_WhenNameExists()
+    {
+        var className = "MyClass";
+        var classId = Guid.NewGuid();
+
+        var fakeClasses = new List<ClassModel>
+        {
+            new ClassModel { Id = classId, Name = className },
+            new ClassModel { Id = Guid.NewGuid(), Name = "OtherClass" }
+        };
+
+        var repositoryMock = new Mock<IClassModelRepository>();
+        repositoryMock.Setup(r => r.GetAll()).Returns(fakeClasses);
+
+        var service = new ClassModelService(repositoryMock.Object);
+
+        var result = service.GetByName(className);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(classId, result.Id);
+    }
+
 }
