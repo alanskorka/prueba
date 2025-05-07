@@ -38,4 +38,9 @@ public class ClassModelService : IClassModelService
     {
         _repository.SaveChanges();
     }
+
+    public ClassModel? GetByName(string name)
+    {
+        return _repository.GetAll().FirstOrDefault(c => c.Name == name);
+    }
 }

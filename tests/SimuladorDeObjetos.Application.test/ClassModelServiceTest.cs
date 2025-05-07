@@ -99,5 +99,4 @@ public class ClassModelServiceTest
         Assert.IsNotNull(result);
         Assert.AreEqual(classId, result.Id);
     }
-
 }

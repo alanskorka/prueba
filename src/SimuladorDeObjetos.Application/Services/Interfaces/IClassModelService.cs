@@ -9,4 +9,5 @@ public interface IClassModelService
     void Delete(ClassModel model);
     void Update(ClassModel model);
     void SaveChanges();
+    ClassModel? GetByName(string name);
 }
