@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
+      <Compile Remove="Migrations\20250507233020_NewAttributesMethodCallModel.cs" />
+      <Compile Remove="Migrations\20250507233020_NewAttributesMethodCallModel.Designer.cs" />
     </ItemGroup>
 
     <ItemGroup>
