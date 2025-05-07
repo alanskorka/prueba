@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
+      <change afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/SimulationRequestDtoTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/MethodModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/MethodModelRepositoryTest.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -188,7 +194,7 @@
       <workItem from="1746303542295" duration="358000" />
       <workItem from="1746380564429" duration="1956000" />
       <workItem from="1746536420465" duration="8384000" />
-      <workItem from="1746639781188" duration="5567000" />
+      <workItem from="1746639781188" duration="6637000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
@@ -560,73 +566,30 @@
     <option name="coveragePercentColumnWidth" value="150" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="460" />
+    <option name="symbolColumnWidth" value="465" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Infrastructure 99% 2/143" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 99% 1/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Infrastructure 99% 2/143" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Infrastructure.Repositories 99% 2/143" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.WebApi 97% 4/128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.WebApi 97% 4/128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.WebApi.Controllers 97% 4/128" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="DTOs 91% 9/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 93% 46/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 85% 40/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="DTOs 91% 9/95" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Api 0% 9/9" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 1/619" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 99% 1/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 99% 1/271" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

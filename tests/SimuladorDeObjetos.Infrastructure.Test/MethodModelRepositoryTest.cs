@@ -132,4 +132,63 @@ namespace SimuladorDeObjetos.Infrastructure.Test;
 
             _mockContext.Verify(c => c.SaveChanges(), Times.Once);
         }
+
+         [TestMethod]
+        public void GetById_ShouldReturnMethod_WhenExists()
+        {
+            var result = _repo.GetById(_method.Id);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(_method.Id, result!.Id);
+            Assert.AreEqual("TestMethod", result.Name);
+        }
+
+        [TestMethod]
+        public void GetById_ShouldReturnNull_WhenNotExists()
+        {
+            var result = _repo.GetById(Guid.NewGuid());
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetMethodCalls_ShouldReturnOnlyMatchingCalls()
+        {
+            var calls = new List<MethodCallModel>
+            {
+                new MethodCallModel { Id = Guid.NewGuid(), ParentMethodId = _method.Id, MethodName = "Call1", ReferenceType = ReferenceTypeInvocation.This },
+                new MethodCallModel { Id = Guid.NewGuid(), ParentMethodId = Guid.NewGuid(), MethodName = "Other", ReferenceType = ReferenceTypeInvocation.Base }
+            }.AsQueryable();
+
+            var mockCallSet = new Mock<DbSet<MethodCallModel>>();
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.Provider).Returns(calls.Provider);
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.Expression).Returns(calls.Expression);
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.ElementType).Returns(calls.ElementType);
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.GetEnumerator()).Returns(() => calls.GetEnumerator());
+
+            _mockContext.Setup(c => c.Set<MethodCallModel>()).Returns(mockCallSet.Object);
+            var result = _repo.GetMethodCalls(_method.Id).ToList();
+
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("Call1", result[0].MethodName);
+        }
+
+        [TestMethod]
+        public void GetMethodCalls_ShouldReturnEmpty_WhenNoMatchingCalls()
+        {
+            var calls = new List<MethodCallModel>
+            {
+                new MethodCallModel { Id = Guid.NewGuid(), ParentMethodId = Guid.NewGuid(), MethodName = "Other", ReferenceType = ReferenceTypeInvocation.This }
+            }.AsQueryable();
+
+            var mockCallSet = new Mock<DbSet<MethodCallModel>>();
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.Provider).Returns(calls.Provider);
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.Expression).Returns(calls.Expression);
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.ElementType).Returns(calls.ElementType);
+            mockCallSet.As<IQueryable<MethodCallModel>>().Setup(m => m.GetEnumerator()).Returns(() => calls.GetEnumerator());
+
+            _mockContext.Setup(c => c.Set<MethodCallModel>()).Returns(mockCallSet.Object);
+
+            var result = _repo.GetMethodCalls(_method.Id);
+
+            Assert.IsFalse(result.Any());
+        }
     }

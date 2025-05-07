@@ -94,11 +94,11 @@ public class MethodModelService : IMethodModelService
         var indent = new string(' ', indentLevel * 2);
 
         var prefix = call.ReferenceType switch {
-            ReferenceTypeInvocation.This      => "this",
-            ReferenceTypeInvocation.Base      => "base",
+            ReferenceTypeInvocation.This => "this",
+            ReferenceTypeInvocation.Base => "base",
             ReferenceTypeInvocation.Attribute => $"obj_{call.ReferenceName}",
             ReferenceTypeInvocation.Parameter => $"param_{call.ReferenceName}",
-            ReferenceTypeInvocation.LocalVar  => $"var_{call.ReferenceName}",
+            ReferenceTypeInvocation.LocalVar => $"var_{call.ReferenceName}",
             _ => call.ReferenceType.ToString()
         };
         outLines.Add($"{indent}{prefix}.{call.MethodName}()");

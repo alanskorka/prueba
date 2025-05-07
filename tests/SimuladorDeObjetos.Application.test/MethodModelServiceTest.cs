@@ -254,4 +254,91 @@ public class MethodModelServiceTest
             };
             CollectionAssert.AreEqual(expected, resp.Lines);
         }
+
+        [TestMethod]
+        public void SimulateMethodExecution_ShouldHandleParameterAndLocalVarPrefixes()
+        {
+            var methodId = Guid.NewGuid();
+            var method = new MethodModel { Id = methodId, Name = "Run" };
+
+            var callParam = new MethodCallModel
+            {
+                Id = Guid.NewGuid(),
+                MethodName = "DoParam",
+                ReferenceType = ReferenceTypeInvocation.Parameter,
+                ReferenceName = "input"
+            };
+            var callLocal = new MethodCallModel
+            {
+                Id = Guid.NewGuid(),
+                MethodName = "DoLocal",
+                ReferenceType = ReferenceTypeInvocation.LocalVar,
+                ReferenceName = "tmp"
+            };
+
+            _methodRepo!
+                .Setup(r => r.GetById(methodId))
+                .Returns(method);
+
+            _methodRepo!
+                .Setup(r => r.GetMethodCalls(methodId))
+                .Returns(new List<MethodCallModel> { callParam, callLocal });
+
+            _methodRepo!
+                .Setup(r => r.GetMethodCalls(callParam.Id))
+                .Returns(new List<MethodCallModel>());
+            _methodRepo!
+                .Setup(r => r.GetMethodCalls(callLocal.Id))
+                .Returns(new List<MethodCallModel>());
+
+            var req = new SimulationRequest
+            {
+                ReferenceTypeId = Guid.NewGuid(),            // no se usa en la salida
+                ConcreteTypeId = Guid.Parse("33333333-3333-3333-3333-333333333333"),
+                MethodId = methodId
+            };
+            var resp = _service!.SimulateMethodExecution(req);
+            var expected = new[]
+            {
+                "33333333-3333-3333-3333-333333333333.Run()",
+                "  param_input.DoParam()",
+                "  var_tmp.DoLocal()"
+            };
+            CollectionAssert.AreEqual(expected, resp.Lines);
+        }
+
+        [TestMethod]
+        public void SimulateMethodExecution_ShouldUseDefaultPrefix_ForUnknownReferenceType()
+        {
+            var methodId = Guid.NewGuid();
+            var method = new MethodModel { Id = methodId, Name = "UnknownTest" };
+            var unknownRef = (ReferenceTypeInvocation)999;
+
+            var call = new MethodCallModel
+            {
+                Id = Guid.NewGuid(),
+                MethodName = "Mystery",
+                ReferenceType = unknownRef,
+                ReferenceName = null
+            };
+
+            _methodRepo!.Setup(r => r.GetById(methodId)).Returns(method);
+            _methodRepo.Setup(r => r.GetMethodCalls(methodId))
+                .Returns(new List<MethodCallModel> { call });
+            _methodRepo.Setup(r => r.GetMethodCalls(call.Id))
+                .Returns(new List<MethodCallModel>());
+
+            var req = new SimulationRequest
+            {
+                ReferenceTypeId = Guid.Empty,
+                ConcreteTypeId  = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                MethodId        = methodId
+            };
+
+            var resp = _service!.SimulateMethodExecution(req);
+
+            Assert.AreEqual("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa.UnknownTest()", resp.Lines[0]);
+
+            Assert.AreEqual("  999.Mystery()", resp.Lines[1]);
+        }
 }
