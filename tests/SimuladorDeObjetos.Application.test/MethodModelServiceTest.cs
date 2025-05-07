@@ -147,11 +147,12 @@ public class MethodModelServiceTest
             new MethodModel { Id = Guid.NewGuid(), ClassId = classId, Name = "OtherMethod" }
         };
 
-        var repositoryMock = new Mock<IMethodModelRepository>();
-        repositoryMock.Setup(r => r.GetAll()).Returns(fakeMethods);
+        var methodRepoMock = new Mock<IMethodModelRepository>();
+        var classRepoMock = new Mock<IClassModelRepository>();
 
-        var service = new MethodModelService(repositoryMock.Object);
+        methodRepoMock.Setup(r => r.GetAll()).Returns(fakeMethods);
 
+        var service = new MethodModelService(methodRepoMock.Object, classRepoMock.Object);
 
         var result = service.GetByName(classId, methodName);
 

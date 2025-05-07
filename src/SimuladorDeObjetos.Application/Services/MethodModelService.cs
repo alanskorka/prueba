@@ -63,4 +63,10 @@ public class MethodModelService : IMethodModelService
         _classRepo.Update(classModel);
         _classRepo.SaveChanges();
     }
+
+    public MethodModel? GetByName(Guid classId, string methodName)
+    {
+        return _methodRepo.GetAll()
+            .FirstOrDefault(m => m.ClassId == classId && m.Name == methodName);
+    }
 }
