@@ -14,4 +14,5 @@ public class MethodModel
     public List<ParamModel> Params { get; set; } = new();
     public List<LocalVarModel> Vars { get; set; } = new();
     public List<MethodCallModel> MethodsCalled { get; set; } = new();
+    public ClassModel Class { get; set; } = null!;
 }
