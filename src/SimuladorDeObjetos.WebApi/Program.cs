@@ -26,7 +26,7 @@ if(string.IsNullOrEmpty(connectionString))
     throw new Exception("Missing connection string");
 }
 
-builder.Services
+services
     .AddControllers()
     .AddJsonOptions(opts =>
     {
@@ -34,6 +34,12 @@ builder.Services
             new JsonStringEnumConverter(
                 JsonNamingPolicy.CamelCase,
                 allowIntegerValues: false));
+    });
+
+services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
     });
 
 services.AddDbContext<DbContext, SimuladorDbContext>(options => options.UseSqlServer(connectionString));

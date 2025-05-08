@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Domain.Enums;
 
 namespace Domain.Entities;
@@ -13,6 +14,8 @@ public class MethodModel
     public AccessibilityModifier Accessibility { get; set; }
     public List<ParamModel> Params { get; set; } = new();
     public List<LocalVarModel> Vars { get; set; } = new();
-    public List<MethodCallModel> MethodsCalled { get; set; } = new();
-    public ClassModel Class { get; set; } = null!;
+    [JsonIgnore]
+    public List<MethodCallModel>? MethodsCalled { get; set; } = new();
+    [JsonIgnore]
+    public ClassModel? Class { get; set; } = null!;
 }

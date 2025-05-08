@@ -10,4 +10,5 @@ public class MethodCallDto
     public Guid ParentMethodId { get; set; }
     public string? ReferenceName { get; set; }
     public MethodModel ParentMethod { get; set; } = null!;
+    public Guid? ParentCallId { get; set; }
 }

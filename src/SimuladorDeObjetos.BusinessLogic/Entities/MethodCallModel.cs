@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using System.Text.Json.Serialization;
+using Domain.Enums;
 
 namespace Domain.Entities;
 
@@ -9,5 +10,7 @@ public class MethodCallModel
     public ReferenceTypeInvocation ReferenceType { get; set; }
     public Guid ParentMethodId { get; set; }
     public string? ReferenceName { get; set; }
-    public MethodModel ParentMethod { get; set; } = null!;
+    [JsonIgnore]
+    public MethodModel? ParentMethod { get; set; } = null!;
+    public Guid? ParentCallId { get; set; }
 }
