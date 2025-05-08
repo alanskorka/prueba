@@ -88,7 +88,9 @@ public class MethodModelService : IMethodModelService
     public SimulationResponse SimulateMethodExecution(SimulationRequest req)
     {
         var method = _methodRepo.GetById(req.MethodId) ?? throw new ArgumentException("Método no encontrado");
-        var lines = new List<string> { $"{req.ConcreteTypeId}.{method.Name}()" };
+        var classModel = _classRepo.GetById(method.ClassId);
+        var className = classModel?.Name ?? req.ConcreteTypeId.ToString();
+        var lines = new List<string> { $"{className}.{method.Name}()" };
 
         foreach (var call in _methodRepo.GetMethodCalls(method.Id))
         {
