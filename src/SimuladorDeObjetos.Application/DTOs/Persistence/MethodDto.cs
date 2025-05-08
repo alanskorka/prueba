@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Domain.Enums;
 
 namespace SimuladorDeObjetos.Application.DTOs;
@@ -11,8 +12,8 @@ public class MethodDto
     public bool IsAbstract { get; set; }
     public bool IsSealed { get; set; }
     public AccessibilityModifier Accessibility { get; set; }
-
-    public List<ParamDto> Params { get; set; } = new();
-    public List<LocalVarDto> Vars { get; set; } = new();
-    public List<MethodCallDto> MethodsCalled { get; set; } = new();
+    public List<ParamModel> Params { get; set; } = new();
+    public List<LocalVarModel> Vars { get; set; } = new();
+    public List<MethodCallModel> MethodsCalled { get; set; } = new();
+    public ClassModel Class { get; set; } = null!;
 }

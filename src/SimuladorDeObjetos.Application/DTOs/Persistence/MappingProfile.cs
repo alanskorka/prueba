@@ -13,6 +13,12 @@ public class MappingProfile : Profile
         CreateMap<LocalVarDto, LocalVarModel>().ReverseMap();
         CreateMap<MethodCallDto, MethodCallModel>().ReverseMap();
         CreateMap<MethodDto, MethodModel>().ReverseMap();
-        CreateMap<ClassDto, ClassModel>().ReverseMap();
+
+        CreateMap<ClassDto, ClassModel>()
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
+            .ForMember(dest => dest.Methods, opt => opt.MapFrom(src => src.Methods))
+            .ReverseMap()
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
+            .ForMember(dest => dest.Methods, opt => opt.MapFrom(src => src.Methods));
     }
 }

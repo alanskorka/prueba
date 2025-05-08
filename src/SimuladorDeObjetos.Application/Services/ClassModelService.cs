@@ -42,6 +42,7 @@ public class ClassModelService : IClassModelService
     {
         ArgumentNullException.ThrowIfNull(model);
         _repo.Update(model);
+        _repo.SaveChanges();
     }
 
     public void SaveChanges() => _repo.SaveChanges();
