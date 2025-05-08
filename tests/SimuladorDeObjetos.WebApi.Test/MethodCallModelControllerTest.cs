@@ -70,4 +70,73 @@ public class MethodCallModelControllerTest
         _mockService.Verify(s => s.Delete(methodCall), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Create_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("MethodName", "Required");
+        var model = new MethodCallModel();
+
+        var result = _controller.Create(model);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void Update_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("MethodName", "Required");
+        var model = new MethodCallModel();
+
+        var result = _controller.Update(model);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnProblem_WhenServiceThrows()
+    {
+        _mockService!.Setup(s => s.GetAll()).Throws(new Exception("fail"));
+
+        var result = _controller!.GetAll();
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Create_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var model = new MethodCallModel { MethodName = "Throw", ReferenceType = ReferenceTypeInvocation.LocalVar };
+        _mockService!.Setup(s => s.Create(model)).Throws(new Exception("fail"));
+
+        var result = _controller!.Create(model);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Update_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var model = new MethodCallModel { MethodName = "Throw", ReferenceType = ReferenceTypeInvocation.Base };
+        _mockService!.Setup(s => s.Update(model)).Throws(new Exception("fail"));
+
+        var result = _controller!.Update(model);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var model = new MethodCallModel { MethodName = "Throw", ReferenceType = ReferenceTypeInvocation.Base };
+        _mockService!.Setup(s => s.Delete(model)).Throws(new Exception("fail"));
+
+        var result = _controller!.Delete(model);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
 }
