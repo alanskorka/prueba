@@ -1,0 +1,6 @@
+@SimuladorDeObjetos.WebApi_HostAddress = http://localhost:5038
+
+GET {{SimuladorDeObjetos.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
