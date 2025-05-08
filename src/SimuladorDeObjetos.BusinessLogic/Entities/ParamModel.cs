@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Domain.Entities;
 
 public class ParamModel
 {
@@ -6,4 +8,6 @@ public class ParamModel
     public string? Name { get; set; }
     public string? Type { get; set; }
     public Guid MethodId { get; set; }
+    [JsonIgnore]
+    public MethodModel? Method { get; set; } = null!;
 }

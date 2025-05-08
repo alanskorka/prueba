@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.WebApi.Controllers;
 
@@ -78,5 +79,157 @@ public class MethodModelControllerTest
         var result = _controller!.AddToClass(classId, method);
         _mockService!.Verify(s => s.AddMethodToClass(classId, method), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
+
+    [TestMethod]
+    public void Simulate_ShouldReturnOkWithSimulationResponse()
+    {
+        var req = new SimulationRequest
+        {
+            ReferenceTypeId = Guid.NewGuid(),
+            ConcreteTypeId = Guid.NewGuid(),
+            MethodId = Guid.NewGuid()
+        };
+        var expectedResponse = new SimulationResponse
+        {
+            Lines = new List<string>
+            {
+                "SomeClass.SomeMethod()",
+                "  this.SubCall()"
+            }
+        };
+        _mockService!
+            .Setup(s => s.SimulateMethodExecution(req))
+            .Returns(expectedResponse);
+
+        var actionResult = _controller!.Simulate(req) as OkObjectResult;
+
+        Assert.IsNotNull(actionResult, "Debe devolver OkObjectResult");
+        Assert.AreSame(expectedResponse, actionResult!.Value, "El valor devuelto debe ser el SimulationResponse del servicio");
+        _mockService.Verify(s => s.SimulateMethodExecution(req), Times.Once);
+    }
+
+    [TestMethod]
+    public void Add_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("Name", "Required");
+        var method = new MethodModel();
+
+        var result = _controller.Add(method);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void Update_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("Name", "Required");
+        var method = new MethodModel();
+
+        var result = _controller.Update(method);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void Add_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var method = new MethodModel { Name = "fail" };
+        _mockService!.Setup(s => s.Add(method)).Throws(new Exception("fail"));
+
+        var result = _controller!.Add(method);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Update_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var method = new MethodModel { Name = "fail" };
+        _mockService!.Setup(s => s.Update(method)).Throws(new Exception("fail"));
+
+        var result = _controller!.Update(method);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var method = new MethodModel { Name = "fail" };
+        _mockService!.Setup(s => s.Delete(method)).Throws(new Exception("fail"));
+
+        var result = _controller!.Delete(method);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void AddToClass_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var method = new MethodModel { Name = "fail" };
+        var classId = Guid.NewGuid();
+        _mockService!.Setup(s => s.AddMethodToClass(classId, method)).Throws(new Exception("fail"));
+
+        var result = _controller!.AddToClass(classId, method);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Simulate_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var req = new SimulationRequest
+        {
+            ReferenceTypeId = Guid.NewGuid(),
+            ConcreteTypeId = Guid.NewGuid(),
+            MethodId = Guid.NewGuid()
+        };
+
+        _mockService!.Setup(s => s.SimulateMethodExecution(req)).Throws(new Exception("fail"));
+
+        var result = _controller!.Simulate(req);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnProblem_WhenServiceThrows()
+    {
+        _mockService!.Setup(s => s.GetAll()).Throws(new Exception("fail"));
+
+        var result = _controller!.GetAll();
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void AddToClass_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("Name", "Required");
+        var method = new MethodModel();
+        var classId = Guid.NewGuid();
+
+        var result = _controller!.AddToClass(classId, method);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void Simulate_ShouldReturnBadRequest_WhenModelStateIsInvalid()
+    {
+        _controller!.ModelState.AddModelError("MethodId", "Required");
+
+        var req = new SimulationRequest();
+
+        var result = _controller.Simulate(req);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
     }
 }

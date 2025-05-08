@@ -5,127 +5,107 @@ using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.Infrastructure.Repositories;
-using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
-    [TestClass]
-    public class AtributteModelRepositoryTest
+[TestClass]
+public class AtributteModelRepositoryTest
+{
+    private SimuladorDbContext _context = null!;
+    private AtributteModelRepository _repo = null!;
+    private AttributeModel _attribute = null!;
+
+    [TestInitialize]
+    public void Setup()
     {
-        private AttributeModel _attribute = null!;
-        private IQueryable<AttributeModel> _data = null!;
-        private Mock<DbSet<AttributeModel>> _mockSet = null!;
-        private Mock<SimuladorDbContext> _mockContext = null!;
-        private AtributteModelRepository _repo = null!;
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique DB per test
+            .Options;
 
-        [TestInitialize]
-        public void Setup()
+        _context = new SimuladorDbContext(options);
+        _repo = new AtributteModelRepository(_context);
+
+        _attribute = new AttributeModel
         {
-            _attribute = new AttributeModel
-            {
-                Id = Guid.NewGuid(),
-                Name = "TestAttribute",
-                Type = "string",
-                ClassId = Guid.NewGuid(),
-                Accessibility = AccessibilityModifier.Public
-            };
-
-            _data = new List<AttributeModel> { _attribute }.AsQueryable();
-
-            _mockSet = new Mock<DbSet<AttributeModel>>();
-            _mockSet.As<IQueryable<AttributeModel>>().Setup(m => m.Provider).Returns(_data.Provider);
-            _mockSet.As<IQueryable<AttributeModel>>().Setup(m => m.Expression).Returns(_data.Expression);
-            _mockSet.As<IQueryable<AttributeModel>>().Setup(m => m.ElementType).Returns(_data.ElementType);
-            _mockSet.As<IQueryable<AttributeModel>>().Setup(m => m.GetEnumerator()).Returns(() => _data.GetEnumerator());
-
-            var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-                .UseInMemoryDatabase("TestDb").Options;
-            _mockContext = new Mock<SimuladorDbContext>(options);
-
-            _mockContext
-                .Setup(c => c.Set<AttributeModel>())
-                .Returns(_mockSet.Object);
-
-            _repo = new AtributteModelRepository(_mockContext.Object);
-        }
-
-        [TestMethod]
-        public void Add_ShouldCallAddAndSaveChanges()
-        {
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-
-            _repo.Add(_attribute);
-
-            _mockSet.Verify(s => s.Add(_attribute), Times.Once);
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Add_ShouldThrow_WhenAttributeIsNull()
-        {
-            _repo.Add(null!);
-        }
-
-        [TestMethod]
-        public void GetAll_ShouldReturnAllAttributes()
-        {
-            var result = _repo.GetAll();
-            CollectionAssert.AreEqual(_data.ToList(), result);
-        }
-
-        [TestMethod]
-        public void Update_ShouldCallUpdateAndSaveChanges()
-        {
-            var updated = new AttributeModel
-            {
-                Id = _attribute.Id,
-                Name = "Updated",
-                Type = "int",
-                ClassId = _attribute.ClassId,
-                Accessibility = AccessibilityModifier.Private
-            };
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-
-            _repo.Update(updated);
-
-            _mockSet.Verify(s => s.Update(updated), Times.Once);
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Update_ShouldThrow_WhenAttributeIsNull()
-        {
-            _repo.Update(null!);
-        }
-
-        [TestMethod]
-        public void Delete_ShouldCallRemoveAndSaveChanges()
-        {
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-
-            _repo.Delete(_attribute);
-
-            _mockSet.Verify(s => s.Remove(_attribute), Times.Once);
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Delete_ShouldThrow_WhenAttributeIsNull()
-        {
-            _repo.Delete(null!);
-        }
-
-        [TestMethod]
-        public void SaveChanges_ShouldCallContextSaveChanges()
-        {
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-            _repo.SaveChanges();
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
+            Id = Guid.NewGuid(),
+            Name = "TestAttr",
+            Type = "string",
+            ClassId = Guid.NewGuid(),
+            Accessibility = AccessibilityModifier.Public
+        };
     }
+
+    [TestMethod]
+    public void Add_ShouldAddAttribute()
+    {
+        _repo.Add(_attribute);
+        var result = _context.Attributes.FirstOrDefault(a => a.Id == _attribute.Id);
+        Assert.IsNotNull(result);
+        Assert.AreEqual("TestAttr", result.Name);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Add_ShouldThrow_WhenNull()
+    {
+        _repo.Add(null!);
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAll()
+    {
+        _context.Attributes.Add(_attribute);
+        _context.SaveChanges();
+
+        var result = _repo.GetAll();
+        Assert.AreEqual(1, result.Count);
+        Assert.AreEqual(_attribute.Name, result[0].Name);
+    }
+
+    [TestMethod]
+    public void Update_ShouldUpdateAttribute()
+    {
+        _context.Attributes.Add(_attribute);
+        _context.SaveChanges();
+
+        _attribute.Name = "Updated";
+        _repo.Update(_attribute);
+
+        var updated = _context.Attributes.First();
+        Assert.AreEqual("Updated", updated.Name);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Update_ShouldThrow_WhenNull()
+    {
+        _repo.Update(null!);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldDeleteAttribute()
+    {
+        _context.Attributes.Add(_attribute);
+        _context.SaveChanges();
+
+        _repo.Delete(_attribute);
+        Assert.AreEqual(0, _context.Attributes.Count());
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenNull()
+    {
+        _repo.Delete(null!);
+    }
+
+    [TestMethod]
+    public void SaveChanges_ShouldCallContextSaveChanges()
+    {
+        _context.Attributes.Add(_attribute);
+        _repo.SaveChanges();
+        Assert.AreEqual(1, _context.Attributes.Count());
+    }
+}

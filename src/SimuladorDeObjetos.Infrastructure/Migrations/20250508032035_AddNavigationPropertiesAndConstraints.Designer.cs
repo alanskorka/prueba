@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimuladorDeObjetos.Infrastructure;
 
@@ -11,9 +12,11 @@ using SimuladorDeObjetos.Infrastructure;
 namespace SimuladorDeObjetos.Infrastructure.Migrations
 {
     [DbContext(typeof(SimuladorDbContext))]
-    partial class SimuladorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250508032035_AddNavigationPropertiesAndConstraints")]
+    partial class AddNavigationPropertiesAndConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,9 +117,6 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid?>("ParentCallId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ParentMethodId")
                         .HasColumnType("uniqueidentifier");

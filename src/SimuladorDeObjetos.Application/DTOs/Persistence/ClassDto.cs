@@ -1,3 +1,5 @@
+using Domain.Entities;
+
 namespace SimuladorDeObjetos.Application.DTOs;
 
 public class ClassDto
@@ -8,6 +10,7 @@ public class ClassDto
     public Guid? BaseClassId { get; set; }
     public bool IsSealed { get; set; }
 
-    public List<AttributeDto> Attributes { get; set; } = new();
-    public List<MethodDto> Methods { get; set; } = new();
+    public List<AttributeModel> Attributes { get; set; } = new List<AttributeModel>();
+    public List<MethodModel> Methods { get; set; } = new List<MethodModel>();
+    public ClassModel? BaseClass { get; set; }
 }

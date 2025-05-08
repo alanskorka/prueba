@@ -69,4 +69,73 @@ public class LocalVarModelControllerTest
         _mockService!.Verify(s => s.Delete(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
+
+    [TestMethod]
+    public void Add_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("Name", "Required");
+        var model = new LocalVarModel();
+
+        var result = _controller.Add(model);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void Update_ShouldReturnBadRequest_WhenModelStateInvalid()
+    {
+        _controller!.ModelState.AddModelError("Name", "Required");
+        var model = new LocalVarModel();
+
+        var result = _controller.Update(model);
+
+        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnProblem_WhenServiceThrows()
+    {
+        _mockService!.Setup(s => s.GetAll()).Throws(new Exception("fail"));
+
+        var result = _controller!.GetAll();
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Add_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var model = new LocalVarModel { Name = "X" };
+        _mockService!.Setup(s => s.Add(model)).Throws(new Exception("fail"));
+
+        var result = _controller!.Add(model);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var model = new LocalVarModel { Name = "X" };
+        _mockService!.Setup(s => s.Delete(model)).Throws(new Exception("fail"));
+
+        var result = _controller!.Delete(model);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
+
+    [TestMethod]
+    public void Update_ShouldReturnProblem_WhenServiceThrows()
+    {
+        var model = new LocalVarModel { Name = "X" };
+        _mockService!.Setup(s => s.Update(model)).Throws(new Exception("fail"));
+
+        var result = _controller!.Update(model);
+
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
+    }
 }

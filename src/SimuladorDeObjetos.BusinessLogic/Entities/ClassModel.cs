@@ -13,4 +13,5 @@ namespace Domain.Entities;
 
         public List<AttributeModel> Attributes { get; set; } = new List<AttributeModel>();
         public List<MethodModel> Methods { get; set; } = new List<MethodModel>();
+        public ClassModel? BaseClass { get; set; }
     }

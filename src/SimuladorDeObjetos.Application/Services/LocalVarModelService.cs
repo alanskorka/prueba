@@ -6,33 +6,42 @@ namespace SimuladorDeObjetos.Application;
 
 public class LocalVarModelService : ILocalVarModelService
 {
-    private readonly ILocalVarModelRepository _repository;
+    private readonly ILocalVarModelRepository _repo;
+    private readonly IMethodModelRepository _methodRepo; // VALIDACIÓN
 
-    public LocalVarModelService(ILocalVarModelRepository repository)
+    public LocalVarModelService(ILocalVarModelRepository repo, IMethodModelRepository methodRepo)
     {
-        _repository = repository;
+        _repo = repo;
+        _methodRepo = methodRepo;
     }
 
-    public IEnumerable<LocalVarModel> GetAll()
-    {
-        return _repository.GetAll();
-    }
+    public IEnumerable<LocalVarModel> GetAll() => _repo.GetAll();
 
     public void Add(LocalVarModel model)
     {
-        _repository.Add(model);
-        _repository.SaveChanges();
+        ArgumentNullException.ThrowIfNull(model);
+        var method = _methodRepo.GetById(model.MethodId) ?? throw new Exception("Método no encontrado");
+
+        if (method.Vars.Any(v => v.Name == model.Name))
+        {
+            throw new InvalidOperationException("Ya existe una variable local con ese nombre en el método.");
+        }
+
+        _repo.Add(model);
+        _repo.SaveChanges();
     }
 
     public void Update(LocalVarModel model)
     {
-        _repository.Update(model);
-        _repository.SaveChanges();
+        ArgumentNullException.ThrowIfNull(model);
+        _repo.Update(model);
+        _repo.SaveChanges();
     }
 
     public void Delete(LocalVarModel model)
     {
-        _repository.Delete(model);
-        _repository.SaveChanges();
+        ArgumentNullException.ThrowIfNull(model);
+        _repo.Delete(model);
+        _repo.SaveChanges();
     }
 }

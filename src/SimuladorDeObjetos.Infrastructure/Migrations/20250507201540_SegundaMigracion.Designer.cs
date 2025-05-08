@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimuladorDeObjetos.Infrastructure;
 
@@ -11,9 +12,11 @@ using SimuladorDeObjetos.Infrastructure;
 namespace SimuladorDeObjetos.Infrastructure.Migrations
 {
     [DbContext(typeof(SimuladorDbContext))]
-    partial class SimuladorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250507201540_SegundaMigracion")]
+    partial class SegundaMigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,13 +39,11 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -68,8 +69,7 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -89,49 +89,17 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MethodId");
 
                     b.ToTable("LocalVars");
-                });
-
-            modelBuilder.Entity("Domain.Entities.MethodCallModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MethodName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid?>("ParentCallId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ParentMethodId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ReferenceName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReferenceType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentMethodId");
-
-                    b.ToTable("MethodCalls");
                 });
 
             modelBuilder.Entity("Domain.Entities.MethodModel", b =>
@@ -154,8 +122,7 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReturnType")
                         .HasColumnType("nvarchar(max)");
@@ -178,13 +145,11 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -195,67 +160,80 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.AttributeModel", b =>
                 {
-                    b.HasOne("Domain.Entities.ClassModel", "Class")
+                    b.HasOne("Domain.Entities.ClassModel", null)
                         .WithMany("Attributes")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Class");
                 });
 
             modelBuilder.Entity("Domain.Entities.ClassModel", b =>
                 {
-                    b.HasOne("Domain.Entities.ClassModel", "BaseClass")
+                    b.HasOne("Domain.Entities.ClassModel", null)
                         .WithMany()
                         .HasForeignKey("BaseClassId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("BaseClass");
                 });
 
             modelBuilder.Entity("Domain.Entities.LocalVarModel", b =>
                 {
-                    b.HasOne("Domain.Entities.MethodModel", "Method")
+                    b.HasOne("Domain.Entities.MethodModel", null)
                         .WithMany("Vars")
                         .HasForeignKey("MethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Method");
-                });
-
-            modelBuilder.Entity("Domain.Entities.MethodCallModel", b =>
-                {
-                    b.HasOne("Domain.Entities.MethodModel", "ParentMethod")
-                        .WithMany("MethodsCalled")
-                        .HasForeignKey("ParentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ParentMethod");
                 });
 
             modelBuilder.Entity("Domain.Entities.MethodModel", b =>
                 {
-                    b.HasOne("Domain.Entities.ClassModel", "Class")
+                    b.HasOne("Domain.Entities.ClassModel", null)
                         .WithMany("Methods")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Class");
+                    b.OwnsMany("Domain.Entities.MethodCallModel", "MethodsCalled", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("MethodModelId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("MethodName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<Guid>("ParentMethodId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("ReferenceName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("ReferenceType")
+                                .HasColumnType("int");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("MethodModelId");
+
+                            b1.ToTable("MethodCallModel");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MethodModelId");
+                        });
+
+                    b.Navigation("MethodsCalled");
                 });
 
             modelBuilder.Entity("Domain.Entities.ParamModel", b =>
                 {
-                    b.HasOne("Domain.Entities.MethodModel", "Method")
+                    b.HasOne("Domain.Entities.MethodModel", null)
                         .WithMany("Params")
                         .HasForeignKey("MethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Method");
                 });
 
             modelBuilder.Entity("Domain.Entities.ClassModel", b =>
@@ -267,8 +245,6 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.MethodModel", b =>
                 {
-                    b.Navigation("MethodsCalled");
-
                     b.Navigation("Params");
 
                     b.Navigation("Vars");

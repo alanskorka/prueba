@@ -9,4 +9,6 @@ public interface IMethodModelRepository
     void Delete(MethodModel method);
     void Update(MethodModel method);
     void SaveChanges();
+    MethodModel? GetById(Guid id);
+    IEnumerable<MethodCallModel> GetMethodCalls(Guid methodId);
 }

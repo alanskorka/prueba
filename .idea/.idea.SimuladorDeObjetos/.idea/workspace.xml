@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +77,9 @@
     ]
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4a1b9ff8477cc216419da943379317dc75fd6a79c84843b7994a975eb73e5bf/ConfigurationValidator.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -101,9 +103,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http.executor": "Run",
+    "2e39f2f0-b7dc-4250-b4b3-5d4574a670c0.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/baseDeDatos",
+    "git-widget-placeholder": "feature/validacionesControllers",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -191,6 +194,8 @@
       <workItem from="1746303542295" duration="358000" />
       <workItem from="1746380564429" duration="1956000" />
       <workItem from="1746536420465" duration="8384000" />
+      <workItem from="1746639781188" duration="10004000" />
+      <workItem from="1746680886838" duration="468000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
@@ -562,41 +567,30 @@
     <option name="coveragePercentColumnWidth" value="150" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="430" />
+    <option name="symbolColumnWidth" value="483" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1158/1158" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1158/1158" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 0% 275/275" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1158/1158" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 0% 275/275" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Infrastructure 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1158/1158" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="tests 0% 275/275" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application.test 0% 124/124" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1158/1158" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 0% 883/883" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 0% 1158/1158" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 0% 883/883" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 0% 217/217" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Infrastructure 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Infrastructure.Repositories 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
