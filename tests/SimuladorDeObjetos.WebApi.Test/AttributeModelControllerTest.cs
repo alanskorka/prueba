@@ -29,7 +29,6 @@ public class AttributeModelControllerTest
         };
 
         _mockService!.Setup(s => s.GetAll()).Returns(expected);
-
         var result = _controller!.GetAll() as OkObjectResult;
 
         Assert.IsNotNull(result);
