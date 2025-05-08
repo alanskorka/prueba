@@ -11,19 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/AttributeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/AttributeDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/ClassDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/ClassDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/LocalVarDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/LocalVarDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/MethodCallDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/MethodCallDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/MethodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/MethodDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/ParamDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/DTOs/Persistence/ParamDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/ClassModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/ClassModelService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/AttributeModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/AttributeModelServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/ClassModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/ClassModelServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/LocalVarModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/LocalVarModelServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/MethodCallModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/MethodCallModelServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/MethodModelServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/ParamModelServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Application.test/ParamModelServiceTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/AtributteModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/AtributteModelRepositoryTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/ClassModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/ClassModelRepositoryTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/LocalVarModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/LocalVarModelRepositoryTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/MethodCallModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/MethodCallModelRepositoryTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -579,30 +570,30 @@
     <option name="coveragePercentColumnWidth" value="150" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="478" />
+    <option name="symbolColumnWidth" value="483" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 68% 99/314" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Infrastructure 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 77% 148/653" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 68% 99/314" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 68% 99/314" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Infrastructure 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Infrastructure.Repositories 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -11,116 +12,131 @@ using SimuladorDeObjetos.Infrastructure.Repositories;
 namespace SimuladorDeObjetos.Infrastructure.Test;
 
     [TestClass]
-    public class ClassModelRepositoryTest
+public class ClassModelRepositoryTest
+{
+    private SimuladorDbContext _context = null!;
+    private ClassModelRepository _repo = null!;
+    private ClassModel _class = null!;
+
+    [TestInitialize]
+    public void Setup()
     {
-        private ClassModel _model = null!;
-        private IQueryable<ClassModel> _data = null!;
-        private Mock<DbSet<ClassModel>> _mockSet = null!;
-        private Mock<SimuladorDbContext> _mockContext = null!;
-        private ClassModelRepository _repo = null!;
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
 
-        [TestInitialize]
-        public void Setup()
+        _context = new SimuladorDbContext(options);
+        _repo = new ClassModelRepository(_context);
+
+        _class = new ClassModel
         {
-            _model = new ClassModel { Id = Guid.NewGuid(), Name = "TestClass" };
-
-            _data = new List<ClassModel> { _model }.AsQueryable();
-
-            _mockSet = new Mock<DbSet<ClassModel>>();
-            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.Provider).Returns(_data.Provider);
-            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.Expression).Returns(_data.Expression);
-            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.ElementType).Returns(_data.ElementType);
-            _mockSet.As<IQueryable<ClassModel>>().Setup(m => m.GetEnumerator()).Returns(() => _data.GetEnumerator());
-            _mockSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids =>
-                _data.SingleOrDefault(e => e.Id == (Guid)ids[0]));
-
-            var options = new DbContextOptionsBuilder<SimuladorDbContext>()
-                .UseInMemoryDatabase("TestDb").Options;
-            _mockContext = new Mock<SimuladorDbContext>(options);
-
-            _mockContext.Setup(c => c.Set<ClassModel>()).Returns(_mockSet.Object);
-            _mockContext.Setup(c => c.Add(It.IsAny<ClassModel>())).Verifiable();
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-
-            _repo = new ClassModelRepository(_mockContext.Object);
-        }
-
-        [TestMethod]
-        public void Add_ShouldCallAddAndSaveChanges()
-        {
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-            _repo.Add(_model);
-            _mockSet.Verify(s => s.Add(_model), Times.Once);
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Add_ShouldThrow_WhenModelIsNull()
-        {
-            _repo.Add(null!);
-        }
-
-        [TestMethod]
-        public void GetAll_ShouldReturnAllEntities()
-        {
-            var result = _repo.GetAll().ToList();
-            CollectionAssert.AreEqual(_data.ToList(), result);
-        }
-
-        [TestMethod]
-        public void Update_ShouldCallUpdateAndSaveChanges()
-        {
-            var updated = new ClassModel { Id = _model.Id, Name = "Updated" };
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-            _repo.Update(updated);
-            _mockSet.Verify(s => s.Update(updated), Times.Once);
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Update_ShouldThrow_WhenModelIsNull()
-        {
-            _repo.Update(null!);
-        }
-
-        [TestMethod]
-        public void Delete_ShouldCallRemoveAndSaveChanges()
-        {
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-            _repo.Delete(_model);
-            _mockSet.Verify(s => s.Remove(_model), Times.Once);
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Delete_ShouldThrow_WhenModelIsNull()
-        {
-            _repo.Delete(null!);
-        }
-
-        [TestMethod]
-        public void SaveChanges_ShouldCallContextSaveChanges()
-        {
-            _mockContext.Setup(c => c.SaveChanges()).Returns(1);
-            _repo.SaveChanges();
-            _mockContext.Verify(c => c.SaveChanges(), Times.Once);
-        }
-
-        [TestMethod]
-        public void GetById_ShouldReturnEntity_WhenExists()
-        {
-            var result = _repo.GetById(_model.Id);
-            Assert.IsNotNull(result);
-            Assert.AreEqual(_model.Name, result!.Name);
-        }
-
-        [TestMethod]
-        public void GetById_ShouldReturnNull_WhenNotExists()
-        {
-            var result = _repo.GetById(Guid.NewGuid());
-            Assert.IsNull(result);
-        }
+            Id = Guid.NewGuid(),
+            Name = "MyClass",
+            IsAbstract = false,
+            IsSealed = false,
+            Attributes = new List<AttributeModel>
+            {
+                new AttributeModel
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "attr",
+                    Type = "int",
+                    Accessibility = AccessibilityModifier.Public
+                }
+            },
+            Methods = new List<MethodModel>
+            {
+                new MethodModel
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "method",
+                    ReturnType = "void",
+                    Accessibility = AccessibilityModifier.Private
+                }
+            }
+        };
     }
+
+    [TestMethod]
+    public void Add_ShouldAddClass()
+    {
+        _repo.Add(_class);
+        Assert.AreEqual(1, _context.Classes.Count());
+    }
+
+    [TestMethod]
+    public void GetAll_ShouldReturnAllWithIncludes()
+    {
+        _context.Classes.Add(_class);
+        _context.SaveChanges();
+
+        var result = _repo.GetAll().ToList();
+        Assert.AreEqual(1, result.Count);
+        Assert.AreEqual("MyClass", result[0].Name);
+        Assert.AreEqual(1, result[0].Attributes.Count);
+        Assert.AreEqual(1, result[0].Methods.Count);
+    }
+
+    [TestMethod]
+    public void GetById_ShouldReturnClassWithIncludes()
+    {
+        _context.Classes.Add(_class);
+        _context.SaveChanges();
+
+        var found = _repo.GetById(_class.Id);
+        Assert.IsNotNull(found);
+        Assert.AreEqual("MyClass", found!.Name);
+    }
+
+    [TestMethod]
+    public void Update_ShouldModifyClass()
+    {
+        _context.Classes.Add(_class);
+        _context.SaveChanges();
+
+        _class.Name = "UpdatedName";
+        _repo.Update(_class);
+
+        var result = _context.Classes.First();
+        Assert.AreEqual("UpdatedName", result.Name);
+    }
+
+    [TestMethod]
+    public void Delete_ShouldRemoveClass()
+    {
+        _context.Classes.Add(_class);
+        _context.SaveChanges();
+
+        _repo.Delete(_class);
+        Assert.AreEqual(0, _context.Classes.Count());
+    }
+
+    [TestMethod]
+    public void SaveChanges_ShouldPersist()
+    {
+        _context.Classes.Add(_class);
+        _repo.SaveChanges();
+        Assert.AreEqual(1, _context.Classes.Count());
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Add_ShouldThrow_WhenNull()
+    {
+        _repo.Add(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Update_ShouldThrow_WhenNull()
+    {
+        _repo.Update(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenNull()
+    {
+        _repo.Delete(null!);
+    }
+}
