@@ -8,35 +8,30 @@ public class MethodCallModelRepository : IMethodCallModelRepository
 {
     private readonly SimuladorDbContext _dbContext;
 
-    public MethodCallModelRepository(SimuladorDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    public MethodCallModelRepository(SimuladorDbContext dbContext) => _dbContext = dbContext;
 
     public void Add(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _dbContext.Set<MethodCallModel>().Add(call);
+        _dbContext.MethodCalls.Add(call);
         _dbContext.SaveChanges();
     }
 
-    public List<MethodCallModel> GetAll()
-        => _dbContext.Set<MethodCallModel>().ToList();
+    public List<MethodCallModel> GetAll() => _dbContext.MethodCalls.ToList();
 
     public void Update(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _dbContext.Set<MethodCallModel>().Update(call);
+        _dbContext.MethodCalls.Update(call);
         _dbContext.SaveChanges();
     }
 
     public void Delete(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
-        _dbContext.Set<MethodCallModel>().Remove(call);
+        _dbContext.MethodCalls.Remove(call);
         _dbContext.SaveChanges();
     }
 
-    public void SaveChanges()
-        => _dbContext.SaveChanges();
+    public void SaveChanges() => _dbContext.SaveChanges();
 }

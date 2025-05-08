@@ -8,35 +8,30 @@ public class ParamModelRepository : IParamModelRepository
 {
     private readonly SimuladorDbContext _dbContext;
 
-    public ParamModelRepository(SimuladorDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    public ParamModelRepository(SimuladorDbContext dbContext) => _dbContext = dbContext;
 
     public void Add(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _dbContext.Set<ParamModel>().Add(param);
+        _dbContext.Params.Add(param);
         _dbContext.SaveChanges();
     }
 
-    public List<ParamModel> GetAll()
-        => _dbContext.Set<ParamModel>().ToList();
+    public List<ParamModel> GetAll() => _dbContext.Params.ToList();
 
     public void Update(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _dbContext.Set<ParamModel>().Update(param);
+        _dbContext.Params.Update(param);
         _dbContext.SaveChanges();
     }
 
     public void Delete(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _dbContext.Set<ParamModel>().Remove(param);
+        _dbContext.Params.Remove(param);
         _dbContext.SaveChanges();
     }
 
-    public void SaveChanges()
-        => _dbContext.SaveChanges();
+    public void SaveChanges() => _dbContext.SaveChanges();
 }
