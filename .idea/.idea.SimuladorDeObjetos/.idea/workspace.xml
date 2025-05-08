@@ -106,7 +106,7 @@
     "2e39f2f0-b7dc-4250-b4b3-5d4574a670c0.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/validacionesControllers",
+    "git-widget-placeholder": "preparandoEntrega",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -196,6 +196,7 @@
       <workItem from="1746536420465" duration="8384000" />
       <workItem from="1746639781188" duration="10004000" />
       <workItem from="1746680886838" duration="468000" />
+      <workItem from="1746741158435" duration="805000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
