@@ -11,12 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/AtributteModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/AtributteModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ClassModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ClassModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/LocalVarModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/LocalVarModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodCallModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodCallModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/MethodModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ParamModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/ParamModelRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/AttributeModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/AttributeModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/ClassModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/ClassModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/LocalVarModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/LocalVarModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodModelService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/ParamModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/ParamModelService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

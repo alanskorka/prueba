@@ -6,41 +6,45 @@ namespace SimuladorDeObjetos.Application;
 
 public class ClassModelService : IClassModelService
 {
-    private readonly IClassModelRepository _repository;
+    private readonly IClassModelRepository _repo;
+    public ClassModelService(IClassModelRepository repo) => _repo = repo;
 
-    public ClassModelService(IClassModelRepository repository)
-    {
-        _repository = repository;
-    }
-
-    public IEnumerable<ClassModel> GetAll()
-    {
-        return _repository.GetAll();
-    }
+    public IEnumerable<ClassModel> GetAll() => _repo.GetAll();
 
     public void Add(ClassModel model)
     {
-        _repository.Add(model);
+        ArgumentNullException.ThrowIfNull(model);
+
+        if (model.BaseClassId.HasValue)
+        {
+            var baseClass = _repo.GetById(model.BaseClassId.Value);
+            if (baseClass == null)
+            {
+                throw new InvalidOperationException("Clase base no encontrada.");
+            }
+
+            if (baseClass.IsSealed)
+            {
+                throw new InvalidOperationException("No se puede heredar de una clase sellada.");
+            }
+        }
+
+        _repo.Add(model);
     }
 
     public void Delete(ClassModel model)
     {
-        _repository.Delete(model);
+        ArgumentNullException.ThrowIfNull(model);
+        _repo.Delete(model);
     }
 
     public void Update(ClassModel model)
     {
-        _repository.Update(model);
-        _repository.SaveChanges();
+        ArgumentNullException.ThrowIfNull(model);
+        _repo.Update(model);
     }
 
-    public void SaveChanges()
-    {
-        _repository.SaveChanges();
-    }
+    public void SaveChanges() => _repo.SaveChanges();
 
-    public ClassModel? GetByName(string name)
-    {
-        return _repository.GetAll().FirstOrDefault(c => c.Name == name);
-    }
+    public ClassModel? GetByName(string name) => _repo.GetAll().FirstOrDefault(c => c.Name == name);
 }
