@@ -9,4 +9,5 @@ public class AttributeModel
     public string Type { get; set; } = string.Empty;
     public Guid ClassId { get; set; }
     public AccessibilityModifier Accessibility { get; set; }
+    public ClassModel Class { get; set; } = null!;
 }

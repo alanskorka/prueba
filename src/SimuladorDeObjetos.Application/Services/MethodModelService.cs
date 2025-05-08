@@ -17,69 +17,78 @@ public class MethodModelService : IMethodModelService
         _classRepo = classRepo;
     }
 
-    public IEnumerable<MethodModel> GetAll()
-    {
-        var result = _methodRepo.GetAll();
-        return result ?? new List<MethodModel>();
-    }
+    public IEnumerable<MethodModel> GetAll() => _methodRepo.GetAll() ?? new List<MethodModel>();
 
     public void Add(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
+
+        var classModel = _classRepo.GetById(method.ClassId) ?? throw new Exception("Clase no encontrada");
+
+        if (classModel.IsSealed)
+        {
+            throw new InvalidOperationException("No se pueden agregar métodos a una clase sellada.");
+        }
+
+        if (classModel.Methods.Any(m => m.Name == method.Name))
+        {
+            throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
+        }
+
+        if (method.IsAbstract && !classModel.IsAbstract)
+        {
+            throw new InvalidOperationException("No se puede agregar un método abstracto a una clase concreta. Marcar la clase como abstracta.");
+        }
+
         _methodRepo.Add(method);
-        _methodRepo.SaveChanges();
     }
 
     public void Update(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
         _methodRepo.Update(method);
-        _methodRepo.SaveChanges();
     }
 
     public void Delete(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
         _methodRepo.Delete(method);
-        _methodRepo.SaveChanges();
     }
 
     public void AddMethodToClass(Guid classId, MethodModel method)
     {
-        if (classId == Guid.Empty)
-        {
-            throw new ArgumentException("classId is empty");
-        }
-
         ArgumentNullException.ThrowIfNull(method);
 
-        var classModel = _classRepo.GetById(classId);
-        if (classModel == null)
+        var classModel = _classRepo.GetById(classId) ?? throw new Exception("Class not found");
+
+        if (method.IsAbstract && !classModel.IsAbstract)
         {
-            throw new Exception("Class not found");
+            throw new InvalidOperationException("No se puede agregar un método abstracto a una clase concreta. Marcar la clase como abstracta.");
         }
 
-        classModel.Methods ??= new List<MethodModel>();
-        classModel.Methods.Add(method);
+        if (classModel.IsSealed)
+        {
+            throw new InvalidOperationException("No se pueden agregar métodos a una clase sellada.");
+        }
 
+        if (classModel.Methods.Any(m => m.Name == method.Name))
+        {
+            throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
+        }
+
+        classModel.Methods.Add(method);
         _classRepo.Update(classModel);
-        _classRepo.SaveChanges();
     }
 
     public MethodModel? GetByName(Guid classId, string methodName)
     {
-        return _methodRepo.GetAll()
-            .FirstOrDefault(m => m.ClassId == classId && m.Name == methodName);
+        return _methodRepo.GetAll().FirstOrDefault(m => m.ClassId == classId && m.Name == methodName);
     }
 
     public SimulationResponse SimulateMethodExecution(SimulationRequest req)
     {
-        var method = _methodRepo.GetById(req.MethodId)
-            ?? throw new ArgumentException("Método no encontrado");
-
-        var lines = new List<string>();
-
-        lines.Add($"{req.ConcreteTypeId}.{method.Name}()");
+        var method = _methodRepo.GetById(req.MethodId) ?? throw new ArgumentException("Método no encontrado");
+        var lines = new List<string> { $"{req.ConcreteTypeId}.{method.Name}()" };
 
         foreach (var call in _methodRepo.GetMethodCalls(method.Id))
         {
@@ -89,11 +98,11 @@ public class MethodModelService : IMethodModelService
         return new SimulationResponse { Lines = lines };
     }
 
-    private void AppendCall(List<string> outLines, MethodCallModel call, int indentLevel)
+    private void AppendCall(List<string> lines, MethodCallModel call, int level)
     {
-        var indent = new string(' ', indentLevel * 2);
-
-        var prefix = call.ReferenceType switch {
+        var indent = new string(' ', level * 2);
+        var prefix = call.ReferenceType switch
+        {
             ReferenceTypeInvocation.This => "this",
             ReferenceTypeInvocation.Base => "base",
             ReferenceTypeInvocation.Attribute => $"obj_{call.ReferenceName}",
@@ -101,11 +110,10 @@ public class MethodModelService : IMethodModelService
             ReferenceTypeInvocation.LocalVar => $"var_{call.ReferenceName}",
             _ => call.ReferenceType.ToString()
         };
-        outLines.Add($"{indent}{prefix}.{call.MethodName}()");
-
+        lines.Add($"{indent}{prefix}.{call.MethodName}()");
         foreach (var nested in _methodRepo.GetMethodCalls(call.Id))
         {
-            AppendCall(outLines, nested, indentLevel + 1);
+            AppendCall(lines, nested, level + 1);
         }
     }
 }

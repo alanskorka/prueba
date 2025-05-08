@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Moq;
+using SimuladorDeObjetos.Application;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
@@ -7,71 +8,118 @@ namespace SimuladorDeObjetos.Application.test;
 [TestClass]
 public class ParamModelServiceTest
 {
-    private Mock<IParamModelRepository>? _mockRepository;
+    private Mock<IParamModelRepository>? _mockRepo;
+    private Mock<IMethodModelRepository>? _mockMethodRepo;
     private ParamModelService? _service;
+    private ParamModel? _param;
+    private MethodModel? _method;
 
     [TestInitialize]
     public void Initialize()
     {
-        _mockRepository = new Mock<IParamModelRepository>();
-        _service = new ParamModelService(_mockRepository.Object);
+        _mockRepo = new Mock<IParamModelRepository>();
+        _mockMethodRepo = new Mock<IMethodModelRepository>();
+        _service = new ParamModelService(_mockRepo.Object, _mockMethodRepo.Object);
+
+        _method = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "MethodA",
+            Params = new List<ParamModel>()
+        };
+
+        _param = new ParamModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "p1",
+            Type = "int",
+            MethodId = _method.Id
+        };
     }
 
     [TestMethod]
     public void GetAll_ShouldReturnAllParamModels()
     {
-        var models = new List<ParamModel>
-        {
-            new ParamModel { Id = Guid.NewGuid(), Name = "Param1" },
-            new ParamModel { Id = Guid.NewGuid(), Name = "Param2" }
-        };
+        var models = new List<ParamModel> { _param! };
+        _mockRepo!.Setup(r => r.GetAll()).Returns(models);
 
-        _mockRepository.Setup(r => r.GetAll()).Returns(models);
+        var result = _service!.GetAll().ToList();
 
-        var result = _service.GetAll().ToList();
-
-        Assert.AreEqual(2, result.Count);
-        Assert.AreEqual("Param1", result[0].Name);
+        Assert.AreEqual(1, result.Count);
+        Assert.AreEqual("p1", result[0].Name);
     }
 
     [TestMethod]
-    public void Add_ShouldCallRepositoryAddAndSave()
+    public void Add_ShouldCallRepositoryAddAndSave_WhenValid()
     {
-        var model = new ParamModel { Id = Guid.NewGuid(), Name = "NewParam" };
+        _mockMethodRepo!.Setup(r => r.GetById(_method!.Id)).Returns(_method);
 
-        _service.Add(model);
+        _service!.Add(_param!);
 
-        _mockRepository.Verify(r => r.Add(model), Times.Once);
-        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+        _mockRepo!.Verify(r => r.Add(_param!), Times.Once);
+        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Add_ShouldThrow_WhenNull()
+    {
+        _service!.Add(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(Exception))]
+    public void Add_ShouldThrow_WhenMethodNotFound()
+    {
+        _mockMethodRepo!.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((MethodModel?)null);
+        _service!.Add(_param!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Add_ShouldThrow_WhenDuplicateParamName()
+    {
+        _method!.Params.Add(new ParamModel { Name = _param!.Name });
+        _mockMethodRepo!.Setup(r => r.GetById(_method.Id)).Returns(_method);
+        _service!.Add(_param!);
     }
 
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdateAndSave()
     {
-        var model = new ParamModel { Id = Guid.NewGuid(), Name = "UpdatedParam" };
+        _service!.Update(_param!);
 
-        _service.Update(model);
+        _mockRepo!.Verify(r => r.Update(_param!), Times.Once);
+        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+    }
 
-        _mockRepository.Verify(r => r.Update(model), Times.Once);
-        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Update_ShouldThrow_WhenNull()
+    {
+        _service!.Update(null!);
     }
 
     [TestMethod]
     public void Delete_ShouldCallRepositoryDeleteAndSave()
     {
-        var model = new ParamModel { Id = Guid.NewGuid(), Name = "DeletedParam" };
+        _service!.Delete(_param!);
 
-        _service.Delete(model);
+        _mockRepo!.Verify(r => r.Delete(_param!), Times.Once);
+        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+    }
 
-        _mockRepository.Verify(r => r.Delete(model), Times.Once);
-        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenNull()
+    {
+        _service!.Delete(null!);
     }
 
     [TestMethod]
     public void SaveChanges_ShouldCallRepositorySaveChanges()
     {
-        _service.SaveChanges();
-
-        _mockRepository.Verify(r => r.SaveChanges(), Times.Once);
+        _service!.SaveChanges();
+        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
     }
 }

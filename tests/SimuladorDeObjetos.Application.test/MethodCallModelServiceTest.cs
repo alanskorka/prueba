@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Domain.Enums;
 using Moq;
+using SimuladorDeObjetos.Application;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
@@ -17,63 +18,68 @@ public class MethodCallModelServiceTest
     {
         _mockRepo = new Mock<IMethodCallModelRepository>();
         _service = new MethodCallModelService(_mockRepo.Object);
+
         _call = new MethodCallModel
         {
+            Id = Guid.NewGuid(),
             MethodName = "M1",
-            ReferenceType = ReferenceTypeInvocation.This
+            ReferenceType = ReferenceTypeInvocation.This,
+            ParentMethodId = Guid.NewGuid(),
+            ReferenceName = "this"
         };
     }
 
     [TestMethod]
     public void Create_ShouldCallRepositoryAdd()
     {
-        _service.Create(_call ?? throw new InvalidOperationException());
-        _mockRepo.Verify(r => r.Add(_call), Times.Once);
+        _service!.Create(_call!);
+        _mockRepo!.Verify(r => r.Add(_call!), Times.Once);
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Create_ShouldThrow_WhenCallIsNull()
     {
-        _service.Create(null!);
+        _service!.Create(null!);
     }
 
     [TestMethod]
     public void GetAll_ShouldReturnListFromRepository()
     {
-        var list = new List<MethodCallModel> { _call ?? throw new InvalidOperationException() };
-        _mockRepo.Setup(r => r.GetAll()).Returns(list);
+        var list = new List<MethodCallModel> { _call! };
+        _mockRepo!.Setup(r => r.GetAll()).Returns(list);
 
-        var result = _service.GetAll();
+        var result = _service!.GetAll();
 
-        CollectionAssert.AreEqual(list, result);
+        Assert.AreEqual(1, result.Count);
+        Assert.AreEqual("M1", result[0].MethodName);
     }
 
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdate()
     {
-        _service.Update(_call ?? throw new InvalidOperationException());
-        _mockRepo.Verify(r => r.Update(_call), Times.Once);
+        _service!.Update(_call!);
+        _mockRepo!.Verify(r => r.Update(_call!), Times.Once);
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Update_ShouldThrow_WhenCallIsNull()
     {
-        _service.Update(null!);
+        _service!.Update(null!);
     }
 
     [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
-        _service.Delete(_call ?? throw new InvalidOperationException());
-        _mockRepo.Verify(r => r.Delete(_call), Times.Once);
+        _service!.Delete(_call!);
+        _mockRepo!.Verify(r => r.Delete(_call!), Times.Once);
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Delete_ShouldThrow_WhenCallIsNull()
     {
-        _service.Delete(null!);
+        _service!.Delete(null!);
     }
 }

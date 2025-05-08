@@ -9,4 +9,5 @@ public class MethodCallModel
     public ReferenceTypeInvocation ReferenceType { get; set; }
     public Guid ParentMethodId { get; set; }
     public string? ReferenceName { get; set; }
+    public MethodModel ParentMethod { get; set; } = null!;
 }
