@@ -11,10 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/AtributteModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/AtributteModelRepositoryTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/ClassModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/ClassModelRepositoryTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/LocalVarModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/LocalVarModelRepositoryTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/MethodCallModelRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.Infrastructure.Test/MethodCallModelRepositoryTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +106,7 @@
     "2e39f2f0-b7dc-4250-b4b3-5d4574a670c0.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/validaciones",
+    "git-widget-placeholder": "feature/validacionesControllers",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -199,6 +195,7 @@
       <workItem from="1746380564429" duration="1956000" />
       <workItem from="1746536420465" duration="8384000" />
       <workItem from="1746639781188" duration="10004000" />
+      <workItem from="1746680886838" duration="468000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
