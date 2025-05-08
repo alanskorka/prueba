@@ -10,36 +10,70 @@ public class AttributeModelController : ControllerBase
 {
     private readonly IAttributeModelService _service;
 
-    public AttributeModelController(IAttributeModelService service)
-    {
-        _service = service;
-    }
+    public AttributeModelController(IAttributeModelService service) => _service = service;
 
     [HttpGet]
     public IActionResult GetAll()
     {
-        var result = _service.GetAll();
-        return Ok(result);
+        try
+        {
+            return Ok(_service.GetAll());
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 
     [HttpPost]
     public IActionResult Add([FromBody] AttributeModel model)
     {
-        _service.Create(model);
-        return Ok();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            _service.Create(model);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 
     [HttpPut]
     public IActionResult Update([FromBody] AttributeModel model)
     {
-        _service.Update(model);
-        return Ok();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            _service.Update(model);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 
     [HttpDelete]
     public IActionResult Delete([FromBody] AttributeModel model)
     {
-        _service.Delete(model);
-        return Ok();
+        try
+        {
+            _service.Delete(model);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 }
