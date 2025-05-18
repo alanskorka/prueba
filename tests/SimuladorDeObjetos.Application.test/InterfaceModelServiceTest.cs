@@ -39,4 +39,22 @@ public class InterfaceModelServiceTest
         await _service.Add(interfaceModel);
         _repository.Verify(r => r.Add(interfaceModel), Times.Once);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentException))]
+    public async Task AddInterface_WithDuplicateMethodNames_ShouldThrow()
+    {
+        var model = new InterfaceModel
+        {
+            Name = "IDuplicated",
+            Methods = new List<InterfaceMethodModel>
+            {
+                new() { Name = "DoSomething", ReturnType = "void" },
+                new() { Name = "DoSomething", ReturnType = "void" }
+            }
+        };
+
+        await _service.Add(model);
+    }
+
 }
