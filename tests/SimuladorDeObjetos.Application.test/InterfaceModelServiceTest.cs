@@ -73,4 +73,18 @@ public class InterfaceModelServiceTest
         Assert.AreEqual(2, result.Count);
         Assert.AreEqual("ITest1", result[0].Name);
     }
+
+    [TestMethod]
+    public async Task GetById_ShouldReturnCorrectInterface()
+    {
+        var interfaceId = 1;
+        var expected = new InterfaceModel { Id = interfaceId, Name = "ITest" };
+
+        _repository.Setup(r => r.GetById(interfaceId)).ReturnsAsync(expected);
+
+        var result = await _service.GetById(interfaceId);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual("ITest", result.Name);
+    }
 }
