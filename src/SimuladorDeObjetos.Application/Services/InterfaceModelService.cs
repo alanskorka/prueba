@@ -21,4 +21,9 @@ public class InterfaceModelService
 
         await _repository.Add(model);
     }
+
+    public async Task<List<InterfaceModel>> GetAll()
+    {
+        return await _repository.GetAll();
+    }
 }

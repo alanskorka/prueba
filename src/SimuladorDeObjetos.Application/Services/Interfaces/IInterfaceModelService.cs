@@ -5,4 +5,5 @@ namespace SimuladorDeObjetos.Application.Interfaces;
 public interface IInterfaceModelService
 {
     Task Add(InterfaceModel model);
+    Task<IEnumerable<InterfaceModel>> GetAll();
 }

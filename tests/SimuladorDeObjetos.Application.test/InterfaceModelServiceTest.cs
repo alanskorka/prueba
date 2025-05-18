@@ -56,6 +56,7 @@ public class InterfaceModelServiceTest
 
         await _service.Add(model);
     }
+
     [TestMethod]
     public async Task GetAll_ShouldReturnAllInterfaces()
     {

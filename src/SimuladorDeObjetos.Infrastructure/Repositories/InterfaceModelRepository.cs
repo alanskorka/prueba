@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
@@ -16,5 +17,13 @@ public class InterfaceModelRepository : IInterfaceModelRepository
     {
         _dbContext.InterfaceModels.Add(model);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<List<InterfaceModel>> GetAll()
+    {
+        return await _dbContext.InterfaceModels
+            .Include(i => i.Methods)
+            .ThenInclude(m => m.Parameters)
+            .ToListAsync();
     }
 }
