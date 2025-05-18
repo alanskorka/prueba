@@ -56,5 +56,4 @@ public class InterfaceModelServiceTest
 
         await _service.Add(model);
     }
-
 }

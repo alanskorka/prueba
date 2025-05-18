@@ -14,6 +14,11 @@ public class InterfaceModelService
 
     public async Task Add(InterfaceModel model)
     {
+        if (model.Methods.GroupBy(m => m.Name).Any(g => g.Count() > 1))
+        {
+            throw new ArgumentException("Duplicate method names are not allowed.");
+        }
+
         await _repository.Add(model);
     }
 }

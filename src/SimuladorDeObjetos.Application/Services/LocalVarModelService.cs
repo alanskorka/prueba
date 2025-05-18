@@ -7,7 +7,7 @@ namespace SimuladorDeObjetos.Application;
 public class LocalVarModelService : ILocalVarModelService
 {
     private readonly ILocalVarModelRepository _repo;
-    private readonly IMethodModelRepository _methodRepo; // VALIDACIÓN
+    private readonly IMethodModelRepository _methodRepo;
 
     public LocalVarModelService(ILocalVarModelRepository repo, IMethodModelRepository methodRepo)
     {
