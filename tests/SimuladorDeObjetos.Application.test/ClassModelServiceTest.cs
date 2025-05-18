@@ -143,4 +143,27 @@ public class ClassModelServiceTest
         var result = _service!.GetByName("NotFound");
         Assert.IsNull(result);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(Exception))] 
+    public async Task AddClass_ThatDoesNotImplementAllInterfaceMethods_ShouldThrow()
+    {
+        var interfaceModel = new InterfaceModel
+        {
+            Name = "IMyInterface",
+            Methods = new List<InterfaceMethodModel>
+            {
+                new() { Name = "DoIt", ReturnType = "void", Parameters = new() }
+            }
+        };
+
+        var classModel = new ClassModel
+        {
+            Name = "MyClass",
+            ImplementedInterfaces = new List<InterfaceModel> { interfaceModel },
+            Methods = new List<MethodModel>() // missing DoIt()
+        };
+
+        await _service.Add(classModel);
+    }
 }
