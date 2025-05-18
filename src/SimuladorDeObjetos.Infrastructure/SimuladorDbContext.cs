@@ -13,6 +13,10 @@ public class SimuladorDbContext : DbContext
     public DbSet<MethodCallModel> MethodCalls { get; set; }
     public DbSet<InterfaceModel> InterfaceModels { get; set; }
 
+    public DbSet<InterfaceMethodModel> InterfaceMethodModels { get; set; }
+
+    public DbSet<ParameterModel> ParameterModels { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ClassModel>(entity =>

@@ -56,4 +56,20 @@ public class InterfaceModelServiceTest
 
         await _service.Add(model);
     }
+    [TestMethod]
+    public async Task GetAll_ShouldReturnAllInterfaces()
+    {
+        var expected = new List<InterfaceModel>
+        {
+            new InterfaceModel { Name = "ITest1" },
+            new InterfaceModel { Name = "ITest2" }
+        };
+
+        _repository.Setup(r => r.GetAll()).ReturnsAsync(expected);
+
+        var result = await _service.GetAll();
+
+        Assert.AreEqual(2, result.Count);
+        Assert.AreEqual("ITest1", result[0].Name);
+    }
 }
