@@ -1,12 +1,14 @@
+using Domain.Entities;
 using Moq;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
 
 [TestClass]
 public class InterfaceModelServiceTest
 {
-    private InterfaceModelService _service;
-    private Mock<IInterfaceModelRepository> _repository;
+    private InterfaceModelService? _service;
+    private Mock<IInterfaceModelRepository>? _repository;
 
     [TestInitialize]
     public void Setup()
@@ -18,7 +20,6 @@ public class InterfaceModelServiceTest
     [TestMethod]
     public async Task AddInterface_WithValidMethodSignatures_ShouldCallRepository()
     {
-        // Arrange
         var interfaceModel = new InterfaceModel
         {
             Name = "IMyInterface",

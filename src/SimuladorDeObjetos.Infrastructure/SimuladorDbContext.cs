@@ -11,6 +11,7 @@ public class SimuladorDbContext : DbContext
     public DbSet<ParamModel> Params { get; set; }
     public DbSet<LocalVarModel> LocalVars { get; set; }
     public DbSet<MethodCallModel> MethodCalls { get; set; }
+    public DbSet<InterfaceModel> InterfaceModels { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
