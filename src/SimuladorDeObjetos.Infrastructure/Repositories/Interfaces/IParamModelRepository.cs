@@ -9,4 +9,5 @@ public interface IParamModelRepository
     void Update(ParamModel param);
     void Delete(ParamModel param);
     void SaveChanges();
+    ParamModel? GetById(Guid id);
 }

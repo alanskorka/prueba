@@ -34,4 +34,9 @@ public class ParamModelRepository : IParamModelRepository
     }
 
     public void SaveChanges() => _dbContext.SaveChanges();
+
+    public ParamModel? GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 }
