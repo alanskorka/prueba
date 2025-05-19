@@ -131,6 +131,14 @@ public class ClassModelServiceTest
     }
 
     [TestMethod]
+    public void Update_ShouldThrow_WhenClassDoesNotExist()
+    {
+        _mockRepo!.Setup(r => r.GetById(_class!.Id)).Returns((ClassModel)null!);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(_class!));
+    }
+
+    [TestMethod]
     public void SaveChanges_ShouldCallRepositorySaveChanges()
     {
         _service!.SaveChanges();
