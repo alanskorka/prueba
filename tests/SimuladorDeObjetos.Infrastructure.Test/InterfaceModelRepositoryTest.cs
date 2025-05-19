@@ -59,4 +59,18 @@ public class InterfaceModelRepositoryTest
         var result = await _repository.GetAll();
         Assert.AreEqual(2, result.Count);
     }
+    
+    [TestMethod]
+    public async Task GetById_ShouldReturnCorrectInterface()
+    {
+        var model = new InterfaceModel { Name = "IGet" };
+        _context.InterfaceModels.Add(model);
+        await _context.SaveChangesAsync();
+
+        var result = await _repository.GetById(model.Id);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual("IGet", result!.Name);
+    }
+
 }
