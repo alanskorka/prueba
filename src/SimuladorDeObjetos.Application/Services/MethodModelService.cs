@@ -46,6 +46,12 @@ public class MethodModelService : IMethodModelService
     public void Update(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
+        var existing = _methodRepo.GetById(method.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Método no encontrado.");
+        }
+
         _methodRepo.Update(method);
     }
 
