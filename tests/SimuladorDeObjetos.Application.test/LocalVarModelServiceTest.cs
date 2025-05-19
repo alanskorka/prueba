@@ -127,6 +127,16 @@ public class LocalVarModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenMethodNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_var!.Id)).Returns(_var);
+        _mockMethodRepo!.Setup(r => r.GetById(_var.MethodId)).Returns((MethodModel?)null);
+
+        _service!.Update(_var!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallDeleteAndSaveChanges()
     {
         _service!.Delete(_var!);
@@ -140,5 +150,13 @@ public class LocalVarModelServiceTest
     public void Delete_ShouldThrow_WhenNull()
     {
         _service!.Delete(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenVarNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_var!.Id)).Returns((LocalVarModel?)null);
+        _service!.Delete(_var!);
     }
 }
