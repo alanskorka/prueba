@@ -101,6 +101,14 @@ public class ParamModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenParamNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_param!.Id)).Returns((ParamModel?)null);
+        _service!.Update(_param!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDeleteAndSave()
     {
         _service!.Delete(_param!);
