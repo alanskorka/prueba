@@ -5,4 +5,5 @@ public interface IInterfaceModelRepository
 {
     Task Add(InterfaceModel model);
     Task<List<InterfaceModel>> GetAll();
+    Task<InterfaceModel?> GetById(int id);
 }

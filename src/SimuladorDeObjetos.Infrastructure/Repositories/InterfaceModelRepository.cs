@@ -26,4 +26,12 @@ public class InterfaceModelRepository : IInterfaceModelRepository
             .ThenInclude(m => m.Parameters)
             .ToListAsync();
     }
+
+    public async Task<InterfaceModel?> GetById(int id)
+    {
+        return await _dbContext.InterfaceModels
+            .Include(i => i.Methods)
+            .ThenInclude(m => m.Parameters)
+            .FirstOrDefaultAsync(i => i.Id == id);
+    }
 }

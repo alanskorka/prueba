@@ -26,4 +26,9 @@ public class InterfaceModelService
     {
         return await _repository.GetAll();
     }
+
+    public async Task<InterfaceModel?> GetById(int id)
+    {
+        return await _repository.GetById(id);
+    }
 }
