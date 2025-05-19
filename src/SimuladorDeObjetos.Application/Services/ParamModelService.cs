@@ -34,6 +34,13 @@ public class ParamModelService : IParamModelService
     public void Update(ParamModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
+
+        var existing = _repo.GetById(model.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Parámetro no encontrado.");
+        }
+
         _repo.Update(model);
         _repo.SaveChanges();
     }
