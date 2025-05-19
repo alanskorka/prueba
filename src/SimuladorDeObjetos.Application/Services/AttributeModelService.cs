@@ -51,6 +51,11 @@ public class AttributeModelService : IAttributeModelService
             throw new InvalidOperationException("No se pueden modificar atributos en una clase sellada.");
         }
 
+        if (classModel.Attributes.Any(a => a.Name == attribute.Name && a.Id != attribute.Id))
+        {
+            throw new InvalidOperationException("Ya existe otro atributo con ese nombre en la clase.");
+        }
+
         _repo.Update(attribute);
     }
 
