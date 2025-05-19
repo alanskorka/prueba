@@ -19,14 +19,10 @@ public class AttributeModelService : IAttributeModelService
     {
         ArgumentNullException.ThrowIfNull(attribute);
 
-        var classModel = GetClassModelOrThrow(attribute.ClassId);
+        var classModel = GetClassOrThrow(attribute.ClassId);
 
-        if (classModel.IsSealed)
-        {
-            throw new InvalidOperationException("No se pueden agregar atributos a una clase sellada.");
-        }
-
-        ValidateDuplicateName(classModel.Attributes, attribute.Name);
+        ThrowIfClassIsSealed(classModel);
+        ThrowIfAttributeNameExists(classModel.Attributes, attribute.Name);
 
         _repo.Add(attribute);
     }
@@ -37,20 +33,11 @@ public class AttributeModelService : IAttributeModelService
     {
         ArgumentNullException.ThrowIfNull(attribute);
 
-        var existing = _repo.GetById(attribute.Id);
-        if (existing == null)
-        {
-            throw new InvalidOperationException("Atributo no encontrado.");
-        }
+        EnsureAttributeExists(attribute.Id);
+        var classModel = GetClassOrThrow(attribute.ClassId);
 
-        var classModel = GetClassModelOrThrow(attribute.ClassId);
-
-        if (classModel.IsSealed)
-        {
-            throw new InvalidOperationException("No se pueden modificar atributos en una clase sellada.");
-        }
-
-        ValidateDuplicateName(classModel.Attributes, attribute.Name, attribute.Id);
+        ThrowIfClassIsSealed(classModel);
+        ThrowIfAttributeNameExists(classModel.Attributes, attribute.Name, attribute.Id);
 
         _repo.Update(attribute);
     }
@@ -58,26 +45,37 @@ public class AttributeModelService : IAttributeModelService
     public void Delete(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
-        var existing = _repo.GetById(attribute.Id);
-        if (existing == null)
-        {
-            throw new InvalidOperationException("Atributo no encontrado.");
-        }
-
+        EnsureAttributeExists(attribute.Id);
         _repo.Delete(attribute);
     }
 
-    private ClassModel GetClassModelOrThrow(Guid classId)
+    private void EnsureAttributeExists(Guid id)
+    {
+        if (_repo.GetById(id) == null)
+        {
+            throw new InvalidOperationException("Atributo no encontrado.");
+        }
+    }
+
+    private ClassModel GetClassOrThrow(Guid classId)
     {
         return _classRepo.GetById(classId) ?? throw new InvalidOperationException("Clase no encontrada.");
     }
 
-    private void ValidateDuplicateName(IEnumerable<AttributeModel> attributes, string name, Guid? excludeId = null)
+    private void ThrowIfClassIsSealed(ClassModel cls)
     {
-        var exists = attributes.Any(a => a.Name == name && (!excludeId.HasValue || a.Id != excludeId));
+        if (cls.IsSealed)
+        {
+            throw new InvalidOperationException("No se pueden modificar atributos en una clase sellada.");
+        }
+    }
+
+    private void ThrowIfAttributeNameExists(IEnumerable<AttributeModel> attributes, string name, Guid? excludeId = null)
+    {
+        var exists = attributes.Any(a => a.Name == name && (!excludeId.HasValue || a.Id != excludeId.Value));
         if (exists)
         {
-            throw new InvalidOperationException($"Ya existe {(excludeId != null ? "otro " : string.Empty)}atributo con ese nombre en la clase.");
+            throw new InvalidOperationException("Ya existe otro atributo con ese nombre en la clase.");
         }
     }
 }

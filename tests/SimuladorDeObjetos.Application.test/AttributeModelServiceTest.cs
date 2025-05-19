@@ -159,8 +159,9 @@ public class AttributeModelServiceTest
     [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute);
         _service!.Delete(_attribute!);
-        _mockRepo!.Verify(r => r.Delete(_attribute!), Times.Once);
+        _mockRepo.Verify(r => r.Delete(_attribute!), Times.Once);
     }
 
     [TestMethod]
