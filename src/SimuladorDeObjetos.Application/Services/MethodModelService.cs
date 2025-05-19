@@ -52,6 +52,8 @@ public class MethodModelService : IMethodModelService
             throw new InvalidOperationException("Método no encontrado.");
         }
 
+        var classModel = _classRepo.GetById(method.ClassId) ?? throw new Exception("Clase no encontrada");
+
         _methodRepo.Update(method);
     }
 
