@@ -179,6 +179,25 @@ public class ClassModelServiceTest
     }
 
     [TestMethod]
+    public void Update_ShouldThrow_WhenBaseClassIsSealed()
+    {
+        var model = _class!;
+        var sealedBase = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "SealedBase",
+            IsSealed = true
+        };
+        model.BaseClassId = sealedBase.Id;
+
+        _mockRepo!.Setup(r => r.GetById(model.Id)).Returns(model);
+        _mockRepo!.Setup(r => r.GetAll()).Returns(new List<ClassModel>());
+        _mockRepo!.Setup(r => r.GetById(model.BaseClassId.Value)).Returns(sealedBase);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(model));
+    }
+
+    [TestMethod]
     public void SaveChanges_ShouldCallRepositorySaveChanges()
     {
         _service!.SaveChanges();
