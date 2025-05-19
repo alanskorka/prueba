@@ -56,6 +56,12 @@ public class ParamModelService : IParamModelService
     public void Delete(ParamModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
+        var existing = _repo.GetById(model.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Parámetro no encontrado.");
+        }
+
         _repo.Delete(model);
         _repo.SaveChanges();
     }
