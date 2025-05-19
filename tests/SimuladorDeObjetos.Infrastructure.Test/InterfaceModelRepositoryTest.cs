@@ -47,4 +47,16 @@ public class InterfaceModelRepositoryTest
         Assert.AreEqual("ITest", saved.Name);
         Assert.AreEqual(1, saved.Methods.Count);
     }
+
+    [TestMethod]
+    public async Task GetAll_ShouldReturnAllInterfaces()
+    {
+        _context.InterfaceModels.Add(new InterfaceModel { Name = "I1" });
+        _context.InterfaceModels.Add(new InterfaceModel { Name = "I2" });
+        await _context.SaveChangesAsync();
+
+        var result = await _repository.GetAll();
+
+        Assert.AreEqual(2, result.Count);
+    }
 }
