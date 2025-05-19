@@ -72,6 +72,7 @@ public class InterfaceModelRepositoryTest
         Assert.IsNotNull(result);
         Assert.AreEqual("IGet", result!.Name);
     }
+
     [TestMethod]
     public async Task Delete_ShouldRemoveInterface()
     {
@@ -84,5 +85,4 @@ public class InterfaceModelRepositoryTest
         var exists = await _context.InterfaceModels.AnyAsync(i => i.Id == model.Id);
         Assert.IsFalse(exists);
     }
-
 }
