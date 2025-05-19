@@ -57,7 +57,31 @@ public class InterfaceModelRepository : IInterfaceModelRepository
 
     public async Task Update(InterfaceModel model)
     {
-        _dbContext.InterfaceModels.Update(model);
+        var existingModel = await _dbContext.InterfaceModels
+            .Include(i => i.Methods)
+            .ThenInclude(m => m.Parameters)
+            .FirstOrDefaultAsync(i => i.Id == model.Id);
+
+        if (existingModel == null)
+        {
+            throw new KeyNotFoundException($"No se encontró un InterfaceModel con el ID {model.Id}");
+        }
+
+        existingModel.Name = model.Name;
+
+        _dbContext.InterfaceMethodModels.RemoveRange(existingModel.Methods);
+
+        existingModel.Methods = model.Methods.Select(m => new InterfaceMethodModel
+        {
+            Name = m.Name,
+            ReturnType = m.ReturnType,
+            Parameters = m.Parameters.Select(p => new ParameterModel
+            {
+                Name = p.Name,
+                Type = p.Type
+            }).ToList()
+        }).ToList();
+
         await _dbContext.SaveChangesAsync();
     }
 }
