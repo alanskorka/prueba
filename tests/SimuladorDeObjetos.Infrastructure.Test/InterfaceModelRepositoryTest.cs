@@ -104,4 +104,40 @@ public class InterfaceModelRepositoryTest
 
         Assert.IsTrue(result);
     }
+    [TestMethod]
+    public async Task Update_ShouldModifyInterfaceAndReplaceMethods()
+    {
+        var original = new InterfaceModel
+        {
+            Name = "IOriginal",
+            Methods = new List<InterfaceMethodModel>
+            {
+                new() { Name = "OldMethod", ReturnType = "void", Parameters = new() }
+            }
+        };
+
+        _context.InterfaceModels.Add(original);
+        await _context.SaveChangesAsync();
+
+        var updated = new InterfaceModel
+        {
+            Id = original.Id,
+            Name = "IModified",
+            Methods = new List<InterfaceMethodModel>
+            {
+                new() { Name = "NewMethod", ReturnType = "int", Parameters = new() }
+            }
+        };
+
+        await _repository.Update(updated);
+
+        var result = await _context.InterfaceModels
+            .Include(i => i.Methods)
+            .FirstOrDefaultAsync(i => i.Id == original.Id);
+
+        Assert.AreEqual("IModified", result!.Name);
+        Assert.AreEqual(1, result.Methods.Count);
+        Assert.AreEqual("NewMethod", result.Methods.First().Name);
+    }
+
 }
