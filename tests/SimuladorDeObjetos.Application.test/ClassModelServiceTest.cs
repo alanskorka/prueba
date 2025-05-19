@@ -166,6 +166,19 @@ public class ClassModelServiceTest
     }
 
     [TestMethod]
+    public void Update_ShouldThrow_WhenBaseClassIsNotFound()
+    {
+        var model = _class!;
+        model.BaseClassId = Guid.NewGuid();
+
+        _mockRepo!.Setup(r => r.GetById(model.Id)).Returns(model);
+        _mockRepo!.Setup(r => r.GetAll()).Returns(new List<ClassModel>());
+        _mockRepo!.Setup(r => r.GetById(model.BaseClassId.Value)).Returns((ClassModel)null!);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(model));
+    }
+
+    [TestMethod]
     public void SaveChanges_ShouldCallRepositorySaveChanges()
     {
         _service!.SaveChanges();
