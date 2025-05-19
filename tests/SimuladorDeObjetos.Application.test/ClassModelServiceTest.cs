@@ -124,10 +124,14 @@ public class ClassModelServiceTest
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdateAndSave()
     {
+        _mockRepo!.Setup(r => r.GetById(_class!.Id)).Returns(_class);
+
+        _mockRepo.Setup(r => r.GetAll()).Returns(new List<ClassModel> { _class! });
+
         _service!.Update(_class!);
 
-        _mockRepo!.Verify(r => r.Update(_class!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+        _mockRepo.Verify(r => r.Update(_class!), Times.Once);
+        _mockRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
 
     [TestMethod]
@@ -136,6 +140,29 @@ public class ClassModelServiceTest
         _mockRepo!.Setup(r => r.GetById(_class!.Id)).Returns((ClassModel)null!);
 
         Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(_class!));
+    }
+
+    [TestMethod]
+    public void Update_ShouldThrow_WhenClassNameIsDuplicated()
+    {
+        var updated = new ClassModel
+        {
+            Id = Guid.NewGuid(), // ID de clase a actualizar
+            Name = "TestClass"   // Nombre duplicado
+        };
+
+        var existingSameName = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "TestClass"
+        };
+
+        _mockRepo!.Setup(r => r.GetById(updated.Id)).Returns(updated);
+        _mockRepo.Setup(r => r.GetAll()).Returns(new List<ClassModel> { existingSameName });
+
+        var ex = Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(updated));
+
+        Assert.AreEqual("Ya existe otra clase con el nombre 'TestClass'.", ex.Message);
     }
 
     [TestMethod]
