@@ -115,4 +115,11 @@ public class LocalVarModelRepositoryTest
         Assert.IsNotNull(result);
         Assert.AreEqual(_var.Id, result.Id);
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNull_WhenNotFound()
+    {
+        var result = _repo.GetById(Guid.NewGuid());
+        Assert.IsNull(result);
+    }
 }

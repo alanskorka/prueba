@@ -37,6 +37,6 @@ public class LocalVarModelRepository : ILocalVarModelRepository
 
     public LocalVarModel? GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return _dbContext.LocalVars.FirstOrDefault(v => v.Id == id);
     }
 }
