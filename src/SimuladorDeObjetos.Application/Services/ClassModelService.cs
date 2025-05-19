@@ -66,6 +66,11 @@ public class ClassModelService : IClassModelService
             {
                 throw new InvalidOperationException("Clase base no encontrada.");
             }
+
+            if (baseClass.IsSealed)
+            {
+                throw new InvalidOperationException("No se puede heredar de una clase sellada.");
+            }
         }
 
         _repo.Update(model);
