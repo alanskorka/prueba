@@ -65,6 +65,12 @@ public class MethodModelService : IMethodModelService
     public void Delete(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
+        var existing = _methodRepo.GetById(method.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Método no encontrado.");
+        }
+
         _methodRepo.Delete(method);
     }
 
