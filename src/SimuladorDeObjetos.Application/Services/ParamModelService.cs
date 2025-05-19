@@ -41,6 +41,14 @@ public class ParamModelService : IParamModelService
             throw new InvalidOperationException("Parámetro no encontrado.");
         }
 
+        var method = _methodRepo.GetById(model.MethodId)
+                     ?? throw new InvalidOperationException("Método no encontrado.");
+
+        if (method.Params.Any(p => p.Name == model.Name && p.Id != model.Id))
+        {
+            throw new InvalidOperationException("Ya existe otro parámetro con ese nombre en el método.");
+        }
+
         _repo.Update(model);
         _repo.SaveChanges();
     }

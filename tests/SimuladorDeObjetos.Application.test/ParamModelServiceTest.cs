@@ -87,10 +87,25 @@ public class ParamModelServiceTest
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdateAndSave()
     {
-        _service!.Update(_param!);
+        var otherParam = new ParamModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "otherParam"
+        };
 
-        _mockRepo!.Verify(r => r.Update(_param!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+        var method = new MethodModel
+        {
+            Id = _param!.MethodId,
+            Params = new List<ParamModel> { _param, otherParam }
+        };
+
+        _mockRepo!.Setup(r => r.GetById(_param.Id)).Returns(_param);
+        _mockMethodRepo!.Setup(r => r.GetById(_param.MethodId)).Returns(method);
+
+        _service!.Update(_param);
+
+        _mockRepo.Verify(r => r.Update(_param), Times.Once);
+        _mockRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
 
     [TestMethod]
@@ -109,6 +124,38 @@ public class ParamModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenDuplicateNameExists()
+    {
+        var otherParam = new ParamModel { Id = Guid.NewGuid(), Name = _param!.Name };
+
+        _mockRepo!.Setup(r => r.GetById(_param!.Id)).Returns(_param);
+        _mockMethodRepo!.Setup(r => r.GetById(_param.MethodId))
+            .Returns(new MethodModel
+            {
+                Id = _param.MethodId,
+                Params = new List<ParamModel> { _param!, otherParam }
+            });
+
+        _service!.Update(new ParamModel
+        {
+            Id = otherParam.Id,
+            Name = _param.Name,
+            MethodId = _param.MethodId
+        });
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenMethodNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_param!.Id)).Returns(_param);
+        _mockMethodRepo!.Setup(r => r.GetById(_param.MethodId)).Returns((MethodModel?)null);
+
+        _service!.Update(_param!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDeleteAndSave()
     {
         _service!.Delete(_param!);
@@ -122,6 +169,14 @@ public class ParamModelServiceTest
     public void Delete_ShouldThrow_WhenNull()
     {
         _service!.Delete(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenParamNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_param!.Id)).Returns((ParamModel?)null);
+        _service!.Delete(_param!);
     }
 
     [TestMethod]
