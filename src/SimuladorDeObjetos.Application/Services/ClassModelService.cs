@@ -59,6 +59,15 @@ public class ClassModelService : IClassModelService
             throw new InvalidOperationException($"Ya existe otra clase con el nombre '{model.Name}'.");
         }
 
+        if (model.BaseClassId.HasValue)
+        {
+            var baseClass = _repo.GetById(model.BaseClassId.Value);
+            if (baseClass == null)
+            {
+                throw new InvalidOperationException("Clase base no encontrada.");
+            }
+        }
+
         _repo.Update(model);
         _repo.SaveChanges();
     }
