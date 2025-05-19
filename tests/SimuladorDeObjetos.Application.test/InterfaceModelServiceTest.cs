@@ -97,4 +97,22 @@ public class InterfaceModelServiceTest
         await _service.Delete(id);
         _repository.Verify(r => r.Delete(id), Times.Once);
     }
+
+    [TestMethod]
+    public async Task Update_ShouldCallRepositoryUpdate()
+    {
+        var model = new InterfaceModel
+        {
+            Id = 1,
+            Name = "IModified",
+            Methods = new List<InterfaceMethodModel>
+            {
+                new() { Name = "DoX", ReturnType = "string", Parameters = new() }
+            }
+        };
+
+        await _service.Update(model);
+
+        _repository.Verify(r => r.Update(model), Times.Once);
+    }
 }
