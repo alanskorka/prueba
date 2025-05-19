@@ -37,6 +37,6 @@ public class ParamModelRepository : IParamModelRepository
 
     public ParamModel? GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return _dbContext.Params.FirstOrDefault(p => p.Id == id);
     }
 }
