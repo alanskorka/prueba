@@ -54,6 +54,11 @@ public class MethodModelService : IMethodModelService
 
         var classModel = _classRepo.GetById(method.ClassId) ?? throw new Exception("Clase no encontrada");
 
+        if (classModel.Methods.Any(m => m.Name == method.Name && m.Id != method.Id))
+        {
+            throw new InvalidOperationException("Ya existe otro método con ese nombre en la clase.");
+        }
+
         _methodRepo.Update(method);
     }
 

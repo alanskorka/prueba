@@ -81,10 +81,23 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
-    public void Update_ShouldUpdate()
+    public void Update_ShouldSucceed_WhenValid()
     {
-        var method = new MethodModel();
+        var method = new MethodModel { Id = Guid.NewGuid(), ClassId = Guid.NewGuid(), Name = "Valid" };
+        var classModel = new ClassModel
+        {
+            Id = method.ClassId,
+            Methods = new List<MethodModel>
+            {
+                new MethodModel { Id = Guid.NewGuid(), Name = "Other" }
+            }
+        };
+
+        _methodRepo.Setup(r => r.GetById(method.Id)).Returns(method);
+        _classRepo.Setup(r => r.GetById(method.ClassId)).Returns(classModel);
+
         _service.Update(method);
+
         _methodRepo.Verify(r => r.Update(method), Times.Once);
     }
 
