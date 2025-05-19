@@ -159,6 +159,23 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Delete_ShouldThrow_WhenMethodIsNull()
+    {
+        _service.Delete(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenMethodDoesNotExist()
+    {
+        var method = new MethodModel { Id = Guid.NewGuid() };
+        _methodRepo.Setup(r => r.GetById(method.Id)).Returns((MethodModel?)null);
+
+        _service.Delete(method);
+    }
+
+    [TestMethod]
     public void AddMethodToClass_ShouldAdd_WhenValid()
     {
         var cls = new ClassModel { Id = Guid.NewGuid(), Methods = new(), IsAbstract = true, IsSealed = false };
