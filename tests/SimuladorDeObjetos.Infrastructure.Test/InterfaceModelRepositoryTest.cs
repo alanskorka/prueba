@@ -85,4 +85,23 @@ public class InterfaceModelRepositoryTest
         var exists = await _context.InterfaceModels.AnyAsync(i => i.Id == model.Id);
         Assert.IsFalse(exists);
     }
+
+    [TestMethod]
+    public async Task IsUsedByAnyClass_ShouldReturnTrue_WhenClassImplementsInterface()
+    {
+        var iface = new InterfaceModel { Name = "IUsed" };
+        var clase = new ClassModel
+        {
+            Name = "C1",
+            ImplementedInterfaces = new List<InterfaceModel> { iface }
+        };
+
+        _context.InterfaceModels.Add(iface);
+        _context.ClassModels.Add(clase);
+        await _context.SaveChangesAsync();
+
+        var result = await _repository.IsUsedByAnyClass(iface.Id);
+
+        Assert.IsTrue(result);
+    }
 }
