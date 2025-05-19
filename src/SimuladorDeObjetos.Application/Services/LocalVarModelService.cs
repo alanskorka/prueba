@@ -55,6 +55,12 @@ public class LocalVarModelService : ILocalVarModelService
     public void Delete(LocalVarModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
+        var existing = _repo.GetById(model.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Variable local no encontrada.");
+        }
+
         _repo.Delete(model);
         _repo.SaveChanges();
     }
