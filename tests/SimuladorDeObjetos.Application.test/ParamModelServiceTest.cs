@@ -68,7 +68,7 @@ public class ParamModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Add_ShouldThrow_WhenMethodNotFound()
     {
         _mockMethodRepo!.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((MethodModel?)null);
@@ -158,10 +158,11 @@ public class ParamModelServiceTest
     [TestMethod]
     public void Delete_ShouldCallRepositoryDeleteAndSave()
     {
+        _mockRepo!.Setup(r => r.GetById(_param!.Id)).Returns(_param);
         _service!.Delete(_param!);
 
-        _mockRepo!.Verify(r => r.Delete(_param!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+        _mockRepo.Verify(r => r.Delete(_param!), Times.Once);
+        _mockRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
 
     [TestMethod]
