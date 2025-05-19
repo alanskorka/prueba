@@ -114,6 +114,28 @@ public class LocalVarModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenDuplicateVarNameExists()
+    {
+        var otherVar = new LocalVarModel { Id = Guid.NewGuid(), Name = _var!.Name };
+
+        _mockMethodRepo!.Setup(r => r.GetById(_var!.MethodId)).Returns(new MethodModel
+        {
+            Id = _var.MethodId,
+            Vars = new List<LocalVarModel> { _var!, otherVar }
+        });
+
+        _mockRepo!.Setup(r => r.GetById(_var.Id)).Returns(_var);
+
+        _service!.Update(new LocalVarModel
+        {
+            Id = otherVar.Id,
+            Name = _var.Name,
+            MethodId = _var.MethodId
+        });
+    }
+
+    [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Delete_ShouldThrow_WhenNull()
     {
