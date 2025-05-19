@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using SimuladorDeObjetos.Infrastructure.Repositories;
 
@@ -46,5 +47,4 @@ public class InterfaceModelRepositoryTest
         Assert.AreEqual("ITest", saved.Name);
         Assert.AreEqual(1, saved.Methods.Count);
     }
-
 }
