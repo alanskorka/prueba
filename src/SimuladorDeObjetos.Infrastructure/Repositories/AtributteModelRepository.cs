@@ -34,4 +34,8 @@ public class AtributteModelRepository : IAtributteModelRepository
     }
 
     public void SaveChanges() => _dbContext.SaveChanges();
+    public AttributeModel? GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 }
