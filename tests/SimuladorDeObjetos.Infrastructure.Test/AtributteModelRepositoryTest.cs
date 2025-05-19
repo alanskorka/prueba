@@ -121,4 +121,14 @@ public class AtributteModelRepositoryTest
         Assert.AreEqual(_attribute.Id, result!.Id);
         Assert.AreEqual(_attribute.Name, result.Name);
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNull_WhenNotFound()
+    {
+        var nonExistentId = Guid.NewGuid();
+
+        var result = _repo.GetById(nonExistentId);
+
+        Assert.IsNull(result);
+    }
 }
