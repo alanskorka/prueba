@@ -46,6 +46,12 @@ public class ClassModelService : IClassModelService
     public void Update(ClassModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
+        var existing = _repo.GetById(model.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("La clase a actualizar no existe.");
+        }
+
         _repo.Update(model);
         _repo.SaveChanges();
     }
