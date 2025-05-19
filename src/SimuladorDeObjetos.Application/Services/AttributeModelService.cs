@@ -44,6 +44,8 @@ public class AttributeModelService : IAttributeModelService
             throw new InvalidOperationException("Atributo no encontrado.");
         }
 
+        var classModel = _classRepo.GetById(attribute.ClassId) ?? throw new InvalidOperationException("Clase no encontrada.");
+
         _repo.Update(attribute);
     }
 
