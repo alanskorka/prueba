@@ -59,7 +59,7 @@ public class InterfaceModelRepositoryTest
         var result = await _repository.GetAll();
         Assert.AreEqual(2, result.Count);
     }
-    
+
     [TestMethod]
     public async Task GetById_ShouldReturnCorrectInterface()
     {
@@ -72,5 +72,4 @@ public class InterfaceModelRepositoryTest
         Assert.IsNotNull(result);
         Assert.AreEqual("IGet", result!.Name);
     }
-
 }
