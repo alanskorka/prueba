@@ -52,6 +52,13 @@ public class ClassModelService : IClassModelService
             throw new InvalidOperationException("La clase a actualizar no existe.");
         }
 
+        var sameName = _repo.GetAll()
+            .Any(c => c.Name == model.Name && c.Id != model.Id);
+        if (sameName)
+        {
+            throw new InvalidOperationException($"Ya existe otra clase con el nombre '{model.Name}'.");
+        }
+
         _repo.Update(model);
         _repo.SaveChanges();
     }

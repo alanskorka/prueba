@@ -147,8 +147,8 @@ public class ClassModelServiceTest
     {
         var updated = new ClassModel
         {
-            Id = Guid.NewGuid(), // ID de clase a actualizar
-            Name = "TestClass"   // Nombre duplicado
+            Id = Guid.NewGuid(),
+            Name = "TestClass"
         };
 
         var existingSameName = new ClassModel
