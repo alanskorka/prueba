@@ -106,6 +106,18 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(Exception))]
+    public void Update_ShouldThrow_WhenClassNotFound()
+    {
+        var method = new MethodModel { Id = Guid.NewGuid(), ClassId = Guid.NewGuid(), Name = "Run" };
+
+        _methodRepo.Setup(r => r.GetById(method.Id)).Returns(method);
+        _classRepo.Setup(r => r.GetById(method.ClassId)).Returns((ClassModel?)null);
+
+        _service.Update(method);
+    }
+
+    [TestMethod]
     public void Delete_ShouldDelete()
     {
         var method = new MethodModel();
