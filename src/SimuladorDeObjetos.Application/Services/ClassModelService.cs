@@ -15,6 +15,11 @@ public class ClassModelService : IClassModelService
     {
         ArgumentNullException.ThrowIfNull(model);
 
+        if (_repo.GetAll().Any(c => c.Name == model.Name))
+        {
+            throw new InvalidOperationException($"Ya existe una clase con el nombre '{model.Name}'.");
+        }
+
         if (model.BaseClassId.HasValue)
         {
             var baseClass = _repo.GetById(model.BaseClassId.Value);
