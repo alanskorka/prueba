@@ -8,4 +8,5 @@ public interface IInterfaceModelService
     Task<IEnumerable<InterfaceModel>> GetAll();
     Task<InterfaceModel> GetById(Guid id);
     Task Delete(Guid id);
+    Task Update(InterfaceModel model);
 }

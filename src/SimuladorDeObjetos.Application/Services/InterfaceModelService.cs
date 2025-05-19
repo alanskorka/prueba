@@ -41,4 +41,9 @@ public class InterfaceModelService
 
         await _repository.Delete(id);
     }
+
+    public async Task Update(InterfaceModel model)
+    {
+        await _repository.Update(model);
+    }
 }

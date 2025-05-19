@@ -8,4 +8,5 @@ public interface IInterfaceModelRepository
     Task<InterfaceModel?> GetById(int id);
     Task Delete(int id);
     Task<bool> IsUsedByAnyClass(int interfaceId);
+    Task Update(InterfaceModel model);
 }

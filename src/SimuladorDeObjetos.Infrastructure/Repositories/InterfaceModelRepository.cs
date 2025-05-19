@@ -54,4 +54,10 @@ public class InterfaceModelRepository : IInterfaceModelRepository
             await _dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task Update(InterfaceModel model)
+    {
+        _dbContext.InterfaceModels.Update(model);
+        await _dbContext.SaveChangesAsync();
+    }
 }
