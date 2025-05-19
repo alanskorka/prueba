@@ -162,7 +162,7 @@ public class ClassModelServiceTest
 
         var ex = Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(updated));
 
-        Assert.AreEqual("Ya existe otra clase con el nombre 'TestClass'.", ex.Message);
+        Assert.AreEqual("Ya existe una clase con el nombre 'TestClass'.", ex.Message);
     }
 
     [TestMethod]
