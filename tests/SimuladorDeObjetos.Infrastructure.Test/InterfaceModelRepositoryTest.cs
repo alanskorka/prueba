@@ -97,7 +97,7 @@ public class InterfaceModelRepositoryTest
         };
 
         _context.InterfaceModels.Add(iface);
-        _context.ClassModels.Add(clase);
+        _context.Classes.Add(clase);
         await _context.SaveChangesAsync();
 
         var result = await _repository.IsUsedByAnyClass(iface.Id);
