@@ -118,6 +118,15 @@ public class AttributeModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenClassNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute!);
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns((ClassModel?)null);
+        _service!.Update(_attribute!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
         _service!.Delete(_attribute!);
