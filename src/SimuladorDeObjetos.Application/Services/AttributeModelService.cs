@@ -38,6 +38,12 @@ public class AttributeModelService : IAttributeModelService
     public void Update(AttributeModel attribute)
     {
         ArgumentNullException.ThrowIfNull(attribute);
+        var existing = _repo.GetById(attribute.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Atributo no encontrado.");
+        }
+
         _repo.Update(attribute);
     }
 
