@@ -127,6 +127,16 @@ public class AttributeModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenClassIsSealed()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute!);
+        _classModel!.IsSealed = true;
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns(_classModel);
+        _service!.Update(_attribute!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
         _service!.Delete(_attribute!);
