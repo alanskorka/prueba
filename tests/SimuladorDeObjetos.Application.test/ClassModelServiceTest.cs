@@ -99,6 +99,22 @@ public class ClassModelServiceTest
     }
 
     [TestMethod]
+    public void Add_ShouldThrow_WhenClassNameExists()
+    {
+        _mockRepo!.Setup(r => r.GetAll())
+            .Returns(new List<ClassModel> { new ClassModel { Name = "TestClass" } });
+
+        var duplicateClass = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "TestClass"
+        };
+
+        var ex = Assert.ThrowsException<InvalidOperationException>(() => _service!.Add(duplicateClass));
+        Assert.AreEqual("Ya existe una clase con el nombre 'TestClass'.", ex.Message);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
         _service!.Delete(_class!);
