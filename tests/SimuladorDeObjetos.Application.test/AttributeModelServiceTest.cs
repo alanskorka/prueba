@@ -169,4 +169,12 @@ public class AttributeModelServiceTest
     {
         _service!.Delete(null!);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenAttributeNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns((AttributeModel?)null);
+        _service!.Delete(_attribute!);
+    }
 }
