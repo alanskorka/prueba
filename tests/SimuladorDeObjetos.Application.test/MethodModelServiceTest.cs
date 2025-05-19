@@ -43,7 +43,7 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Add_ShouldThrow_WhenClassNotFound()
     {
         _classRepo.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((ClassModel?)null);
@@ -119,7 +119,7 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Update_ShouldThrow_WhenClassNotFound()
     {
         var method = new MethodModel { Id = Guid.NewGuid(), ClassId = Guid.NewGuid(), Name = "Run" };
@@ -151,10 +151,13 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
-    public void Delete_ShouldDelete()
+    public void Delete_ShouldCallRepositoryDelete_WhenMethodExists()
     {
-        var method = new MethodModel();
+        var method = new MethodModel { Id = Guid.NewGuid() };
+        _methodRepo.Setup(r => r.GetById(method.Id)).Returns(method);
+
         _service.Delete(method);
+
         _methodRepo.Verify(r => r.Delete(method), Times.Once);
     }
 
@@ -190,7 +193,7 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void AddMethodToClass_ShouldThrow_WhenClassNotFound()
     {
         _classRepo.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((ClassModel?)null);
@@ -208,26 +211,37 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
-    public void SimulateMethodExecution_ShouldReturnIndented()
+    public void SimulateMethodExecution_ShouldReturnFormattedLines_WhenValid()
     {
         var methodId = Guid.NewGuid();
-        var method = new MethodModel { Id = methodId, Name = "Main" };
-        var call = new MethodCallModel { Id = Guid.NewGuid(), MethodName = "Nested", ReferenceType = ReferenceTypeInvocation.Base };
+        var classId = Guid.NewGuid();
+
+        var method = new MethodModel { Id = methodId, Name = "Main", ClassId = classId };
+        var classModel = new ClassModel { Id = classId, Name = "Calculator" };
+
+        var call = new MethodCallModel
+        {
+            Id = Guid.NewGuid(),
+            MethodName = "SubMethod",
+            ReferenceType = ReferenceTypeInvocation.This
+        };
 
         _methodRepo.Setup(r => r.GetById(methodId)).Returns(method);
+        _classRepo.Setup(r => r.GetById(classId)).Returns(classModel);
         _methodRepo.Setup(r => r.GetMethodCalls(methodId)).Returns(new List<MethodCallModel> { call });
         _methodRepo.Setup(r => r.GetMethodCalls(call.Id)).Returns(new List<MethodCallModel>());
 
         var req = new SimulationRequest
         {
             MethodId = methodId,
-            ConcreteTypeId = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
+            ConcreteTypeId = Guid.NewGuid()
         };
 
         var result = _service.SimulateMethodExecution(req);
 
         Assert.AreEqual(2, result.Lines.Count);
-        Assert.AreEqual("  base.Nested()", result.Lines[1]);
+        Assert.AreEqual("Calculator.Main()", result.Lines[0]);
+        Assert.AreEqual("  this.SubMethod()", result.Lines[1]);
     }
 
     [TestMethod]
@@ -247,6 +261,20 @@ public class MethodModelServiceTest
         _classRepo.Setup(r => r.GetById(classId)).Returns(cls);
 
         Assert.ThrowsException<InvalidOperationException>(() => _service.AddMethodToClass(classId, method));
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void SimulateMethodExecution_ShouldThrow_WhenClassNotFound()
+    {
+        var methodId = Guid.NewGuid();
+        var method = new MethodModel { Id = methodId, Name = "Main", ClassId = Guid.NewGuid() };
+
+        _methodRepo.Setup(r => r.GetById(methodId)).Returns(method);
+        _classRepo.Setup(r => r.GetById(method.ClassId)).Returns((ClassModel?)null);
+
+        var req = new SimulationRequest { MethodId = methodId };
+        _service.SimulateMethodExecution(req);
     }
 
     [TestMethod]

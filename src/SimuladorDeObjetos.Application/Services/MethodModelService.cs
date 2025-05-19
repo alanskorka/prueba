@@ -17,28 +17,14 @@ public class MethodModelService : IMethodModelService
         _classRepo = classRepo;
     }
 
-    public IEnumerable<MethodModel> GetAll() => _methodRepo.GetAll() ?? new List<MethodModel>();
+   public IEnumerable<MethodModel> GetAll() => _methodRepo.GetAll() ?? Enumerable.Empty<MethodModel>();
 
     public void Add(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
 
-        var classModel = _classRepo.GetById(method.ClassId) ?? throw new Exception("Clase no encontrada");
-
-        if (classModel.IsSealed)
-        {
-            throw new InvalidOperationException("No se pueden agregar métodos a una clase sellada.");
-        }
-
-        if (classModel.Methods.Any(m => m.Name == method.Name))
-        {
-            throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
-        }
-
-        if (method.IsAbstract && !classModel.IsAbstract)
-        {
-            throw new InvalidOperationException("No se puede agregar un método abstracto a una clase concreta. Marcar la clase como abstracta.");
-        }
+        var classModel = GetClassOrThrow(method.ClassId);
+        ValidateAddOrUpdate(method, classModel);
 
         _methodRepo.Add(method);
     }
@@ -46,18 +32,15 @@ public class MethodModelService : IMethodModelService
     public void Update(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
+
         var existing = _methodRepo.GetById(method.Id);
         if (existing == null)
         {
             throw new InvalidOperationException("Método no encontrado.");
         }
 
-        var classModel = _classRepo.GetById(method.ClassId) ?? throw new Exception("Clase no encontrada");
-
-        if (classModel.Methods.Any(m => m.Name == method.Name && m.Id != method.Id))
-        {
-            throw new InvalidOperationException("Ya existe otro método con ese nombre en la clase.");
-        }
+        var classModel = GetClassOrThrow(method.ClassId);
+        ValidateAddOrUpdate(method, classModel, isUpdate: true);
 
         _methodRepo.Update(method);
     }
@@ -65,6 +48,7 @@ public class MethodModelService : IMethodModelService
     public void Delete(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
+
         var existing = _methodRepo.GetById(method.Id);
         if (existing == null)
         {
@@ -78,22 +62,8 @@ public class MethodModelService : IMethodModelService
     {
         ArgumentNullException.ThrowIfNull(method);
 
-        var classModel = _classRepo.GetById(classId) ?? throw new Exception("Class not found");
-
-        if (method.IsAbstract && !classModel.IsAbstract)
-        {
-            throw new InvalidOperationException("No se puede agregar un método abstracto a una clase concreta. Marcar la clase como abstracta.");
-        }
-
-        if (classModel.IsSealed)
-        {
-            throw new InvalidOperationException("No se pueden agregar métodos a una clase sellada.");
-        }
-
-        if (classModel.Methods.Any(m => m.Name == method.Name))
-        {
-            throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
-        }
+        var classModel = GetClassOrThrow(classId);
+        ValidateAddOrUpdate(method, classModel);
 
         classModel.Methods.Add(method);
         _classRepo.Update(classModel);
@@ -101,14 +71,19 @@ public class MethodModelService : IMethodModelService
 
     public MethodModel? GetByName(Guid classId, string methodName)
     {
-        return _methodRepo.GetAll().FirstOrDefault(m => m.ClassId == classId && m.Name == methodName);
+        return _methodRepo.GetAll()
+            .FirstOrDefault(m => m.ClassId == classId && m.Name == methodName);
     }
 
     public SimulationResponse SimulateMethodExecution(SimulationRequest req)
     {
-        var method = _methodRepo.GetById(req.MethodId) ?? throw new ArgumentException("Método no encontrado");
-        var classModel = _classRepo.GetById(method.ClassId);
-        var className = classModel?.Name ?? req.ConcreteTypeId.ToString();
+        var method = _methodRepo.GetById(req.MethodId)
+            ?? throw new ArgumentException("Método no encontrado");
+
+        var classModel = _classRepo.GetById(method.ClassId)
+            ?? throw new InvalidOperationException("Clase asociada al método no encontrada.");
+
+        var className = classModel.Name;
         var lines = new List<string> { $"{className}.{method.Name}()" };
 
         foreach (var call in _methodRepo.GetMethodCalls(method.Id))
@@ -131,10 +106,37 @@ public class MethodModelService : IMethodModelService
             ReferenceTypeInvocation.LocalVar => $"var_{call.ReferenceName}",
             _ => call.ReferenceType.ToString()
         };
+
         lines.Add($"{indent}{prefix}.{call.MethodName}()");
+
         foreach (var nested in _methodRepo.GetMethodCalls(call.Id))
         {
             AppendCall(lines, nested, level + 1);
+        }
+    }
+
+    private ClassModel GetClassOrThrow(Guid classId)
+    {
+        return _classRepo.GetById(classId)
+            ?? throw new InvalidOperationException("Clase no encontrada.");
+    }
+
+    private void ValidateAddOrUpdate(MethodModel method, ClassModel classModel, bool isUpdate = false)
+    {
+        if (method.IsAbstract && !classModel.IsAbstract)
+        {
+            throw new InvalidOperationException("No se puede agregar un método abstracto a una clase concreta. Marcar la clase como abstracta.");
+        }
+
+        if (classModel.IsSealed)
+        {
+            throw new InvalidOperationException("No se pueden agregar métodos a una clase sellada.");
+        }
+
+        var duplicate = classModel.Methods.Any(m => m.Name == method.Name && (!isUpdate || m.Id != method.Id));
+        if (duplicate)
+        {
+            throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
         }
     }
 }
