@@ -105,15 +105,6 @@ public class LocalVarModelServiceTest
     }
 
     [TestMethod]
-    public void Delete_ShouldCallDeleteAndSaveChanges()
-    {
-        _service!.Delete(_var!);
-
-        _mockRepo!.Verify(r => r.Delete(_var!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
-    }
-
-    [TestMethod]
     [ExpectedException(typeof(InvalidOperationException))]
     public void Update_ShouldThrow_WhenDuplicateVarNameExists()
     {
@@ -133,6 +124,15 @@ public class LocalVarModelServiceTest
             Name = _var.Name,
             MethodId = _var.MethodId
         });
+    }
+
+    [TestMethod]
+    public void Delete_ShouldCallDeleteAndSaveChanges()
+    {
+        _service!.Delete(_var!);
+
+        _mockRepo!.Verify(r => r.Delete(_var!), Times.Once);
+        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
     }
 
     [TestMethod]

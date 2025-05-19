@@ -34,6 +34,20 @@ public class LocalVarModelService : ILocalVarModelService
     public void Update(LocalVarModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
+        var existing = _repo.GetById(model.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Variable local no encontrada.");
+        }
+
+        var method = _methodRepo.GetById(model.MethodId)
+                     ?? throw new InvalidOperationException("Método no encontrado.");
+
+        if (method.Vars.Any(v => v.Name == model.Name && v.Id != model.Id))
+        {
+            throw new InvalidOperationException("Ya existe otra variable local con ese nombre en el método.");
+        }
+
         _repo.Update(model);
         _repo.SaveChanges();
     }
