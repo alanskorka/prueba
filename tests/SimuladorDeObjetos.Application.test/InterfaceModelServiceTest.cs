@@ -87,4 +87,14 @@ public class InterfaceModelServiceTest
         Assert.IsNotNull(result);
         Assert.AreEqual("ITest", result.Name);
     }
+
+    [TestMethod]
+    public async Task Delete_WhenNotUsedByAnyClass_ShouldCallDelete()
+    {
+        var id = 1;
+        _repository.Setup(r => r.IsUsedByAnyClass(id)).ReturnsAsync(false);
+
+        await _service.Delete(id);
+        _repository.Verify(r => r.Delete(id), Times.Once);
+    }
 }
