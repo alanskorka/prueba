@@ -34,4 +34,9 @@ public class LocalVarModelRepository : ILocalVarModelRepository
     }
 
     public void SaveChanges() => _dbContext.SaveChanges();
+
+    public LocalVarModel? GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -104,4 +104,15 @@ public class LocalVarModelRepositoryTest
         _repo.SaveChanges();
         Assert.AreEqual(1, _context.LocalVars.Count());
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnCorrectLocalVar()
+    {
+        _context.LocalVars.Add(_var);
+        _context.SaveChanges();
+
+        var result = _repo.GetById(_var.Id);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(_var.Id, result.Id);
+    }
 }
