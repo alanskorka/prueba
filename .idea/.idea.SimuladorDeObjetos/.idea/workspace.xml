@@ -197,7 +197,7 @@
       <workItem from="1746639781188" duration="10004000" />
       <workItem from="1746680886838" duration="468000" />
       <workItem from="1746741158435" duration="805000" />
-      <workItem from="1747676260495" duration="6867000" />
+      <workItem from="1747676260495" duration="7179000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
@@ -574,25 +574,25 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 97% 10/352" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 98% 7/359" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 98% 13/824" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 97% 10/352" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Application 97% 10/352" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 7/831" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 98% 7/359" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="SimuladorDeObjetos.Application 98% 7/359" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

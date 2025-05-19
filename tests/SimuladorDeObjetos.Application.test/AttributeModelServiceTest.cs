@@ -59,7 +59,7 @@ public class AttributeModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Create_ShouldThrow_WhenClassNotFound()
     {
         _mockClassRepo!.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((ClassModel?)null);
@@ -98,8 +98,18 @@ public class AttributeModelServiceTest
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdate()
     {
-        _service!.Update(_attribute!);
-        _mockRepo!.Verify(r => r.Update(_attribute!), Times.Once);
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute);
+
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns(new ClassModel
+        {
+            Id = _attribute.ClassId,
+            IsSealed = false,
+            Attributes = new List<AttributeModel> { _attribute }
+        });
+
+        _service!.Update(_attribute);
+
+        _mockRepo.Verify(r => r.Update(_attribute!), Times.Once);
     }
 
     [TestMethod]
