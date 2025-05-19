@@ -46,6 +46,11 @@ public class AttributeModelService : IAttributeModelService
 
         var classModel = _classRepo.GetById(attribute.ClassId) ?? throw new InvalidOperationException("Clase no encontrada.");
 
+        if (classModel.IsSealed)
+        {
+            throw new InvalidOperationException("No se pueden modificar atributos en una clase sellada.");
+        }
+
         _repo.Update(attribute);
     }
 
