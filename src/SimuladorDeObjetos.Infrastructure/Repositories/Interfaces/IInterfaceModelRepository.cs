@@ -6,4 +6,6 @@ public interface IInterfaceModelRepository
     Task Add(InterfaceModel model);
     Task<List<InterfaceModel>> GetAll();
     Task<InterfaceModel?> GetById(int id);
+    Task Delete(int id);
+    Task<bool> IsUsedByAnyClass(int interfaceId);
 }

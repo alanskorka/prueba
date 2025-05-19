@@ -34,4 +34,24 @@ public class InterfaceModelRepository : IInterfaceModelRepository
             .ThenInclude(m => m.Parameters)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
+
+    public async Task<bool> IsUsedByAnyClass(int interfaceId)
+    {
+        return await _dbContext.Classes
+            .AnyAsync(c => c.ImplementedInterfaces != null && c.ImplementedInterfaces.Any(i => i.Id == interfaceId));
+    }
+
+    public async Task Delete(int id)
+    {
+        var toDelete = await _dbContext.InterfaceModels
+            .Include(i => i.Methods)
+            .ThenInclude(m => m.Parameters)
+            .FirstOrDefaultAsync(i => i.Id == id);
+
+        if (toDelete != null)
+        {
+            _dbContext.InterfaceModels.Remove(toDelete);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
 }

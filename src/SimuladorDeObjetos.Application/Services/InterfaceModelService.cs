@@ -31,4 +31,14 @@ public class InterfaceModelService
     {
         return await _repository.GetById(id);
     }
+
+    public async Task Delete(int id)
+    {
+        if (await _repository.IsUsedByAnyClass(id))
+        {
+            throw new InvalidOperationException("Interface is in use by a class.");
+        }
+
+        await _repository.Delete(id);
+    }
 }
