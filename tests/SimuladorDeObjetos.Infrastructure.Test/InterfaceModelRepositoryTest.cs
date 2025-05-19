@@ -53,10 +53,10 @@ public class InterfaceModelRepositoryTest
     {
         _context.InterfaceModels.Add(new InterfaceModel { Name = "I1" });
         _context.InterfaceModels.Add(new InterfaceModel { Name = "I2" });
+
         await _context.SaveChangesAsync();
 
         var result = await _repository.GetAll();
-
         Assert.AreEqual(2, result.Count);
     }
 }
