@@ -118,6 +118,26 @@ public class MethodModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenDuplicateMethodNameInClass()
+    {
+        var method = new MethodModel { Id = Guid.NewGuid(), ClassId = Guid.NewGuid(), Name = "Run" };
+        var classModel = new ClassModel
+        {
+            Id = method.ClassId,
+            Methods = new List<MethodModel>
+            {
+                new MethodModel { Id = Guid.NewGuid(), Name = "Run" }
+            }
+        };
+
+        _methodRepo.Setup(r => r.GetById(method.Id)).Returns(method);
+        _classRepo.Setup(r => r.GetById(method.ClassId)).Returns(classModel);
+
+        _service.Update(method);
+    }
+
+    [TestMethod]
     public void Delete_ShouldDelete()
     {
         var method = new MethodModel();
