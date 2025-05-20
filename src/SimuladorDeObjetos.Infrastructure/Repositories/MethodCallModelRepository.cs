@@ -37,6 +37,6 @@ public class MethodCallModelRepository : IMethodCallModelRepository
 
     public MethodCallModel? GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return _dbContext.MethodCalls.FirstOrDefault(c => c.Id == id);
     }
 }

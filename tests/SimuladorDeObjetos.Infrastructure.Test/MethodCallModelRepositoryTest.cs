@@ -129,4 +129,13 @@ public class MethodCallModelRepositoryTest
         Assert.IsNotNull(result);
         Assert.AreEqual(call.Id, result!.Id);
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNull_WhenNotFound()
+    {
+        var repo = new MethodCallModelRepository(_context);
+        var result = repo.GetById(Guid.NewGuid());
+
+        Assert.IsNull(result);
+    }
 }
