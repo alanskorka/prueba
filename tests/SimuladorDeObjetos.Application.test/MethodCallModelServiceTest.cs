@@ -44,6 +44,14 @@ public class MethodCallModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Create_ShouldThrow_WhenCallAlreadyExists()
+    {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns(_call); // Simula duplicado
+        _service!.Create(_call!);
+    }
+
+    [TestMethod]
     public void GetAll_ShouldReturnListFromRepository()
     {
         var list = new List<MethodCallModel> { _call! };
