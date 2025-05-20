@@ -98,4 +98,12 @@ public class MethodCallModelServiceTest
     {
         _service!.Delete(null!);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenCallDoesNotExist()
+    {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns((MethodCallModel?)null); // No existe
+        _service!.Delete(_call!);
+    }
 }
