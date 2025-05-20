@@ -25,6 +25,12 @@ public class MethodCallModelService : IMethodCallModelService
     public void Update(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
+        var existing = _repo.GetById(call.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Llamada de método no encontrada.");
+        }
+
         _repo.Update(call);
     }
 
