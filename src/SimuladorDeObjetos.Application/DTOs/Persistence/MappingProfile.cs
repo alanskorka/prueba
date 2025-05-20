@@ -3,7 +3,6 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace SimuladorDeObjetos.Application.DTOs;
-
 public class MappingProfile : Profile
 {
     public MappingProfile()
@@ -14,11 +13,16 @@ public class MappingProfile : Profile
         CreateMap<MethodCallDto, MethodCallModel>().ReverseMap();
         CreateMap<MethodDto, MethodModel>().ReverseMap();
 
+        CreateMap<InterfaceDto, InterfaceModel>().ReverseMap();
+        CreateMap<InterfaceMethodDto, InterfaceMethodModel>().ReverseMap();
+
         CreateMap<ClassDto, ClassModel>()
             .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
             .ForMember(dest => dest.Methods, opt => opt.MapFrom(src => src.Methods))
+            .ForMember(dest => dest.ImplementedInterfaces, opt => opt.MapFrom(src => src.ImplementedInterfaces))
             .ReverseMap()
             .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
-            .ForMember(dest => dest.Methods, opt => opt.MapFrom(src => src.Methods));
+            .ForMember(dest => dest.Methods, opt => opt.MapFrom(src => src.Methods))
+            .ForMember(dest => dest.ImplementedInterfaces, opt => opt.MapFrom(src => src.ImplementedInterfaces));
     }
 }

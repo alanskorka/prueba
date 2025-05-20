@@ -75,11 +75,6 @@ public class InterfaceModelRepository : IInterfaceModelRepository
         {
             Name = m.Name,
             ReturnType = m.ReturnType,
-            Parameters = m.Parameters.Select(p => new ParameterModel
-            {
-                Name = p.Name,
-                Type = p.Type
-            }).ToList()
         }).ToList();
 
         await _dbContext.SaveChangesAsync();

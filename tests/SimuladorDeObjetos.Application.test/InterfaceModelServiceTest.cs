@@ -29,10 +29,6 @@ public class InterfaceModelServiceTest
                 {
                     Name = "DoSomething",
                     ReturnType = "void",
-                    Parameters = new List<ParameterModel>
-                    {
-                        new ParameterModel { Name = "value", Type = "int" }
-                    }
                 }
             }
         };

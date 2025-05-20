@@ -117,7 +117,6 @@ public class InterfaceModelRepositoryTest
                 {
                     Name = "OldMethod",
                     ReturnType = "void",
-                    Parameters = new List<ParameterModel>()
                 }
             }
         };
@@ -135,10 +134,6 @@ public class InterfaceModelRepositoryTest
                 {
                     Name = "NewMethod",
                     ReturnType = "int",
-                    Parameters = new List<ParameterModel>
-                    {
-                        new ParameterModel { Name = "x", Type = "int" }
-                    }
                 }
             }
         };

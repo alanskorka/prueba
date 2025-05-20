@@ -15,8 +15,6 @@ public class SimuladorDbContext : DbContext
 
     public DbSet<InterfaceMethodModel> InterfaceMethodModels { get; set; }
 
-    public DbSet<ParameterModel> ParameterModels { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ClassModel>(entity =>
