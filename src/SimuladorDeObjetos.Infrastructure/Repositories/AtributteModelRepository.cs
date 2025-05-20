@@ -34,4 +34,8 @@ public class AtributteModelRepository : IAtributteModelRepository
     }
 
     public void SaveChanges() => _dbContext.SaveChanges();
+    public AttributeModel? GetById(Guid id)
+    {
+        return _dbContext.Attributes.FirstOrDefault(a => a.Id == id);
+    }
 }

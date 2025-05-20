@@ -108,4 +108,27 @@ public class AtributteModelRepositoryTest
         _repo.SaveChanges();
         Assert.AreEqual(1, _context.Attributes.Count());
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnAttribute_WhenExists()
+    {
+        _context.Attributes.Add(_attribute);
+        _context.SaveChanges();
+
+        var result = _repo.GetById(_attribute.Id);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(_attribute.Id, result!.Id);
+        Assert.AreEqual(_attribute.Name, result.Name);
+    }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNull_WhenNotFound()
+    {
+        var nonExistentId = Guid.NewGuid();
+
+        var result = _repo.GetById(nonExistentId);
+
+        Assert.IsNull(result);
+    }
 }

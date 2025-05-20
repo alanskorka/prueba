@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorDeObjetos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,20 +100,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http.executor&quot;: &quot;Run&quot;,
-    &quot;2e39f2f0-b7dc-4250-b4b3-5d4574a670c0.executor&quot;: &quot;Debug&quot;,
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;preparandoEntrega&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http.executor": "Run",
+    "2e39f2f0-b7dc-4250-b4b3-5d4574a670c0.executor": "Debug",
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/validacionesFaltantes",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "terminal",
+    "vue.rearranger.settings.migration": "true"
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
@@ -197,6 +197,7 @@
       <workItem from="1746639781188" duration="10004000" />
       <workItem from="1746680886838" duration="468000" />
       <workItem from="1746741158435" duration="805000" />
+      <workItem from="1747676260495" duration="14065000" />
     </task>
     <task id="LOCAL-00006" summary="Add test to add method to existing class">
       <option name="closed" value="true" />
@@ -565,33 +566,20 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="150" />
+    <option name="coveragePercentColumnWidth" value="99" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="483" />
+    <option name="symbolColumnWidth" value="306" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 13/897" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Infrastructure 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 97% 17/657" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Infrastructure 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="SimuladorDeObjetos.Infrastructure.Repositories 90% 12/117" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 99% 13/897" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="src 99% 13/897" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

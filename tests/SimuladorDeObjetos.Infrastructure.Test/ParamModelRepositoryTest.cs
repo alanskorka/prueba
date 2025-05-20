@@ -105,4 +105,25 @@ public class ParamModelRepositoryTest
 
         Assert.AreEqual(1, _context.Params.Count());
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnParam_WhenExists()
+    {
+        _context.Params.Add(_param);
+        _context.SaveChanges();
+
+        var result = _repo.GetById(_param.Id);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(_param.Id, result!.Id);
+        Assert.AreEqual(_param.Name, result.Name);
+    }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNull_WhenNotExists()
+    {
+        var result = _repo.GetById(Guid.NewGuid());
+
+        Assert.IsNull(result);
+    }
 }
