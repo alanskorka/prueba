@@ -37,6 +37,12 @@ public class MethodCallModelService : IMethodCallModelService
     public void Delete(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
+        var existing = _repo.GetById(call.Id);
+        if (existing == null)
+        {
+            throw new InvalidOperationException("Llamada de método no encontrada.");
+        }
+
         _repo.Delete(call);
     }
 }
