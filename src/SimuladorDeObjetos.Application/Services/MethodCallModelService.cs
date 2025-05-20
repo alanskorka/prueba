@@ -12,6 +12,11 @@ public class MethodCallModelService : IMethodCallModelService
     public void Create(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);
+        if (_repo.GetById(call.Id) != null)
+        {
+            throw new InvalidOperationException("Ya existe una llamada de método con ese ID.");
+        }
+
         _repo.Add(call);
     }
 
