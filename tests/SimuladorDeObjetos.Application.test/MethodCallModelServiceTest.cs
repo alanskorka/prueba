@@ -47,7 +47,7 @@ public class MethodCallModelServiceTest
     [ExpectedException(typeof(InvalidOperationException))]
     public void Create_ShouldThrow_WhenCallAlreadyExists()
     {
-        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns(_call); // Simula duplicado
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns(_call);
         _service!.Create(_call!);
     }
 
@@ -75,6 +75,14 @@ public class MethodCallModelServiceTest
     public void Update_ShouldThrow_WhenCallIsNull()
     {
         _service!.Update(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenCallDoesNotExist()
+    {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns((MethodCallModel?)null);
+        _service!.Update(_call!);
     }
 
     [TestMethod]
