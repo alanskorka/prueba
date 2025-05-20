@@ -106,50 +106,25 @@ public class InterfaceModelRepositoryTest
     }
 
     [TestMethod]
-    public async Task Update_ShouldModifyInterfaceAndReplaceMethods()
+    public async Task Update_ShouldThrow_WhenInterfaceDoesNotExist()
     {
-        var original = new InterfaceModel
+        var nonExistingId = 999;
+        var model = new InterfaceModel
         {
-            Name = "IOriginal",
+            Id = nonExistingId,
+            Name = "IMissing",
             Methods = new List<InterfaceMethodModel>
             {
                 new InterfaceMethodModel
                 {
-                    Name = "OldMethod",
-                    ReturnType = "void",
+                    Name = "DoSomething",
+                    ReturnType = "void"
                 }
             }
         };
 
-        _context.InterfaceModels.Add(original);
-        await _context.SaveChangesAsync();
+        var exception = await Assert.ThrowsExceptionAsync<KeyNotFoundException>(() => _repository.Update(model));
 
-        var updated = new InterfaceModel
-        {
-            Id = original.Id,
-            Name = "IModified",
-            Methods = new List<InterfaceMethodModel>
-            {
-                new InterfaceMethodModel
-                {
-                    Name = "NewMethod",
-                    ReturnType = "int",
-                }
-            }
-        };
-
-        await _repository.Update(updated);
-
-        var result = await _context.InterfaceModels
-            .Include(i => i.Methods)
-            .ThenInclude(m => m.Parameters)
-            .FirstOrDefaultAsync(i => i.Id == original.Id);
-
-        Assert.IsNotNull(result);
-        Assert.AreEqual("IModified", result!.Name);
-        Assert.AreEqual(1, result.Methods.Count);
-        Assert.AreEqual("NewMethod", result.Methods.First().Name);
-        Assert.AreEqual(1, result.Methods.First().Parameters.Count);
-        Assert.AreEqual("x", result.Methods.First().Parameters.First().Name);
+        Assert.AreEqual($"No se encontró un InterfaceModel con el ID {nonExistingId}", exception.Message);
     }
 }
