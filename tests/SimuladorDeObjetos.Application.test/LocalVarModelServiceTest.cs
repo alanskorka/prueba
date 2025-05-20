@@ -72,7 +72,7 @@ public class LocalVarModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Add_ShouldThrow_WhenMethodNotFound()
     {
         _mockMethodRepo!.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((MethodModel?)null);
@@ -91,10 +91,20 @@ public class LocalVarModelServiceTest
     [TestMethod]
     public void Update_ShouldCallUpdateAndSaveChanges()
     {
+        _mockRepo!.Setup(r => r.GetById(_var!.Id)).Returns(_var);
+
+        var method = new MethodModel
+        {
+            Id = _var.MethodId,
+            Vars = new List<LocalVarModel> { _var! }
+        };
+
+        _mockMethodRepo!.Setup(r => r.GetById(_var.MethodId)).Returns(method);
+
         _service!.Update(_var!);
 
-        _mockRepo!.Verify(r => r.Update(_var!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+        _mockRepo.Verify(r => r.Update(_var!), Times.Once);
+        _mockRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
 
     [TestMethod]
@@ -128,6 +138,14 @@ public class LocalVarModelServiceTest
 
     [TestMethod]
     [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenLocalVarNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_var!.Id)).Returns((LocalVarModel?)null);
+        _service!.Update(_var!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Update_ShouldThrow_WhenMethodNotFound()
     {
         _mockRepo!.Setup(r => r.GetById(_var!.Id)).Returns(_var);
@@ -139,10 +157,12 @@ public class LocalVarModelServiceTest
     [TestMethod]
     public void Delete_ShouldCallDeleteAndSaveChanges()
     {
+        _mockRepo!.Setup(r => r.GetById(_var!.Id)).Returns(_var);
+
         _service!.Delete(_var!);
 
-        _mockRepo!.Verify(r => r.Delete(_var!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+        _mockRepo.Verify(r => r.Delete(_var!), Times.Once);
+        _mockRepo.Verify(r => r.SaveChanges(), Times.Once);
     }
 
     [TestMethod]
