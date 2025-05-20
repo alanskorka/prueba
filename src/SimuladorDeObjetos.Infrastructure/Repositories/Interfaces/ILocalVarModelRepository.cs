@@ -9,4 +9,5 @@ public interface ILocalVarModelRepository
     void Update(LocalVarModel model);
     IEnumerable<LocalVarModel> GetAll();
     void SaveChanges();
+    LocalVarModel? GetById(Guid id);
 }
