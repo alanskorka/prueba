@@ -107,4 +107,26 @@ public class MethodCallModelRepositoryTest
 
         Assert.AreEqual(1, _context.MethodCalls.Count());
     }
+
+    [TestMethod]
+    public void GetById_ShouldReturnCorrectCall_WhenExists()
+    {
+        var call = new MethodCallModel
+        {
+            Id = Guid.NewGuid(),
+            MethodName = "TestCall",
+            ReferenceType = ReferenceTypeInvocation.This,
+            ParentMethodId = Guid.NewGuid(),
+            ReferenceName = "this"
+        };
+
+        _context.MethodCalls.Add(call);
+        _context.SaveChanges();
+
+        var repo = new MethodCallModelRepository(_context);
+        var result = repo.GetById(call.Id);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(call.Id, result!.Id);
+    }
 }

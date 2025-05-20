@@ -34,4 +34,9 @@ public class MethodCallModelRepository : IMethodCallModelRepository
     }
 
     public void SaveChanges() => _dbContext.SaveChanges();
+
+    public MethodCallModel? GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 }
