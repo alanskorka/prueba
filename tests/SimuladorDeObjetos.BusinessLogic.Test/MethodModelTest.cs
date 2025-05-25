@@ -86,4 +86,13 @@ namespace Tests;
             method.IsStatic = false;
             Assert.IsFalse(method.IsStatic);
         }
+
+        [TestMethod]
+        public void MethodModel_Should_Have_IsStatic_Property()
+        {
+            var method = new MethodModel();
+            method.IsStatic = true;
+
+            Assert.IsTrue(method.IsStatic);
+        }
     }
