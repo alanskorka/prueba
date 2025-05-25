@@ -9,6 +9,7 @@ public class AttributeDto
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public Guid ClassId { get; set; }
+    public bool IsStatic { get; set; }
     public AccessibilityModifier Accessibility { get; set; }
     public ClassModel Class { get; set; } = null!;
 }
