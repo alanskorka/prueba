@@ -28,4 +28,19 @@ public class NamespaceModelTest
 
         Assert.AreEqual(parent, child.Parent);
     }
+
+    [TestMethod]
+    public void GetFullName_ShouldReturnFullNamespacePath()
+    {
+        var root = new NamespaceModel { Id = Guid.NewGuid(), Name = "Root" };
+        var child = new NamespaceModel { Id = Guid.NewGuid(), Name = "Child" };
+        var grandchild = new NamespaceModel { Id = Guid.NewGuid(), Name = "Grandchild" };
+
+        root.AddChild(child);
+        child.AddChild(grandchild);
+
+        var fullName = grandchild.GetFullName();
+
+        Assert.AreEqual("Root.Child.Grandchild", fullName);
+    }
 }

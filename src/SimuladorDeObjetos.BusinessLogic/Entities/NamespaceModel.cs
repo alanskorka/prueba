@@ -19,4 +19,9 @@ public class NamespaceModel
         child.Parent = this;
         Children.Add(child);
     }
+
+    public string GetFullName()
+    {
+        return Parent == null ? Name : $"{Parent.GetFullName()}.{Name}";
+    }
 }
