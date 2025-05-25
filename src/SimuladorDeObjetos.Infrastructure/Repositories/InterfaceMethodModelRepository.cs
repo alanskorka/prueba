@@ -41,10 +41,11 @@ public class InterfaceMethodModelRepository : IInterfaceMethodModelRepository
 
     public async Task Delete(int id)
     {
-        var existingMethod = await _context.InterfaceMethodModels.FindAsync(id);
-        if(existingMethod == null)
+        var method = await _context.InterfaceMethodModels.FindAsync(id);
+        if(method != null)
         {
-            throw new KeyNotFoundException($"InterfaceMethodModel with Id {id} not found");
+            _context.InterfaceMethodModels.Remove(method);
+            await _context.SaveChangesAsync();
         }
     }
 }
