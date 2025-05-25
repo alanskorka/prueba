@@ -27,4 +27,9 @@ public class InterfaceMethodModelService : IInterfaceMethodModelService
     {
          await _repository.Update(model);
     }
+
+    public async Task Delete(int id)
+    {
+        await _repository.Delete(id);
+    }
 }

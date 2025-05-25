@@ -7,4 +7,5 @@ public interface IInterfaceMethodModelService
     Task Add(InterfaceMethodModel model);
     Task<IEnumerable<InterfaceMethodModel>> GetAll();
     Task Update(InterfaceMethodModel model);
+    Task Delete(int id);
 }

@@ -35,4 +35,11 @@ public class InterfaceMethodModelController : ControllerBase
         await _service.Update(model);
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _service.Delete(id);
+        return NoContent();
+    }
 }
