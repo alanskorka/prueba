@@ -30,4 +30,35 @@ public class InterfaceMethodModelServiceTest
 
         _mockRepository.Verify(r => r.Add(model), Times.Once);
     }
+
+    [TestMethod]
+    public async Task GetAll_ShouldReturnAllMethodsFromRepository()
+    {
+        var expected = new List<InterfaceMethodModel>
+        {
+            new InterfaceMethodModel
+            {
+                Name = "Method1",
+                ReturnType = "void"
+            },
+            new InterfaceMethodModel
+            {
+                Name = "Method2",
+                ReturnType = "string"
+            }
+        };
+
+        _mockRepository.Setup(r => r.GetAll())
+            .ReturnsAsync(expected);
+
+        var result = await _service.GetAll();
+
+        _mockRepository.Verify(r => r.GetAll(), Times.Once);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(2, result.Count());
+
+        var methodsList = result.ToList();
+        Assert.AreEqual("Method1", methodsList[0].Name);
+        Assert.AreEqual("Method2", methodsList[1].Name);
+    }
 }
