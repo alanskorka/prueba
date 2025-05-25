@@ -12,8 +12,9 @@ public class InterfaceMethodModelRepository : IInterfaceMethodModelRepository
         _context = context;
     }
 
-    public Task Add(InterfaceMethodModel model)
+    public async Task Add(InterfaceMethodModel model)
     {
-        throw new NotImplementedException();
+        _context.InterfaceMethodModels.Add(model);
+        await _context.SaveChangesAsync();
     }
 }
