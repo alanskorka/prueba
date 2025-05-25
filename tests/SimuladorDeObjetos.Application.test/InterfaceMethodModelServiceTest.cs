@@ -76,4 +76,14 @@ public class InterfaceMethodModelServiceTest
 
         _mockRepository.Verify(r => r.Update(model), Times.Once);
     }
+
+    [TestMethod]
+    public async Task Delete_ShouldCallRepository()
+    {
+        var id = 1;
+
+        await _service.Delete(id);
+
+        _mockRepository.Verify(r => r.Delete(id), Times.Once);
+    }
 }
