@@ -32,10 +32,10 @@ public class SimuladorDbContext : DbContext
             entity.HasKey(a => a.Id);
             entity.Property(a => a.Name)
                   .IsRequired()
-                  .HasMaxLength(100); // EDITADO
+                  .HasMaxLength(100);
             entity.Property(a => a.Type)
                   .IsRequired()
-                  .HasMaxLength(100); // EDITADO
+                  .HasMaxLength(100);
 
             entity.HasOne(a => a.Class)
                   .WithMany(c => c.Attributes)
@@ -49,6 +49,12 @@ public class SimuladorDbContext : DbContext
             entity.Property(m => m.Name)
                   .IsRequired()
                   .HasMaxLength(100);
+
+            entity.Property(m => m.IsVirtual)
+                  .IsRequired();
+
+            entity.Property(m => m.IsOverride)
+                  .IsRequired();
 
             entity.HasOne(m => m.Class)
                   .WithMany(c => c.Methods)

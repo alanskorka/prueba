@@ -142,6 +142,30 @@ public class MethodModelService : IMethodModelService
 
     public MethodModel? GetMethodToExecute(string methodName, Guid baseClassId, Guid concreteClassId)
     {
-        throw new NotImplementedException();
+        var baseClass = _classRepo.GetById(baseClassId);
+        var concreteClass = _classRepo.GetById(concreteClassId);
+
+        if (concreteClass == null)
+        {
+            throw new InvalidOperationException("Concrete class not found.");
+        }
+
+        var overrideMethod = concreteClass.Methods
+            .FirstOrDefault(m => m.Name == methodName && m.IsOverride);
+
+        if (overrideMethod != null)
+        {
+            return overrideMethod;
+        }
+
+        if (baseClass == null)
+        {
+            throw new InvalidOperationException("Base class not found.");
+        }
+
+        var virtualMethod = baseClass.Methods
+            .FirstOrDefault(m => m.Name == methodName && m.IsVirtual);
+
+        return virtualMethod ?? baseClass.Methods.FirstOrDefault(m => m.Name == methodName);
     }
 }
