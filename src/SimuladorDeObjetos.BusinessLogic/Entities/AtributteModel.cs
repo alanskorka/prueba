@@ -9,6 +9,7 @@ public class AttributeModel
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public Guid ClassId { get; set; }
+    public bool IsStatic { get; set; } = false;
     public AccessibilityModifier Accessibility { get; set; }
     [JsonIgnore]
     public ClassModel? Class { get; set; } = null!;
