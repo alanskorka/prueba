@@ -1,32 +1,31 @@
 using Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain.Enums;
 
-namespace SimuladorDeObjetos.BusinessLogic.Test
+namespace Tests;
+
+[TestClass]
+public class NamespaceModelTest
 {
-    [TestClass]
-    public class NamespaceModelTest
+    [TestMethod]
+    public void AddChildNamespace_ShouldAddNamespaceToChildrenList()
     {
-        [TestMethod]
-        public void AddChildNamespace_ShouldAddNamespaceToChildrenList()
-        {
-            var parent = new NamespaceModel { Id = Guid.NewGuid(), Name = "Parent" };
-            var child = new NamespaceModel { Id = Guid.NewGuid(), Name = "Child" };
+        var parent = new NamespaceModel { Id = Guid.NewGuid(), Name = "Parent" };
+        var child = new NamespaceModel { Id = Guid.NewGuid(), Name = "Child" };
 
-            parent.AddChild(child);
+        parent.AddChild(child);
 
-            Assert.AreEqual(1, parent.Children.Count);
-            Assert.AreEqual("Child", parent.Children[0].Name);
-        }
+        Assert.AreEqual(1, parent.Children.Count);
+        Assert.AreEqual("Child", parent.Children[0].Name);
+    }
 
-        [TestMethod]
-        public void AddChildNamespace_ShouldSetParentReference()
-        {
-            var parent = new NamespaceModel { Id = Guid.NewGuid(), Name = "Parent" };
-            var child = new NamespaceModel { Id = Guid.NewGuid(), Name = "Child" };
+    [TestMethod]
+    public void AddChildNamespace_ShouldSetParentReference()
+    {
+        var parent = new NamespaceModel { Id = Guid.NewGuid(), Name = "Parent" };
+        var child = new NamespaceModel { Id = Guid.NewGuid(), Name = "Child" };
 
-            parent.AddChild(child);
+        parent.AddChild(child);
 
-            Assert.AreEqual(parent, child.Parent);
-        }
+        Assert.AreEqual(parent, child.Parent);
     }
 }
