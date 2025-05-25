@@ -61,4 +61,19 @@ public class InterfaceMethodModelServiceTest
         Assert.AreEqual("Method1", methodsList[0].Name);
         Assert.AreEqual("Method2", methodsList[1].Name);
     }
+
+    [TestMethod]
+    public async Task Update_ShouldCallRepository()
+    {
+        var model = new InterfaceMethodModel
+        {
+            Id = 1,
+            Name = "UpdatedMethod",
+            ReturnType = "string"
+        };
+
+        await _service.Update(model);
+
+        _mockRepository.Verify(r => r.Update(model), Times.Once);
+    }
 }
