@@ -1,0 +1,47 @@
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using SimuladorDeObjetos.Infrastructure.Repositories;
+
+namespace SimuladorDeObjetos.Infrastructure.Test;
+
+[TestClass]
+public class InterfaceMethodModelRepositoryTest
+{
+    private SimuladorDbContext _context = null!;
+    private InterfaceMethodModelRepository _repository = null!;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        var options = new DbContextOptionsBuilder<SimuladorDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        _context = new SimuladorDbContext(options);
+        _repository = new InterfaceMethodModelRepository(_context);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        _context.Database.EnsureDeleted();
+        _context.Dispose();
+    }
+
+    [TestMethod]
+    public async Task Add_ShouldSaveInterfaceMethodToDatabase()
+    {
+        var model = new InterfaceMethodModel
+        {
+            Name = "TestMethod",
+            ReturnType = "void"
+        };
+
+        await _repository.Add(model);
+
+        var savedModel = await _context.InterfaceMethodModels.FirstOrDefaultAsync();
+        Assert.IsNotNull(savedModel);
+        Assert.AreEqual("TestMethod", savedModel.Name);
+        Assert.AreEqual("void", savedModel.ReturnType);
+    }
+}
