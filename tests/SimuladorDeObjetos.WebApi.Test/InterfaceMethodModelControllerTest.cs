@@ -67,4 +67,20 @@ public class InterfaceMethodModelControllerTest
         Assert.AreEqual("Method1", methodsList[0].Name);
         Assert.AreEqual("Method2", methodsList[1].Name);
     }
+
+    [TestMethod]
+    public async Task Update_ShouldCallServiceAndReturnNoContent()
+    {
+        var model = new InterfaceMethodModel
+        {
+            Id = 1,
+            Name = "UpdatedMethod",
+            ReturnType = "string"
+        };
+
+        var result = await _controller.Update(model);
+
+        _mockService.Verify(s => s.Update(model), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+    }
 }
