@@ -33,4 +33,38 @@ public class InterfaceMethodModelControllerTest
         _mockService.Verify(s => s.Add(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(NoContentResult));
     }
+
+    [TestMethod]
+    public async Task GetAll_ShouldReturnAllInterfaceMethods()
+    {
+        var expected = new List<InterfaceMethodModel>
+        {
+            new InterfaceMethodModel
+            {
+                Name = "Method1",
+                ReturnType = "void"
+            },
+            new InterfaceMethodModel
+            {
+                Name = "Method2",
+                ReturnType = "string"
+            }
+        };
+
+        _mockService.Setup(s => s.GetAll())
+            .ReturnsAsync(expected);
+
+        var result = await _controller.GetAll();
+
+        var okResult = result.Result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+
+        var returnedMethods = okResult.Value as IEnumerable<InterfaceMethodModel>;
+        Assert.IsNotNull(returnedMethods);
+        Assert.AreEqual(2, returnedMethods.Count());
+
+        var methodsList = returnedMethods.ToList();
+        Assert.AreEqual("Method1", methodsList[0].Name);
+        Assert.AreEqual("Method2", methodsList[1].Name);
+    }
 }
