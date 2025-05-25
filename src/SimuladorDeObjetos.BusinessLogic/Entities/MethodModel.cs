@@ -14,6 +14,7 @@ public class MethodModel
     public AccessibilityModifier Accessibility { get; set; }
     public bool IsVirtual { get; set; } = false;
     public bool IsOverride { get; set; } = false;
+    public bool IsStatic { get; set; } = false;
     public List<ParamModel> Params { get; set; } = new();
     public List<LocalVarModel> Vars { get; set; } = new();
 

@@ -76,4 +76,14 @@ namespace Tests;
                 Assert.AreEqual(modifier, method.Accessibility);
             }
         }
+
+        [TestMethod]
+        public void MethodModel_StaticFlag_AssignedCorrectly()
+        {
+            var method = new MethodModel { IsStatic = true };
+            Assert.IsTrue(method.IsStatic);
+
+            method.IsStatic = false;
+            Assert.IsFalse(method.IsStatic);
+        }
     }
