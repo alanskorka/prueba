@@ -139,4 +139,9 @@ public class MethodModelService : IMethodModelService
             throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
         }
     }
+
+    public MethodModel? GetMethodToExecute(string methodName, Guid baseClassId, Guid concreteClassId)
+    {
+        throw new NotImplementedException();
+    }
 }
