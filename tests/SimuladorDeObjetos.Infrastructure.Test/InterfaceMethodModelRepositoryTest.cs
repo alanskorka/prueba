@@ -101,4 +101,22 @@ public class InterfaceMethodModelRepositoryTest
         Assert.AreEqual("Updated", result.Name);
         Assert.AreEqual("string", result.ReturnType);
     }
+
+    [TestMethod]
+    public async Task Delete_ShouldRemoveInterfaceMethodFromDatabase()
+    {
+        var method = new InterfaceMethodModel
+        {
+            Id = 1,
+            Name = "ToDelete",
+            ReturnType = "void"
+        };
+        await _context.InterfaceMethodModels.AddAsync(method);
+        await _context.SaveChangesAsync();
+
+        await _repository.Delete(1);
+
+        var deletedMethod = await _context.InterfaceMethodModels.FindAsync(1);
+        Assert.IsNull(deletedMethod);
+    }
 }
