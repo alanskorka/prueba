@@ -22,4 +22,9 @@ public class InterfaceMethodModelService : IInterfaceMethodModelService
     {
         return await _repository.GetAll();
     }
+
+    public async Task Update(InterfaceMethodModel model)
+    {
+        await _repository.Update(model);
+    }
 }

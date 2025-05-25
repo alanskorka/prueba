@@ -23,4 +23,10 @@ public class InterfaceMethodModelRepository : IInterfaceMethodModelRepository
     {
         return await _context.InterfaceMethodModels.ToListAsync();
     }
+
+    public async Task Update(InterfaceMethodModel model)
+    {
+        _context.InterfaceMethodModels.Update(model);
+        await _context.SaveChangesAsync();
+    }
 }

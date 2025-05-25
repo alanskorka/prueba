@@ -28,4 +28,11 @@ public class InterfaceMethodModelController : ControllerBase
         var result = await _service.GetAll();
         return Ok(result);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] InterfaceMethodModel model)
+    {
+        await _service.Update(model);
+        return NoContent();
+    }
 }
