@@ -83,4 +83,15 @@ public class InterfaceMethodModelControllerTest
         _mockService.Verify(s => s.Update(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(NoContentResult));
     }
+
+    [TestMethod]
+    public async Task Delete_ShouldCallServiceAndReturnNoContent()
+    {
+        var id = 1;
+
+        var result = await _controller.Delete(id);
+
+        _mockService.Verify(s => s.Delete(id), Times.Once);
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+    }
 }
