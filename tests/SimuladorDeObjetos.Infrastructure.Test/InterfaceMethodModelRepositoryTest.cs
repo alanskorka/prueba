@@ -74,4 +74,31 @@ public class InterfaceMethodModelRepositoryTest
         Assert.AreEqual("void", resultList[0].ReturnType);
         Assert.AreEqual("string", resultList[1].ReturnType);
     }
+
+    [TestMethod]
+    public async Task Update_ShouldModifyExistingInterfaceMethod()
+    {
+        var existingMethod = new InterfaceMethodModel
+        {
+            Id = 1,
+            Name = "Old",
+            ReturnType = "int"
+        };
+        await _context.InterfaceMethodModels.AddAsync(existingMethod);
+        await _context.SaveChangesAsync();
+
+        var updatedMethod = new InterfaceMethodModel
+        {
+            Id = 1,
+            Name = "Updated",
+            ReturnType = "string"
+        };
+
+        await _repository.Update(updatedMethod);
+
+        var result = await _context.InterfaceMethodModels.FindAsync(1);
+        Assert.IsNotNull(result);
+        Assert.AreEqual("Updated", result.Name);
+        Assert.AreEqual("string", result.ReturnType);
+    }
 }
