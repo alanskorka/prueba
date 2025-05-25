@@ -329,4 +329,38 @@ public class MethodModelServiceTest
             Assert.IsTrue(lines[0].Contains(call.MethodName));
         }
     }
+
+    [TestMethod]
+    public void GetMethodToExecute_ShouldReturnOverride_WhenItExists()
+    {
+        var baseClassId = Guid.NewGuid();
+        var derivedClassId = Guid.NewGuid();
+
+        var virtualMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = baseClassId,
+            Name = "Run",
+            IsVirtual = true
+        };
+
+        var overrideMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = derivedClassId,
+            Name = "Run",
+            IsOverride = true
+        };
+
+        var baseClass = new ClassModel { Id = baseClassId, Methods = new List<MethodModel> { virtualMethod } };
+        var derivedClass = new ClassModel { Id = derivedClassId, Methods = new List<MethodModel> { overrideMethod } };
+
+        _classRepo.Setup(r => r.GetById(baseClassId)).Returns(baseClass);
+        _classRepo.Setup(r => r.GetById(derivedClassId)).Returns(derivedClass);
+
+        var result = _service.GetMethodToExecute("Run", baseClassId, derivedClassId);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(overrideMethod.Id, result.Id);
+    }
 }
