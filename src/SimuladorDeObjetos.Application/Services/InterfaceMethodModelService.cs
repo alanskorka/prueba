@@ -17,4 +17,9 @@ public class InterfaceMethodModelService : IInterfaceMethodModelService
     {
         await _repository.Add(model);
     }
+
+    public async Task<IEnumerable<InterfaceMethodModel>> GetAll()
+    {
+        return await _repository.GetAll();
+    }
 }

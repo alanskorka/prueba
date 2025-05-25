@@ -21,4 +21,11 @@ public class InterfaceMethodModelController : ControllerBase
         await _service.Add(model);
         return NoContent();
     }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<InterfaceMethodModel>>> GetAll()
+    {
+        var result = await _service.GetAll();
+        return Ok(result);
+    }
 }
