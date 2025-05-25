@@ -25,6 +25,6 @@ public class InterfaceMethodModelService : IInterfaceMethodModelService
 
     public async Task Update(InterfaceMethodModel model)
     {
-        await _repository.Update(model);
+         await _repository.Update(model);
     }
 }

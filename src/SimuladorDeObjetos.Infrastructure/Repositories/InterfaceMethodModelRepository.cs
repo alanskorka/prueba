@@ -26,7 +26,16 @@ public class InterfaceMethodModelRepository : IInterfaceMethodModelRepository
 
     public async Task Update(InterfaceMethodModel model)
     {
-        _context.InterfaceMethodModels.Update(model);
+        var existingMethod = await _context.InterfaceMethodModels.FindAsync(model.Id);
+        if(existingMethod == null)
+        {
+            throw new KeyNotFoundException($"InterfaceMethodModel with Id {model.Id} not found");
+        }
+
+        existingMethod.Name = model.Name;
+        existingMethod.ReturnType = model.ReturnType;
+        existingMethod.Parameters = model.Parameters;
+
         await _context.SaveChangesAsync();
     }
 }
