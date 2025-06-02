@@ -1,24 +1,25 @@
 using Domain.Entities;
+using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-namespace SimuladorDeObjetos.Application;
+namespace SimuladorDeObjetos.Application.Services;
 
-public class NamespaceService(INamespaceRepository repo)
+public class NamespaceService(INamespaceRepository repository) : INamespaceService
 {
-    public void AddNamespace(NamespaceModel model)
-    {
-        repo.Add(model);
-    }
+    public List<NamespaceModel> GetAll() => repository.GetAll();
+    public void Create(NamespaceModel model) => repository.Add(model);
+    public void Update(NamespaceModel model) => repository.Update(model);
+    public void Delete(NamespaceModel model) => repository.Remove(model);
+    public void AddNamespace(NamespaceModel model) => repository.Add(model);
 
     public void DeleteNamespace(Guid id)
     {
-        var ns = repo.GetById(id);
+        var ns = repository.GetById(id);
         if (ns != null)
         {
-            repo.Remove(ns);
+            repository.Remove(ns);
         }
     }
 
-    public NamespaceModel? GetById(Guid id) => repo.GetById(id);
-    public List<NamespaceModel> GetAll() => repo.GetAll();
+    public NamespaceModel? GetById(Guid id) => repository.GetById(id);
 }
