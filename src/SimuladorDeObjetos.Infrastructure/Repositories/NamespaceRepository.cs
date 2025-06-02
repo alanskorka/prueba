@@ -7,12 +7,14 @@ public class NamespaceRepository(SimuladorDbContext context) : INamespaceReposit
 {
     public void Add(NamespaceModel model)
     {
+        ArgumentNullException.ThrowIfNull(model);
         context.Namespaces.Add(model);
         context.SaveChanges();
     }
 
     public void Remove(NamespaceModel model)
     {
+        ArgumentNullException.ThrowIfNull(model);
         context.Namespaces.Remove(model);
         context.SaveChanges();
     }
@@ -29,7 +31,21 @@ public class NamespaceRepository(SimuladorDbContext context) : INamespaceReposit
 
     public void Update(NamespaceModel model)
     {
+        ArgumentNullException.ThrowIfNull(model);
         context.Namespaces.Update(model);
+        context.SaveChanges();
+    }
+
+    public void Delete(NamespaceModel model)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+
+        context.Namespaces.Remove(model);
+        context.SaveChanges();
+    }
+
+    public void SaveChanges()
+    {
         context.SaveChanges();
     }
 }

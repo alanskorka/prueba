@@ -9,4 +9,6 @@ public interface INamespaceRepository
     NamespaceModel? GetById(Guid id);
     List<NamespaceModel> GetAll();
     void Update(NamespaceModel model);
+    void Delete(NamespaceModel model);
+    void SaveChanges();
 }
