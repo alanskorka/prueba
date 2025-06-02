@@ -1,4 +1,11 @@
 using Domain.Entities;
+using Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using SimuladorDeObjetos.Application;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace Tests;
 

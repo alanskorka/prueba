@@ -1,5 +1,35 @@
+using Domain.Entities;
+using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class NamespaceRepository
+public class NamespaceRepository(SimuladorDbContext context) : INamespaceRepository
 {
+    public void Add(NamespaceModel model)
+    {
+        context.Namespaces.Add(model);
+        context.SaveChanges();
+    }
+
+    public void Remove(NamespaceModel model)
+    {
+        context.Namespaces.Remove(model);
+        context.SaveChanges();
+    }
+
+    public NamespaceModel? GetById(Guid id)
+    {
+        return context.Namespaces.FirstOrDefault(n => n.Id == id);
+    }
+
+    public List<NamespaceModel> GetAll()
+    {
+        return context.Namespaces.ToList();
+    }
+
+    public void Update(NamespaceModel model)
+    {
+        context.Namespaces.Update(model);
+        context.SaveChanges();
+    }
 }
