@@ -9,12 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="empty NamespaceRepository.cs">
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/NamespaceService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.WebApi/Controllers/NamespacesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/NamespaceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Infrastructure/Repositories/NamespaceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.BusinessLogic.Test/NamespaceServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.BusinessLogic.Test/NamespaceServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/SimuladorDeObjetos.BusinessLogic.Test/SimuladorDeObjetos.BusinessLogic.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SimuladorDeObjetos.BusinessLogic.Test/SimuladorDeObjetos.BusinessLogic.Test.csproj" afterDir="false" />
+    <list default="true" id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="create empty AttributeModelControllerTest">
+      <change beforePath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodCallModelService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Develop" />
+        <entry key="$PROJECT_DIR$" value="feature/controllers" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -82,11 +78,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.Application/DTOs/Persistence/MethodDto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.Application/Services/MethodModelService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.BusinessLogic/Entities/MethodModel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.BusinessLogic/Entities/NamespaceModel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Alan Facultad/DA2/Obligatorio 1/270028_267001_289871/src/SimuladorDeObjetos.Infrastructure/Repositories/NamespaceRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4a1b9ff8477cc216419da943379317dc75fd6a79c84843b7994a975eb73e5bf/ConfigurationValidator.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -110,17 +102,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: IIS Express.executor": "Run",
     ".NET Launch Settings Profile.SimuladorDeObjetos.WebApi: http.executor": "Run",
-    "2e39f2f0-b7dc-4250-b4b3-5d4574a670c0.executor": "Debug",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/overrideAndVirtual",
+    "git-widget-placeholder": "feature/validacionesFaltantes",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "terminal",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -181,8 +171,8 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d6ef1cc6-8807-4c64-b344-26a2ecd39ed2" name="Changes" comment="" />
-      <created>1745422900508</created>
+      <changelist id="dc8066fc-1f7d-43ef-b9ed-98bc27a9b140" name="Changes" comment="" />
+      <created>1748314435028</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1745422900508</updated>
@@ -206,6 +196,126 @@
       <workItem from="1746680886838" duration="468000" />
       <workItem from="1746741158435" duration="805000" />
       <workItem from="1747676260495" duration="14065000" />
+    </task>
+    <task id="LOCAL-00006" summary="Add test to add method to existing class">
+      <option name="closed" value="true" />
+      <created>1745958238247</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745958238247</updated>
+    </task>
+    <task id="LOCAL-00007" summary="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_EmptyMethodsList">
+      <option name="closed" value="true" />
+      <created>1746047629311</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746047629311</updated>
+    </task>
+    <task id="LOCAL-00008" summary="RED-GREEN-REFACTOR AddMethodToClass_ShouldAddMethod_WhenClassExists_NullMethodsList">
+      <option name="closed" value="true" />
+      <created>1746047993436</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746047993436</updated>
+    </task>
+    <task id="LOCAL-00009" summary="coverage 100%">
+      <option name="closed" value="true" />
+      <created>1746048465668</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746048465668</updated>
+    </task>
+    <task id="LOCAL-00010" summary="no 100% coverage">
+      <option name="closed" value="true" />
+      <created>1746049791774</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746049791774</updated>
+    </task>
+    <task id="LOCAL-00011" summary="create empty MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306313586</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306313586</updated>
+    </task>
+    <task id="LOCAL-00012" summary="inject MethodModelService into MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306383516</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306383516</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add GET endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306432665</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306432665</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add POST endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306546874</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306546874</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add PUT endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306575497</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306575497</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add DELETE endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306600464</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306600464</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add AddMethodToClass endpoint to MethodModelController">
+      <option name="closed" value="true" />
+      <created>1746306629329</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306629329</updated>
+    </task>
+    <task id="LOCAL-00018" summary="create empty ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746306804924</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306804924</updated>
+    </task>
+    <task id="LOCAL-00019" summary="inject ClassModelService into ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746306833943</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306833943</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add GET endpoint to ClassModelController">
+      <option name="closed" value="true" />
+      <created>1746306863469</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1746306863469</updated>
     </task>
     <task id="LOCAL-00021" summary="add POST endpoint to ClassModelController">
       <option name="closed" value="true" />
@@ -447,233 +557,41 @@
       <option name="project" value="LOCAL" />
       <updated>1746474438707</updated>
     </task>
-    <task id="LOCAL-00051" summary="test: add failing test for method override resolution logic">
-      <option name="closed" value="true" />
-      <created>1748201997721</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1748201997721</updated>
-    </task>
-    <task id="LOCAL-00052" summary="feat: add GetMethodToExecute method stub">
-      <option name="closed" value="true" />
-      <created>1748202039818</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1748202039819</updated>
-    </task>
-    <task id="LOCAL-00053" summary="fix(domain): add missing namespace and update MethodModel logic and DTO mappings">
-      <option name="closed" value="true" />
-      <created>1748203299841</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1748203299842</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Add IsStatic property to MethodModel to support static methods">
-      <option name="closed" value="true" />
-      <created>1748203909035</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1748203909035</updated>
-    </task>
-    <task id="LOCAL-00055" summary="test: add failing test for IsStatic flag in AttributeModel">
-      <option name="closed" value="true" />
-      <created>1748204113599</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1748204113601</updated>
-    </task>
-    <task id="LOCAL-00056" summary="feat: add IsStatic flag to AttributeModel">
-      <option name="closed" value="true" />
-      <created>1748204153653</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1748204153653</updated>
-    </task>
-    <task id="LOCAL-00057" summary="test(method): add failing test for IsStatic property">
-      <option name="closed" value="true" />
-      <created>1748204207473</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1748204207473</updated>
-    </task>
-    <task id="LOCAL-00058" summary="feat(dto): add IsStatic to MethodDto and AttributeDto">
-      <option name="closed" value="true" />
-      <created>1748204535720</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1748204535720</updated>
-    </task>
-    <task id="LOCAL-00059" summary="test: add failing test for NamespaceModel parent-child relationship">
-      <option name="closed" value="true" />
-      <created>1748204832908</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1748204832908</updated>
-    </task>
-    <task id="LOCAL-00060" summary="Add empty NamespaceModel.cs">
-      <option name="closed" value="true" />
-      <created>1748204890233</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1748204890233</updated>
-    </task>
-    <task id="LOCAL-00061" summary="feat: add Parent and AddChild logic to NamespaceModel">
-      <option name="closed" value="true" />
-      <created>1748205132152</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1748205132152</updated>
-    </task>
-    <task id="LOCAL-00062" summary="feat: implement GetFullName to return full namespace path using parent hierarchy">
-      <option name="closed" value="true" />
-      <created>1748205373722</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1748205373722</updated>
-    </task>
-    <task id="LOCAL-00063" summary="feat(namespace): add Namespace mapping configuration">
-      <option name="closed" value="true" />
-      <created>1748205733383</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1748205733384</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Add AutoMapper configuration for NamespaceDto and fix nullable Parent mapping">
-      <option name="closed" value="true" />
-      <created>1748308123957</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1748308123958</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Empty INamespaceRepository">
-      <option name="closed" value="true" />
-      <created>1748832520921</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1748832520921</updated>
-    </task>
-    <task id="LOCAL-00066" summary="empty INamespaceRepository">
-      <option name="closed" value="true" />
-      <created>1748832608319</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1748832608319</updated>
-    </task>
-    <task id="LOCAL-00067" summary="empty NamespaceServiceTests.cs">
-      <option name="closed" value="true" />
-      <created>1748832765187</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1748832765187</updated>
-    </task>
-    <task id="LOCAL-00068" summary="failing test NamespaceServiceTests.cs">
-      <option name="closed" value="true" />
-      <created>1748832841881</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1748832841881</updated>
-    </task>
-    <task id="LOCAL-00069" summary="empty NamespaceRepository.cs">
-      <option name="closed" value="true" />
-      <created>1748832898150</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1748832898150</updated>
-    </task>
-    <option name="localTasksCounter" value="70" />
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="99" />
-    <option name="sortOrder" value="DESCENDING" />
-    <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="306" />
-    <coverage-tree-state>
-      <expand>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 99% 13/897" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 99% 13/897" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="src 99% 13/897" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-      </expand>
-      <select />
-    </coverage-tree-state>
-  </component>
-  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="add GET endpoint to AttributeModelController" />
+    <MESSAGE value="add POST endpoint to AttributeModelController" />
+    <MESSAGE value="add PUT endpoint to AttributeModelController" />
+    <MESSAGE value="add DELETE endpoint to AttributeModelController" />
+    <MESSAGE value="feat(controller): add empty controller for LocalVarModel" />
+    <MESSAGE value="feat(controller): inject ILocalVarModelService into LocalVarModelController" />
+    <MESSAGE value="create empty MethodModelControllerTest" />
+    <MESSAGE value="chore(test): add skeleton for MethodModelControllerTest" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add GetAll test for MethodModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Create test for MethodModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Update test for MethodModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Delete test for MethodModelController" />
+    <MESSAGE value="add empty ClassModelControllerTest" />
+    <MESSAGE value="RED-GREEN-REFACTOR: scaffold ClassModelControllerTest" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add GetAll test for ClassModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Add test for ClassModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Update test for ClassModelController" />
+    <MESSAGE value="RED-GREEN-REFACTOR: add Delete test for ClassModelController" />
+    <MESSAGE value="create empty LocalVarModelControllerTest" />
     <MESSAGE value="RED-GREEN-REFACTOR: scaffold LocalVarModelControllerTest" />
     <MESSAGE value="RED-GREEN-REFACTOR: add GetAll test for LocalVarModelController" />
     <MESSAGE value="RED-GREEN-REFACTOR: add Add test for LocalVarModelController" />
     <MESSAGE value="RED-GREEN-REFACTOR: add Update test for LocalVarModelController" />
     <MESSAGE value="RED-GREEN-REFACTOR: add Delete test for LocalVarModelController" />
     <MESSAGE value="create empty AttributeModelControllerTest" />
-    <MESSAGE value="test: add failing test for method override resolution logic" />
-    <MESSAGE value="feat: add GetMethodToExecute method stub" />
-    <MESSAGE value="fix(domain): add missing namespace and update MethodModel logic and DTO mappings" />
-    <MESSAGE value="Add IsStatic property to MethodModel to support static methods" />
-    <MESSAGE value="test: add failing test for IsStatic flag in AttributeModel" />
-    <MESSAGE value="feat: add IsStatic flag to AttributeModel" />
-    <MESSAGE value="test(method): add failing test for IsStatic property" />
-    <MESSAGE value="feat(dto): add IsStatic to MethodDto and AttributeDto" />
-    <MESSAGE value="test: add failing test for NamespaceModel parent-child relationship" />
-    <MESSAGE value="Add empty NamespaceModel.cs" />
-    <MESSAGE value="feat: add Parent and AddChild logic to NamespaceModel" />
-    <MESSAGE value="feat: implement GetFullName to return full namespace path using parent hierarchy" />
-    <MESSAGE value="feat(namespace): add Namespace mapping configuration" />
-    <MESSAGE value="Add AutoMapper configuration for NamespaceDto and fix nullable Parent mapping" />
-    <MESSAGE value="Empty INamespaceRepository" />
-    <MESSAGE value="empty INamespaceRepository" />
-    <MESSAGE value="empty NamespaceServiceTests.cs" />
-    <MESSAGE value="failing test NamespaceServiceTests.cs" />
-    <MESSAGE value="empty NamespaceRepository.cs" />
-    <option name="LAST_COMMIT_MESSAGE" value="empty NamespaceRepository.cs" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/SimuladorDeObjetos.Application/Services/MethodModelService.cs</url>
-          <line>155</line>
-          <properties documentPath="C:\Alan Facultad\DA2\Obligatorio 1\270028_267001_289871\src\SimuladorDeObjetos.Application\Services\MethodModelService.cs" containingFunctionPresentation="Method 'GetMethodToExecute'">
-            <startOffsets>
-              <option value="5126" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5153" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="LAST_COMMIT_MESSAGE" value="create empty AttributeModelControllerTest" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

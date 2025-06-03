@@ -11,6 +11,8 @@ public class SimuladorDbContext : DbContext
     public DbSet<ParamModel> Params { get; set; }
     public DbSet<LocalVarModel> LocalVars { get; set; }
     public DbSet<MethodCallModel> MethodCalls { get; set; }
+    public DbSet<InterfaceModel> InterfaceModels { get; set; }
+    public DbSet<InterfaceMethodModel> InterfaceMethodModels { get; set; }
     public DbSet<NamespaceModel> Namespaces { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -76,7 +78,14 @@ public class SimuladorDbContext : DbContext
             entity.HasOne(p => p.Method)
                   .WithMany(m => m.Params)
                   .HasForeignKey(p => p.MethodId)
-                  .OnDelete(DeleteBehavior.Cascade);
+                  .OnDelete(DeleteBehavior.Cascade)
+                  .IsRequired(false);
+
+            entity.HasOne<InterfaceMethodModel>()
+                  .WithMany(i => i.Parameters)
+                  .HasForeignKey("InterfaceMethodModelId")
+                  .OnDelete(DeleteBehavior.Cascade)
+                  .IsRequired(false);
         });
 
         modelBuilder.Entity<LocalVarModel>(entity =>
@@ -108,6 +117,23 @@ public class SimuladorDbContext : DbContext
                   .WithMany(m => m.MethodsCalled)
                   .HasForeignKey(c => c.ParentMethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<InterfaceModel>(entity =>
+        {
+            entity.HasKey(i => i.Id);
+            entity.Property(i => i.Name).IsRequired().HasMaxLength(100);
+            entity.HasMany(i => i.Methods)
+                  .WithOne()
+                  .HasForeignKey("InterfaceId")
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<InterfaceMethodModel>(entity =>
+        {
+            entity.HasKey(m => m.Id);
+            entity.Property(m => m.Name).IsRequired().HasMaxLength(100);
+            entity.Property(m => m.ReturnType).IsRequired().HasMaxLength(100);
         });
 
         base.OnModelCreating(modelBuilder);
