@@ -15,6 +15,8 @@ namespace Tests;
             var returnType = "void";
             var isAbstract = true;
             var isSealed = false;
+            var isVirtual = true;
+            var isOverride = false;
             var accessibility = AccessibilityModifier.Public;
 
             var param = new ParamModel { Id = Guid.NewGuid(), Name = "param", Type = "int", MethodId = id };
@@ -28,6 +30,8 @@ namespace Tests;
                 ReturnType = returnType,
                 IsAbstract = isAbstract,
                 IsSealed = isSealed,
+                IsVirtual = isVirtual,
+                IsOverride = isOverride,
                 Accessibility = accessibility,
                 Params = new List<ParamModel> { param },
                 Vars = new List<LocalVarModel> { localVar },
@@ -39,6 +43,8 @@ namespace Tests;
             Assert.AreEqual(returnType, method.ReturnType);
             Assert.AreEqual(isAbstract, method.IsAbstract);
             Assert.AreEqual(isSealed, method.IsSealed);
+            Assert.AreEqual(isVirtual, method.IsVirtual);
+            Assert.AreEqual(isOverride, method.IsOverride);
             Assert.AreEqual(accessibility, method.Accessibility);
             Assert.AreEqual(1, method.Params.Count);
             Assert.AreEqual(1, method.Vars.Count);
@@ -55,6 +61,8 @@ namespace Tests;
             Assert.AreEqual(default(Guid), method.ClassId);
             Assert.IsFalse(method.IsAbstract);
             Assert.IsFalse(method.IsSealed);
+            Assert.IsFalse(method.IsVirtual);
+            Assert.IsFalse(method.IsOverride);
             Assert.AreEqual(default(AccessibilityModifier), method.Accessibility);
             Assert.IsNotNull(method.Params);
             Assert.IsNotNull(method.Vars);
@@ -85,6 +93,26 @@ namespace Tests;
 
             method.IsStatic = false;
             Assert.IsFalse(method.IsStatic);
+        }
+
+        [TestMethod]
+        public void MethodModel_VirtualFlag_AssignedCorrectly()
+        {
+            var method = new MethodModel { IsVirtual = true };
+            Assert.IsTrue(method.IsVirtual);
+
+            method.IsVirtual = false;
+            Assert.IsFalse(method.IsVirtual);
+        }
+
+        [TestMethod]
+        public void MethodModel_OverrideFlag_AssignedCorrectly()
+        {
+            var method = new MethodModel { IsOverride = true };
+            Assert.IsTrue(method.IsOverride);
+
+            method.IsOverride = false;
+            Assert.IsFalse(method.IsOverride);
         }
 
         [TestMethod]

@@ -138,6 +138,36 @@ public class MethodModelService : IMethodModelService
         {
             throw new InvalidOperationException("Ya existe un método con ese nombre en la clase.");
         }
+
+        if (method.IsOverride)
+        {
+            ValidateOverride(method, classModel);
+        }
+    }
+
+    private void ValidateOverride(MethodModel method, ClassModel derivedClass)
+    {
+        if (derivedClass.BaseClassId == null)
+        {
+            throw new InvalidOperationException("No se puede usar override en una clase que no hereda de otra.");
+        }
+
+        var baseClass = _classRepo.GetById(derivedClass.BaseClassId.Value);
+        if (baseClass == null)
+        {
+            throw new InvalidOperationException("No se encontró la clase base.");
+        }
+
+        var baseMethod = baseClass.Methods.FirstOrDefault(m => m.Name == method.Name);
+        if (baseMethod == null)
+        {
+            throw new InvalidOperationException("No existe un método con el mismo nombre en la clase base para hacer override.");
+        }
+
+        if (!baseMethod.IsVirtual)
+        {
+            throw new InvalidOperationException("El método base debe ser virtual para poder hacer override.");
+        }
     }
 
     public MethodModel? GetMethodToExecute(string methodName, Guid baseClassId, Guid concreteClassId)
