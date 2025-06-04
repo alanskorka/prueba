@@ -22,7 +22,10 @@ public class AttributeModelService : IAttributeModelService
         var classModel = GetClassOrThrow(attribute.ClassId);
 
         ThrowIfClassIsSealed(classModel);
-        ThrowIfAttributeNameExists(classModel.Attributes, attribute.Name);
+        if(attribute.Name != null)
+        {
+            ThrowIfAttributeNameExists(classModel.Attributes, attribute.Name);
+        }
 
         _repo.Add(attribute);
     }
@@ -37,7 +40,10 @@ public class AttributeModelService : IAttributeModelService
         var classModel = GetClassOrThrow(attribute.ClassId);
 
         ThrowIfClassIsSealed(classModel);
-        ThrowIfAttributeNameExists(classModel.Attributes, attribute.Name, attribute.Id);
+        if(attribute.Name != null)
+        {
+            ThrowIfAttributeNameExists(classModel.Attributes, attribute.Name, attribute.Id);
+        }
 
         _repo.Update(attribute);
     }
