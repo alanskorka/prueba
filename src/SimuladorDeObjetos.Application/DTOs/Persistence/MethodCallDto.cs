@@ -11,4 +11,6 @@ public class MethodCallDto
     public string? ReferenceName { get; set; }
     public MethodModel ParentMethod { get; set; } = null!;
     public Guid? ParentCallId { get; set; }
+    public List<Guid> ConcreteParameterTypes { get; set; } = new();
+    public List<ClassModel> ConcreteParameters { get; set; } = new();
 }

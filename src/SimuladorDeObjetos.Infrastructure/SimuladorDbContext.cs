@@ -121,13 +121,19 @@ public class SimuladorDbContext : DbContext
             entity.Property(c => c.MethodName)
                   .IsRequired()
                   .HasMaxLength(100);
-            entity.Property(c => c.ReferenceType)
-                  .IsRequired();
 
             entity.HasOne(c => c.ParentMethod)
                   .WithMany(m => m.MethodsCalled)
                   .HasForeignKey(c => c.ParentMethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(c => c.ConcreteParameters)
+                  .WithMany()
+                  .UsingEntity<Dictionary<string, object>>(
+                      "MethodCallConcreteParameters",
+                      j => j.HasOne<ClassModel>().WithMany().OnDelete(DeleteBehavior.NoAction),
+                      j => j.HasOne<MethodCallModel>().WithMany().OnDelete(DeleteBehavior.Cascade)
+                  );
         });
 
         modelBuilder.Entity<InterfaceModel>(entity =>

@@ -21,13 +21,16 @@ public class MappingProfileTest
     [TestMethod]
     public void AttributeDto_To_Model_And_Back()
     {
+        var concreteClassId = Guid.NewGuid();
         var dto = new AttributeDto
         {
             Id = Guid.NewGuid(),
             Name = "Attr",
             Type = "string",
             ClassId = Guid.NewGuid(),
-            Accessibility = AccessibilityModifier.Protected
+            Accessibility = AccessibilityModifier.Protected,
+            ConcreteTypeId = concreteClassId,
+            ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
         };
 
         var model = _mapper.Map<AttributeModel>(dto);
@@ -38,12 +41,23 @@ public class MappingProfileTest
         Assert.AreEqual(dto.Type, mappedBack.Type);
         Assert.AreEqual(dto.ClassId, mappedBack.ClassId);
         Assert.AreEqual(dto.Accessibility, mappedBack.Accessibility);
+        Assert.AreEqual(dto.ConcreteTypeId, mappedBack.ConcreteTypeId);
+        Assert.AreEqual(dto.ConcreteType?.Id, mappedBack.ConcreteType?.Id);
     }
 
     [TestMethod]
     public void ParamDto_To_Model_And_Back()
     {
-        var dto = new ParamDto { Id = Guid.NewGuid(), Name = "p1", Type = "int", MethodId = Guid.NewGuid() };
+        var concreteClassId = Guid.NewGuid();
+        var dto = new ParamDto 
+        { 
+            Id = Guid.NewGuid(), 
+            Name = "p1", 
+            Type = "int", 
+            MethodId = Guid.NewGuid(),
+            ConcreteTypeId = concreteClassId,
+            ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
+        };
         var model = _mapper.Map<ParamModel>(dto);
         var mappedBack = _mapper.Map<ParamDto>(model);
 
@@ -51,12 +65,23 @@ public class MappingProfileTest
         Assert.AreEqual(dto.Name, mappedBack.Name);
         Assert.AreEqual(dto.Type, mappedBack.Type);
         Assert.AreEqual(dto.MethodId, mappedBack.MethodId);
+        Assert.AreEqual(dto.ConcreteTypeId, mappedBack.ConcreteTypeId);
+        Assert.AreEqual(dto.ConcreteType?.Id, mappedBack.ConcreteType?.Id);
     }
 
     [TestMethod]
     public void LocalVarDto_To_Model_And_Back()
     {
-        var dto = new LocalVarDto { Id = Guid.NewGuid(), Name = "v1", Type = "bool", MethodId = Guid.NewGuid() };
+        var concreteClassId = Guid.NewGuid();
+        var dto = new LocalVarDto 
+        { 
+            Id = Guid.NewGuid(), 
+            Name = "v1", 
+            Type = "bool", 
+            MethodId = Guid.NewGuid(),
+            ConcreteTypeId = concreteClassId,
+            ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
+        };
         var model = _mapper.Map<LocalVarModel>(dto);
         var mappedBack = _mapper.Map<LocalVarDto>(model);
 
@@ -64,14 +89,24 @@ public class MappingProfileTest
         Assert.AreEqual(dto.Name, mappedBack.Name);
         Assert.AreEqual(dto.Type, mappedBack.Type);
         Assert.AreEqual(dto.MethodId, mappedBack.MethodId);
+        Assert.AreEqual(dto.ConcreteTypeId, mappedBack.ConcreteTypeId);
+        Assert.AreEqual(dto.ConcreteType?.Id, mappedBack.ConcreteType?.Id);
     }
 
     [TestMethod]
     public void MethodCallDto_To_Model_And_Back()
     {
+        var concreteClassId = Guid.NewGuid();
         var dto = new MethodCallDto
         {
-            MethodName = "Call", ReferenceType = ReferenceTypeInvocation.Attribute, ReferenceName = "obj"
+            MethodName = "Call", 
+            ReferenceType = ReferenceTypeInvocation.Attribute, 
+            ReferenceName = "obj",
+            ConcreteParameterTypes = new List<Guid> { concreteClassId },
+            ConcreteParameters = new List<ClassModel> 
+            { 
+                new ClassModel { Id = concreteClassId, Name = "ConcreteClass" } 
+            }
         };
         var model = _mapper.Map<MethodCallModel>(dto);
         var mappedBack = _mapper.Map<MethodCallDto>(model);
@@ -79,6 +114,9 @@ public class MappingProfileTest
         Assert.AreEqual(dto.MethodName, mappedBack.MethodName);
         Assert.AreEqual(dto.ReferenceType, mappedBack.ReferenceType);
         Assert.AreEqual(dto.ReferenceName, mappedBack.ReferenceName);
+        CollectionAssert.AreEqual(dto.ConcreteParameterTypes, mappedBack.ConcreteParameterTypes);
+        Assert.AreEqual(dto.ConcreteParameters.Count, mappedBack.ConcreteParameters.Count);
+        Assert.AreEqual(dto.ConcreteParameters[0].Id, mappedBack.ConcreteParameters[0].Id);
     }
 
     [TestMethod]
