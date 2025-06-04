@@ -49,11 +49,11 @@ public class MappingProfileTest
     public void ParamDto_To_Model_And_Back()
     {
         var concreteClassId = Guid.NewGuid();
-        var dto = new ParamDto 
-        { 
-            Id = Guid.NewGuid(), 
-            Name = "p1", 
-            Type = "int", 
+        var dto = new ParamDto
+        {
+            Id = Guid.NewGuid(),
+            Name = "p1",
+            Type = "int",
             MethodId = Guid.NewGuid(),
             ConcreteTypeId = concreteClassId,
             ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
@@ -73,11 +73,11 @@ public class MappingProfileTest
     public void LocalVarDto_To_Model_And_Back()
     {
         var concreteClassId = Guid.NewGuid();
-        var dto = new LocalVarDto 
-        { 
-            Id = Guid.NewGuid(), 
-            Name = "v1", 
-            Type = "bool", 
+        var dto = new LocalVarDto
+        {
+            Id = Guid.NewGuid(),
+            Name = "v1",
+            Type = "bool",
             MethodId = Guid.NewGuid(),
             ConcreteTypeId = concreteClassId,
             ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
@@ -99,13 +99,13 @@ public class MappingProfileTest
         var concreteClassId = Guid.NewGuid();
         var dto = new MethodCallDto
         {
-            MethodName = "Call", 
-            ReferenceType = ReferenceTypeInvocation.Attribute, 
+            MethodName = "Call",
+            ReferenceType = ReferenceTypeInvocation.Attribute,
             ReferenceName = "obj",
             ConcreteParameterTypes = new List<Guid> { concreteClassId },
-            ConcreteParameters = new List<ClassModel> 
-            { 
-                new ClassModel { Id = concreteClassId, Name = "ConcreteClass" } 
+            ConcreteParameters = new List<ClassModel>
+            {
+                new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
             }
         };
         var model = _mapper.Map<MethodCallModel>(dto);
