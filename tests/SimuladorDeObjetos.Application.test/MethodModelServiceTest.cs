@@ -329,4 +329,127 @@ public class MethodModelServiceTest
             Assert.IsTrue(lines[0].Contains(call.MethodName));
         }
     }
+
+    [TestMethod]
+    public void GetMethodToExecute_ShouldReturnOverride_WhenItExists()
+    {
+        var baseClassId = Guid.NewGuid();
+        var derivedClassId = Guid.NewGuid();
+
+        var virtualMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = baseClassId,
+            Name = "Run",
+            IsVirtual = true
+        };
+
+        var overrideMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = derivedClassId,
+            Name = "Run",
+            IsOverride = true
+        };
+
+        var baseClass = new ClassModel { Id = baseClassId, Methods = new List<MethodModel> { virtualMethod } };
+        var derivedClass = new ClassModel { Id = derivedClassId, Methods = new List<MethodModel> { overrideMethod }, BaseClassId = baseClassId };
+
+        _classRepo.Setup(r => r.GetById(baseClassId)).Returns(baseClass);
+        _classRepo.Setup(r => r.GetById(derivedClassId)).Returns(derivedClass);
+
+        var result = _service.GetMethodToExecute("Run", baseClassId, derivedClassId);
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(overrideMethod.Id, result.Id);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Add_ShouldThrow_WhenOverrideWithoutVirtualBase()
+    {
+        var baseClassId = Guid.NewGuid();
+        var derivedClassId = Guid.NewGuid();
+
+        var baseMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = baseClassId,
+            Name = "Run",
+            IsVirtual = false
+        };
+
+        var overrideMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = derivedClassId,
+            Name = "Run",
+            IsOverride = true
+        };
+
+        var baseClass = new ClassModel { Id = baseClassId, Methods = new List<MethodModel> { baseMethod } };
+        var derivedClass = new ClassModel { Id = derivedClassId, Methods = new List<MethodModel>(), BaseClassId = baseClassId };
+
+        _classRepo.Setup(r => r.GetById(baseClassId)).Returns(baseClass);
+        _classRepo.Setup(r => r.GetById(derivedClassId)).Returns(derivedClass);
+
+        _service.Add(overrideMethod);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Add_ShouldThrow_WhenOverrideWithoutBaseMethod()
+    {
+        var baseClassId = Guid.NewGuid();
+        var derivedClassId = Guid.NewGuid();
+
+        var overrideMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = derivedClassId,
+            Name = "Run",
+            IsOverride = true
+        };
+
+        var baseClass = new ClassModel { Id = baseClassId, Methods = new List<MethodModel>() };
+        var derivedClass = new ClassModel { Id = derivedClassId, Methods = new List<MethodModel>(), BaseClassId = baseClassId };
+
+        _classRepo.Setup(r => r.GetById(baseClassId)).Returns(baseClass);
+        _classRepo.Setup(r => r.GetById(derivedClassId)).Returns(derivedClass);
+
+        _service.Add(overrideMethod);
+    }
+
+    [TestMethod]
+    public void Add_ShouldSucceed_WhenOverrideWithVirtualBase()
+    {
+        var baseClassId = Guid.NewGuid();
+        var derivedClassId = Guid.NewGuid();
+
+        var baseMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = baseClassId,
+            Name = "Run",
+            IsVirtual = true
+        };
+
+        var overrideMethod = new MethodModel
+        {
+            Id = Guid.NewGuid(),
+            ClassId = derivedClassId,
+            Name = "Run",
+            IsOverride = true
+        };
+
+        var baseClass = new ClassModel { Id = baseClassId, Methods = new List<MethodModel> { baseMethod } };
+        var derivedClass = new ClassModel { Id = derivedClassId, Methods = new List<MethodModel>(), BaseClassId = baseClassId };
+
+        _classRepo.Setup(r => r.GetById(baseClassId)).Returns(baseClass);
+        _classRepo.Setup(r => r.GetById(derivedClassId)).Returns(derivedClass);
+
+        _service.Add(overrideMethod);
+
+        _methodRepo.Verify(r => r.Add(overrideMethod), Times.Once);
+    }
 }

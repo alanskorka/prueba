@@ -11,6 +11,9 @@ public class MethodDto
     public Guid ClassId { get; set; }
     public bool IsAbstract { get; set; }
     public bool IsSealed { get; set; }
+    public bool IsVirtual { get; set; }
+    public bool IsOverride { get; set; }
+    public bool IsStatic { get; set; }
     public AccessibilityModifier Accessibility { get; set; }
     public List<ParamModel> Params { get; set; } = new();
     public List<LocalVarModel> Vars { get; set; } = new();

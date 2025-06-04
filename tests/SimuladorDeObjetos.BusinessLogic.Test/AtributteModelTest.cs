@@ -25,4 +25,14 @@ public class AttributeModelTests
         Assert.AreEqual(classId, attribute.ClassId);
         Assert.AreEqual(AccessibilityModifier.Private, attribute.Accessibility);
     }
+
+    [TestMethod]
+    public void AttributeModel_StaticFlag_AssignedCorrectly()
+    {
+        var attr = new AttributeModel { IsStatic = true };
+        Assert.IsTrue(attr.IsStatic);
+
+        attr.IsStatic = false;
+        Assert.IsFalse(attr.IsStatic);
+    }
 }

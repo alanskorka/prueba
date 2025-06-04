@@ -1,6 +1,5 @@
 using AutoMapper;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace SimuladorDeObjetos.Application.DTOs;
 public class MappingProfile : Profile
@@ -15,6 +14,14 @@ public class MappingProfile : Profile
 
         CreateMap<InterfaceDto, InterfaceModel>().ReverseMap();
         CreateMap<InterfaceMethodDto, InterfaceMethodModel>().ReverseMap();
+
+        var mappingExpression = CreateMap<NamespaceDto, NamespaceModel>()
+            .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
+            .ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.Parent))
+            .ReverseMap();
+
+        mappingExpression.ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children));
+        mappingExpression.ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.Parent!));
 
         CreateMap<ClassDto, ClassModel>()
             .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
