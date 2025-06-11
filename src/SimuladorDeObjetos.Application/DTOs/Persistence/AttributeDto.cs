@@ -12,4 +12,6 @@ public class AttributeDto
     public bool IsStatic { get; set; }
     public AccessibilityModifier Accessibility { get; set; }
     public ClassModel Class { get; set; } = null!;
+    public Guid? ConcreteTypeId { get; set; }
+    public ClassModel? ConcreteType { get; set; }
 }

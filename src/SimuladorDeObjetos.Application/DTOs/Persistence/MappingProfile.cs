@@ -6,10 +6,26 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<AttributeDto, AttributeModel>().ReverseMap();
-        CreateMap<ParamDto, ParamModel>().ReverseMap();
-        CreateMap<LocalVarDto, LocalVarModel>().ReverseMap();
-        CreateMap<MethodCallDto, MethodCallModel>().ReverseMap();
+        CreateMap<AttributeDto, AttributeModel>()
+            .ForMember(dest => dest.ConcreteTypeId, opt => opt.MapFrom(src => src.ConcreteTypeId))
+            .ForMember(dest => dest.ConcreteType, opt => opt.MapFrom(src => src.ConcreteType))
+            .ReverseMap();
+
+        CreateMap<ParamDto, ParamModel>()
+            .ForMember(dest => dest.ConcreteTypeId, opt => opt.MapFrom(src => src.ConcreteTypeId))
+            .ForMember(dest => dest.ConcreteType, opt => opt.MapFrom(src => src.ConcreteType))
+            .ReverseMap();
+
+        CreateMap<LocalVarDto, LocalVarModel>()
+            .ForMember(dest => dest.ConcreteTypeId, opt => opt.MapFrom(src => src.ConcreteTypeId))
+            .ForMember(dest => dest.ConcreteType, opt => opt.MapFrom(src => src.ConcreteType))
+            .ReverseMap();
+
+        CreateMap<MethodCallDto, MethodCallModel>()
+            .ForMember(dest => dest.ConcreteParameterTypes, opt => opt.MapFrom(src => src.ConcreteParameterTypes))
+            .ForMember(dest => dest.ConcreteParameters, opt => opt.MapFrom(src => src.ConcreteParameters))
+            .ReverseMap();
+
         CreateMap<MethodDto, MethodModel>().ReverseMap();
 
         CreateMap<InterfaceDto, InterfaceModel>().ReverseMap();

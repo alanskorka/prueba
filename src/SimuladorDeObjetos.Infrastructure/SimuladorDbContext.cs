@@ -44,6 +44,12 @@ public class SimuladorDbContext : DbContext
                   .WithMany(c => c.Attributes)
                   .HasForeignKey(a => a.ClassId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(a => a.ConcreteType)
+                  .WithMany()
+                  .HasForeignKey(a => a.ConcreteTypeId)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired(false);
         });
 
         modelBuilder.Entity<MethodModel>(entity =>
@@ -78,13 +84,12 @@ public class SimuladorDbContext : DbContext
             entity.HasOne(p => p.Method)
                   .WithMany(m => m.Params)
                   .HasForeignKey(p => p.MethodId)
-                  .OnDelete(DeleteBehavior.Cascade)
-                  .IsRequired(false);
+                  .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasOne<InterfaceMethodModel>()
-                  .WithMany(i => i.Parameters)
-                  .HasForeignKey("InterfaceMethodModelId")
-                  .OnDelete(DeleteBehavior.Cascade)
+            entity.HasOne(p => p.ConcreteType)
+                  .WithMany()
+                  .HasForeignKey(p => p.ConcreteTypeId)
+                  .OnDelete(DeleteBehavior.NoAction)
                   .IsRequired(false);
         });
 
@@ -102,6 +107,12 @@ public class SimuladorDbContext : DbContext
                   .WithMany(m => m.Vars)
                   .HasForeignKey(v => v.MethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(v => v.ConcreteType)
+                  .WithMany()
+                  .HasForeignKey(v => v.ConcreteTypeId)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired(false);
         });
 
         modelBuilder.Entity<MethodCallModel>(entity =>
@@ -110,13 +121,19 @@ public class SimuladorDbContext : DbContext
             entity.Property(c => c.MethodName)
                   .IsRequired()
                   .HasMaxLength(100);
-            entity.Property(c => c.ReferenceType)
-                  .IsRequired();
 
             entity.HasOne(c => c.ParentMethod)
                   .WithMany(m => m.MethodsCalled)
                   .HasForeignKey(c => c.ParentMethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(c => c.ConcreteParameters)
+                  .WithMany()
+                  .UsingEntity<Dictionary<string, object>>(
+                      "MethodCallConcreteParameters",
+                      j => j.HasOne<ClassModel>().WithMany().OnDelete(DeleteBehavior.NoAction),
+                      j => j.HasOne<MethodCallModel>().WithMany().OnDelete(DeleteBehavior.Cascade)
+                  );
         });
 
         modelBuilder.Entity<InterfaceModel>(entity =>

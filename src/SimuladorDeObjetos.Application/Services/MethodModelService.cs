@@ -101,18 +101,48 @@ public class MethodModelService : IMethodModelService
         {
             ReferenceTypeInvocation.This => "this",
             ReferenceTypeInvocation.Base => "base",
-            ReferenceTypeInvocation.Attribute => $"obj_{call.ReferenceName}",
-            ReferenceTypeInvocation.Parameter => $"param_{call.ReferenceName}",
-            ReferenceTypeInvocation.LocalVar => $"var_{call.ReferenceName}",
+            ReferenceTypeInvocation.Attribute => GetReferenceWithType("obj", call.ReferenceName),
+            ReferenceTypeInvocation.Parameter => GetReferenceWithType("param", call.ReferenceName),
+            ReferenceTypeInvocation.LocalVar => GetReferenceWithType("var", call.ReferenceName),
             _ => call.ReferenceType.ToString()
         };
 
-        lines.Add($"{indent}{prefix}.{call.MethodName}()");
+        if (call.MethodName != null)
+        {
+            var methodToExecute = GetMethodToExecute(call.MethodName, GetBaseTypeId(call), GetConcreteTypeId(call));
+            var methodName = methodToExecute?.Name ?? call.MethodName;
+
+            lines.Add($"{indent}{prefix}.{methodName}()");
+        }
 
         foreach (var nested in _methodRepo.GetMethodCalls(call.Id))
         {
             AppendCall(lines, nested, level + 1);
         }
+    }
+
+    private string GetReferenceWithType(string prefix, string? name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return prefix;
+        }
+
+        return $"{prefix}_{name}";
+    }
+
+    private Guid GetBaseTypeId(MethodCallModel call)
+    {
+        // Aquí deberíamos obtener el tipo base de la referencia según el ReferenceType
+        // Por ahora retornamos un valor por defecto
+        return Guid.Empty;
+    }
+
+    private Guid GetConcreteTypeId(MethodCallModel call)
+    {
+        // Aquí deberíamos obtener el tipo concreto de la referencia según el ReferenceType
+        // Por ahora retornamos un valor por defecto
+        return Guid.Empty;
     }
 
     private ClassModel GetClassOrThrow(Guid classId)
