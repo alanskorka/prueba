@@ -1,6 +1,6 @@
 using Domain.Entities;
 
-namespace SimuladorDeObjetos.Application.DTOs;
+namespace SimuladorDeObjetos.Application.DTOs.Persistence;
 
 public class ClassDto
 {
@@ -10,8 +10,8 @@ public class ClassDto
     public Guid? BaseClassId { get; set; }
     public bool IsSealed { get; set; }
 
-    public List<AttributeModel> Attributes { get; set; } = new List<AttributeModel>();
-    public List<MethodModel> Methods { get; set; } = new List<MethodModel>();
+    public List<AttributeModel> Attributes { get; set; } = [];
+    public List<MethodModel> Methods { get; set; } = [];
     public ClassModel? BaseClass { get; set; }
-    public List<InterfaceDto> ImplementedInterfaces { get; set; } = new();
+    public List<InterfaceDto> ImplementedInterfaces { get; set; } = [];
 }
