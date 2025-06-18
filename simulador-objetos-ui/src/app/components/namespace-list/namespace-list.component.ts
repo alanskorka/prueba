@@ -100,7 +100,7 @@ export class NamespaceListComponent implements OnInit {
   deleteNamespace(ns: NamespaceModel): void {
     if (confirm(`¿Seguro que deseas eliminar el namespace '${ns.name}'?`)) {
       this.loading = true;
-      this.namespaceService.deleteNamespace(ns.id!).subscribe({
+      this.namespaceService.deleteNamespace(ns).subscribe({
         next: () => {
           this.loadNamespaces();
         },

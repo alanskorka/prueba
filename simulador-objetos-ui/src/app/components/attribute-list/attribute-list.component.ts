@@ -102,7 +102,7 @@ export class AttributeListComponent implements OnInit {
   deleteAttribute(attr: AttributeModel): void {
     if (confirm(`¿Seguro que deseas eliminar el atributo '${attr.name}'?`)) {
       this.loading = true;
-      this.attributeService.deleteAttribute(attr.id!).subscribe({
+      this.attributeService.deleteAttribute(attr).subscribe({
         next: () => {
           this.loadAttributes();
         },

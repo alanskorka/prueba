@@ -37,7 +37,7 @@ export class AttributeService {
     return this.http.put(`${this.apiUrl}/${id}`, attributeData);
   }
 
-  deleteAttribute(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteAttribute(attribute: AttributeModel): Observable<any> {
+    return this.http.request('delete', this.apiUrl, { body: attribute });
   }
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassService, ClassModel } from '../../services/class.service';
 import { CommonModule } from '@angular/common';
+import { NamespaceService, NamespaceModel } from '../../services/namespace.service';
 
 @Component({
   selector: 'app-class-form',
@@ -63,6 +64,22 @@ import { CommonModule } from '@angular/common';
                   </div>
                 </div>
 
+                <div class="mb-3">
+                  <label for="namespaceId" class="form-label">Namespace</label>
+                  <select 
+                    id="namespaceId" 
+                    class="form-select" 
+                    formControlName="namespaceId"
+                    [ngClass]="{'is-invalid': classForm.get('namespaceId')?.invalid && classForm.get('namespaceId')?.touched}"
+                  >
+                    <option value="">Selecciona un namespace</option>
+                    <option *ngFor="let namespace of namespaces" [value]="namespace.id">{{ namespace.name }}</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="classForm.get('namespaceId')?.invalid && classForm.get('namespaceId')?.touched">
+                    El namespace es requerido
+                  </div>
+                </div>
+
                 <div class="d-flex gap-2">
                   <button type="submit" class="btn btn-primary" [disabled]="classForm.invalid">
                     <i class="bi" [ngClass]="isEditMode ? 'bi-pencil' : 'bi-plus-circle'"></i> {{ isEditMode ? 'Actualizar Clase' : 'Crear Clase' }}
@@ -99,21 +116,28 @@ export class ClassFormComponent implements OnInit {
   successMessage: string | null = null;
   isEditMode = false;
   classId: string | null = null;
+  namespaces: NamespaceModel[] = [];
 
   constructor(
     private fb: FormBuilder,
     private classService: ClassService,
     public router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private namespaceService: NamespaceService
   ) {
     this.classForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       isAbstract: [false],
-      isSealed: [false]
+      isSealed: [false],
+      namespaceId: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
+    this.namespaceService.getNamespaces().subscribe({
+      next: (data) => this.namespaces = data,
+      error: () => this.errorMessage = 'Error al cargar los namespaces.'
+    });
     this.classId = this.route.snapshot.params['id'];
     if (this.classId) {
       this.isEditMode = true;
@@ -127,13 +151,12 @@ export class ClassFormComponent implements OnInit {
   onSubmit(): void {
     if (this.classForm.valid) {
       const classData: ClassModel = {
-        id: this.classId || undefined,
+        id: this.classId || '',
         name: this.classForm.value.name,
         isAbstract: this.classForm.value.isAbstract,
         isSealed: this.classForm.value.isSealed,
-        attributes: [],
-        methods: []
-      } as any;
+        namespaceId: this.classForm.value.namespaceId
+      };
       if (this.isEditMode) {
         this.classService.updateClass(classData).subscribe({
           next: () => {
@@ -147,17 +170,17 @@ export class ClassFormComponent implements OnInit {
           }
         });
       } else {
-      this.classService.createClass(classData).subscribe({
-        next: () => {
-          this.successMessage = '¡Clase creada exitosamente!';
-          this.errorMessage = null;
-          setTimeout(() => this.router.navigate(['/classes']), 2000);
-        },
-        error: (error: Error) => {
-          this.errorMessage = `Error al crear la clase: ${error.message}`;
-          this.successMessage = null;
-        }
-      });
+        this.classService.createClass(classData).subscribe({
+          next: () => {
+            this.successMessage = '¡Clase creada exitosamente!';
+            this.errorMessage = null;
+            setTimeout(() => this.router.navigate(['/classes']), 2000);
+          },
+          error: (error: Error) => {
+            this.errorMessage = `Error al crear la clase: ${error.message}`;
+            this.successMessage = null;
+          }
+        });
       }
     }
   }

@@ -15,7 +15,7 @@ export class MethodCallService {
     return this.http.get<MethodCallModel[]>(this.apiUrl);
   }
 
-  getMethodCall(id: number): Observable<MethodCallModel> {
+  getMethodCall(id: string): Observable<MethodCallModel> {
     return this.http.get<MethodCallModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -23,11 +23,11 @@ export class MethodCallService {
     return this.http.post<MethodCallModel>(this.apiUrl, methodCallData);
   }
 
-  updateMethodCall(id: number, methodCallData: MethodCallModel): Observable<any> {
+  updateMethodCall(id: string, methodCallData: MethodCallModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, methodCallData);
   }
 
-  deleteMethodCall(id: number): Observable<any> {
+  deleteMethodCall(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
