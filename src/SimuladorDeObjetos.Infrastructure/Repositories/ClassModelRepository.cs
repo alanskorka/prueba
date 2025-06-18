@@ -4,11 +4,9 @@ using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Infrastructure.Repositories;
 
-public class ClassModelRepository : IClassModelRepository
+public class ClassModelRepository(SimuladorDbContext dbContext) : IClassModelRepository
 {
-    private readonly SimuladorDbContext _dbContext;
-
-    public ClassModelRepository(SimuladorDbContext dbContext) => _dbContext = dbContext;
+    private readonly SimuladorDbContext _dbContext = dbContext;
 
     public void Add(ClassModel classModel)
     {
@@ -17,10 +15,7 @@ public class ClassModelRepository : IClassModelRepository
         _dbContext.SaveChanges();
     }
 
-    public IEnumerable<ClassModel> GetAll() => _dbContext.Classes
-        .Include(c => c.Attributes)
-        .Include(c => c.Methods)
-        .ToList();
+    public IEnumerable<ClassModel> GetAll() => _dbContext.Classes.ToList();
 
     public ClassModel? GetById(Guid id) => _dbContext.Classes
         .Include(c => c.Attributes)

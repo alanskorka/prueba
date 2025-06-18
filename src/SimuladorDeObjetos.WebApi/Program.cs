@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using SimuladorDeObjetos.Application.DTOs.Persistence;
 using SimuladorDeObjetos.Infrastructure;
 using SimuladorDeObjetos.WebApi.Extensions;
 using System.Text.Json;
@@ -22,6 +23,7 @@ builder.Services.AddCors(options =>
 // Add services to the container using extension methods
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

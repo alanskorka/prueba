@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ClassService, Class } from '../../services/class.service';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-class-list',
@@ -104,12 +105,15 @@ export class ClassListComponent implements OnInit {
 
   loadClasses(): void {
     this.classService.getClasses().subscribe({
-      next: (classes) => {
+      next: (data: any) => {
+        const classes = data.$values || data;
         this.classes = classes;
         this.filterClasses();
       },
-      error: (error: Error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error loading classes:', error);
+        this.classes = [];
+        this.filteredClasses = [];
         // TODO: Mostrar mensaje de error al usuario
       }
     });
