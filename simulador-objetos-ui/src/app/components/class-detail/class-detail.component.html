@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="classData">
+    <h2>Detalle de Clase</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><strong>ID:</strong> {{ classData.id }}</li>
+      <li class="list-group-item"><strong>Nombre:</strong> {{ classData.name }}</li>
+      <li class="list-group-item"><strong>Abstracta:</strong> {{ classData.isAbstract ? 'Sí' : 'No' }}</li>
+      <li class="list-group-item"><strong>Sellada:</strong> {{ classData.isSealed ? 'Sí' : 'No' }}</li>
+      <!-- Puedes agregar más campos aquí -->
+    </ul>
+    <button class="btn btn-secondary mt-3" (click)="router.navigate(['/classes'])">Volver</button>
+  </div>
+</div>

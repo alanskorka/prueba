@@ -9,4 +9,5 @@ public interface IMethodCallModelRepository
     void Update(MethodCallModel call);
     void Delete(MethodCallModel call);
     void SaveChanges();
+    MethodCallModel? GetById(Guid id);
 }

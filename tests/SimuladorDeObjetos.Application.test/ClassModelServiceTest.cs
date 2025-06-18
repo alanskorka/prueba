@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Moq;
 using SimuladorDeObjetos.Application;
+using SimuladorDeObjetos.Application.Services;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
@@ -99,6 +100,22 @@ public class ClassModelServiceTest
     }
 
     [TestMethod]
+    public void Add_ShouldThrow_WhenClassNameExists()
+    {
+        _mockRepo!.Setup(r => r.GetAll())
+            .Returns(new List<ClassModel> { new ClassModel { Name = "TestClass" } });
+
+        var duplicateClass = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "TestClass"
+        };
+
+        var ex = Assert.ThrowsException<InvalidOperationException>(() => _service!.Add(duplicateClass));
+        Assert.AreEqual("Ya existe una clase con el nombre 'TestClass'.", ex.Message);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
         _service!.Delete(_class!);
@@ -108,10 +125,77 @@ public class ClassModelServiceTest
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdateAndSave()
     {
+        _mockRepo!.Setup(r => r.GetById(_class!.Id)).Returns(_class);
+
+        _mockRepo.Setup(r => r.GetAll()).Returns(new List<ClassModel> { _class! });
+
         _service!.Update(_class!);
 
-        _mockRepo!.Verify(r => r.Update(_class!), Times.Once);
-        _mockRepo!.Verify(r => r.SaveChanges(), Times.Once);
+        _mockRepo.Verify(r => r.Update(_class!), Times.Once);
+        _mockRepo.Verify(r => r.SaveChanges(), Times.Once);
+    }
+
+    [TestMethod]
+    public void Update_ShouldThrow_WhenClassDoesNotExist()
+    {
+        _mockRepo!.Setup(r => r.GetById(_class!.Id)).Returns((ClassModel)null!);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(_class!));
+    }
+
+    [TestMethod]
+    public void Update_ShouldThrow_WhenClassNameIsDuplicated()
+    {
+        var updated = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "TestClass"
+        };
+
+        var existingSameName = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "TestClass"
+        };
+
+        _mockRepo!.Setup(r => r.GetById(updated.Id)).Returns(updated);
+        _mockRepo.Setup(r => r.GetAll()).Returns(new List<ClassModel> { existingSameName });
+
+        var ex = Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(updated));
+
+        Assert.AreEqual("Ya existe una clase con el nombre 'TestClass'.", ex.Message);
+    }
+
+    [TestMethod]
+    public void Update_ShouldThrow_WhenBaseClassIsNotFound()
+    {
+        var model = _class!;
+        model.BaseClassId = Guid.NewGuid();
+
+        _mockRepo!.Setup(r => r.GetById(model.Id)).Returns(model);
+        _mockRepo!.Setup(r => r.GetAll()).Returns(new List<ClassModel>());
+        _mockRepo!.Setup(r => r.GetById(model.BaseClassId.Value)).Returns((ClassModel)null!);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(model));
+    }
+
+    [TestMethod]
+    public void Update_ShouldThrow_WhenBaseClassIsSealed()
+    {
+        var model = _class!;
+        var sealedBase = new ClassModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "SealedBase",
+            IsSealed = true
+        };
+        model.BaseClassId = sealedBase.Id;
+
+        _mockRepo!.Setup(r => r.GetById(model.Id)).Returns(model);
+        _mockRepo!.Setup(r => r.GetAll()).Returns(new List<ClassModel>());
+        _mockRepo!.Setup(r => r.GetById(model.BaseClassId.Value)).Returns(sealedBase);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _service!.Update(model));
     }
 
     [TestMethod]

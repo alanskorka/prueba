@@ -25,6 +25,25 @@ public class LocalVarModelController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        try
+        {
+            var localVar = _service.GetById(id);
+            if (localVar == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(localVar);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
     [HttpPost]
     public IActionResult Add([FromBody] LocalVarModel model)
     {
@@ -44,8 +63,8 @@ public class LocalVarModelController : ControllerBase
         }
     }
 
-    [HttpPut]
-    public IActionResult Update([FromBody] LocalVarModel model)
+    [HttpPut("{id}")]
+    public IActionResult Update(Guid id, [FromBody] LocalVarModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -54,6 +73,7 @@ public class LocalVarModelController : ControllerBase
 
         try
         {
+            model.Id = id;
             _service.Update(model);
             return Ok();
         }
@@ -63,12 +83,18 @@ public class LocalVarModelController : ControllerBase
         }
     }
 
-    [HttpDelete]
-    public IActionResult Delete([FromBody] LocalVarModel model)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
     {
         try
         {
-            _service.Delete(model);
+            var localVar = _service.GetById(id);
+            if (localVar == null)
+            {
+                return NotFound();
+            }
+
+            _service.Delete(localVar);
             return Ok();
         }
         catch (Exception e)

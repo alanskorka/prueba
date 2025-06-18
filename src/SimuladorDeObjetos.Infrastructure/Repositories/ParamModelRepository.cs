@@ -22,7 +22,18 @@ public class ParamModelRepository : IParamModelRepository
     public void Update(ParamModel param)
     {
         ArgumentNullException.ThrowIfNull(param);
-        _dbContext.Params.Update(param);
+
+        var existingParam = _dbContext.Params.Find(param.Id);
+        if (existingParam != null)
+        {
+            _dbContext.Entry(existingParam).CurrentValues.SetValues(param);
+        }
+        else
+        {
+            _dbContext.Params.Attach(param);
+            _dbContext.Entry(param).State = EntityState.Modified;
+        }
+
         _dbContext.SaveChanges();
     }
 
@@ -34,4 +45,9 @@ public class ParamModelRepository : IParamModelRepository
     }
 
     public void SaveChanges() => _dbContext.SaveChanges();
+
+    public ParamModel? GetById(Guid id)
+    {
+        return _dbContext.Params.FirstOrDefault(p => p.Id == id);
+    }
 }

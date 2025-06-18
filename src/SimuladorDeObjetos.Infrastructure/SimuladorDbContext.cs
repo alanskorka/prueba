@@ -11,6 +11,9 @@ public class SimuladorDbContext : DbContext
     public DbSet<ParamModel> Params { get; set; }
     public DbSet<LocalVarModel> LocalVars { get; set; }
     public DbSet<MethodCallModel> MethodCalls { get; set; }
+    public DbSet<InterfaceModel> InterfaceModels { get; set; }
+    public DbSet<InterfaceMethodModel> InterfaceMethodModels { get; set; }
+    public DbSet<NamespaceModel> Namespaces { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,15 +35,21 @@ public class SimuladorDbContext : DbContext
             entity.HasKey(a => a.Id);
             entity.Property(a => a.Name)
                   .IsRequired()
-                  .HasMaxLength(100); // EDITADO
+                  .HasMaxLength(100);
             entity.Property(a => a.Type)
                   .IsRequired()
-                  .HasMaxLength(100); // EDITADO
+                  .HasMaxLength(100);
 
             entity.HasOne(a => a.Class)
                   .WithMany(c => c.Attributes)
                   .HasForeignKey(a => a.ClassId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(a => a.ConcreteType)
+                  .WithMany()
+                  .HasForeignKey(a => a.ConcreteTypeId)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired(false);
         });
 
         modelBuilder.Entity<MethodModel>(entity =>
@@ -49,6 +58,12 @@ public class SimuladorDbContext : DbContext
             entity.Property(m => m.Name)
                   .IsRequired()
                   .HasMaxLength(100);
+
+            entity.Property(m => m.IsVirtual)
+                  .IsRequired();
+
+            entity.Property(m => m.IsOverride)
+                  .IsRequired();
 
             entity.HasOne(m => m.Class)
                   .WithMany(c => c.Methods)
@@ -70,6 +85,12 @@ public class SimuladorDbContext : DbContext
                   .WithMany(m => m.Params)
                   .HasForeignKey(p => p.MethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(p => p.ConcreteType)
+                  .WithMany()
+                  .HasForeignKey(p => p.ConcreteTypeId)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired(false);
         });
 
         modelBuilder.Entity<LocalVarModel>(entity =>
@@ -86,6 +107,12 @@ public class SimuladorDbContext : DbContext
                   .WithMany(m => m.Vars)
                   .HasForeignKey(v => v.MethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(v => v.ConcreteType)
+                  .WithMany()
+                  .HasForeignKey(v => v.ConcreteTypeId)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired(false);
         });
 
         modelBuilder.Entity<MethodCallModel>(entity =>
@@ -94,13 +121,36 @@ public class SimuladorDbContext : DbContext
             entity.Property(c => c.MethodName)
                   .IsRequired()
                   .HasMaxLength(100);
-            entity.Property(c => c.ReferenceType)
-                  .IsRequired();
 
             entity.HasOne(c => c.ParentMethod)
                   .WithMany(m => m.MethodsCalled)
                   .HasForeignKey(c => c.ParentMethodId)
                   .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(c => c.ConcreteParameters)
+                  .WithMany()
+                  .UsingEntity<Dictionary<string, object>>(
+                      "MethodCallConcreteParameters",
+                      j => j.HasOne<ClassModel>().WithMany().OnDelete(DeleteBehavior.NoAction),
+                      j => j.HasOne<MethodCallModel>().WithMany().OnDelete(DeleteBehavior.Cascade)
+                  );
+        });
+
+        modelBuilder.Entity<InterfaceModel>(entity =>
+        {
+            entity.HasKey(i => i.Id);
+            entity.Property(i => i.Name).IsRequired().HasMaxLength(100);
+            entity.HasMany(i => i.Methods)
+                  .WithOne()
+                  .HasForeignKey("InterfaceId")
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<InterfaceMethodModel>(entity =>
+        {
+            entity.HasKey(m => m.Id);
+            entity.Property(m => m.Name).IsRequired().HasMaxLength(100);
+            entity.Property(m => m.ReturnType).IsRequired().HasMaxLength(100);
         });
 
         base.OnModelCreating(modelBuilder);

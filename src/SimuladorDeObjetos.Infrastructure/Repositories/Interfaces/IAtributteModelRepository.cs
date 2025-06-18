@@ -9,4 +9,5 @@ public interface IAtributteModelRepository
     void Update(AttributeModel attribute);
     void Delete(AttributeModel attribute);
     void SaveChanges();
+    AttributeModel? GetById(Guid id);
 }

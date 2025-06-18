@@ -1,71 +1,75 @@
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using SimuladorDeObjetos.Application.DTOs.Persistence;
+using SimuladorDeObjetos.Infrastructure;
+using SimuladorDeObjetos.WebApi.Extensions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AutoMapper;
-using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using SimuladorDeObjetos.Application;
-using SimuladorDeObjetos.Application.DTOs;
-using SimuladorDeObjetos.Application.Interfaces;
-using SimuladorDeObjetos.Infrastructure;
-using SimuladorDeObjetos.Infrastructure.Repositories;
-using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-
-var services = builder.Services;
-var configuration = builder.Configuration;
-
-var connectionString = configuration.GetConnectionString("SimuladorDb");
-if(string.IsNullOrEmpty(connectionString))
+// Add CORS policy
+builder.Services.AddCors(options =>
 {
-    throw new Exception("Missing connection string");
-}
-
-services
-    .AddControllers()
-    .AddJsonOptions(opts =>
+    options.AddPolicy(name: myAllowSpecificOrigins, policy =>
     {
-        opts.JsonSerializerOptions.Converters.Add(
-            new JsonStringEnumConverter(
-                JsonNamingPolicy.CamelCase,
-                allowIntegerValues: false));
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
+});
 
-services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    });
+// Add services to the container using extension methods
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
-services.AddDbContext<DbContext, SimuladorDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, false));
+});
 
-services.AddScoped<IClassModelRepository, ClassModelRepository>();
-services.AddScoped<IAtributteModelRepository, AtributteModelRepository>();
-services.AddScoped<ILocalVarModelRepository, LocalVarModelRepository>();
-services.AddScoped<IMethodCallModelRepository, MethodCallModelRepository>();
-services.AddScoped<IMethodModelRepository, MethodModelRepository>();
-services.AddScoped<IParamModelRepository, ParamModelRepository>();
-
-services.AddScoped<IClassModelService, ClassModelService>();
-services.AddScoped<IAttributeModelService, AttributeModelService>();
-services.AddScoped<IMethodModelService, MethodModelService>();
-services.AddScoped<IParamModelService, ParamModelService>();
-services.AddScoped<ILocalVarModelService, LocalVarModelService>();
-services.AddScoped<IMethodCallModelService, MethodCallModelService>();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
+// Apply database migrations on startup with a retry policy
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    var dbContext = services.GetRequiredService<SimuladorDbContext>();
+    var maxRetries = 10;
+    var retryDelay = TimeSpan.FromSeconds(5);
+
+    for (var i = 0; i < maxRetries; i++)
+    {
+        try
+        {
+            logger.LogInformation("Attempting to connect to the database... (Attempt {CurrentAttempt} of {MaxAttempts})", i + 1, maxRetries);
+            dbContext.Database.Migrate();
+            logger.LogInformation("Database connection successful and migrations applied.");
+            break;
+        }
+        catch (SqlException ex)
+        {
+            logger.LogWarning(ex, "Database not ready yet. Retrying in {DelaySeconds} seconds...", retryDelay.Seconds);
+            if (i == maxRetries - 1)
+            {
+                logger.LogError("Could not connect to the database after {MaxAttempts} attempts. Application is stopping.", maxRetries);
+                throw;
+            }
+
+            Thread.Sleep(retryDelay);
+        }
+    }
+}
+
 // Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
+// app.UseHttpsRedirection();
+app.UseCors(myAllowSpecificOrigins);
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

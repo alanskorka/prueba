@@ -34,6 +34,12 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.Property<Guid>("ClassId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ConcreteTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsStatic")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -47,6 +53,8 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
+
+                    b.HasIndex("ConcreteTypeId");
 
                     b.ToTable("Attributes");
                 });
@@ -78,10 +86,64 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.ToTable("Classes");
                 });
 
+            modelBuilder.Entity("Domain.Entities.InterfaceMethodModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("InterfaceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ReturnType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InterfaceId");
+
+                    b.ToTable("InterfaceMethodModels");
+                });
+
+            modelBuilder.Entity("Domain.Entities.InterfaceModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid?>("ClassModelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassModelId");
+
+                    b.ToTable("InterfaceModels");
+                });
+
             modelBuilder.Entity("Domain.Entities.LocalVarModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ConcreteTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("MethodId")
@@ -99,6 +161,8 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConcreteTypeId");
+
                     b.HasIndex("MethodId");
 
                     b.ToTable("LocalVars");
@@ -110,15 +174,16 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.PrimitiveCollection<string>("ConcreteParameterTypes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MethodName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid?>("ParentCallId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ParentMethodId")
+                    b.Property<Guid?>("ParentMethodId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ReferenceName")
@@ -149,7 +214,16 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.Property<bool>("IsAbstract")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsOverride")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSealed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsStatic")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVirtual")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -167,11 +241,37 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.ToTable("Methods");
                 });
 
+            modelBuilder.Entity("Domain.Entities.NamespaceModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Namespaces");
+                });
+
             modelBuilder.Entity("Domain.Entities.ParamModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ConcreteTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("InterfaceMethodModelId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("MethodId")
                         .HasColumnType("uniqueidentifier");
@@ -188,9 +288,28 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConcreteTypeId");
+
+                    b.HasIndex("InterfaceMethodModelId");
+
                     b.HasIndex("MethodId");
 
                     b.ToTable("Params");
+                });
+
+            modelBuilder.Entity("MethodCallConcreteParameters", b =>
+                {
+                    b.Property<Guid>("ConcreteParametersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MethodCallModelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ConcreteParametersId", "MethodCallModelId");
+
+                    b.HasIndex("MethodCallModelId");
+
+                    b.ToTable("MethodCallConcreteParameters");
                 });
 
             modelBuilder.Entity("Domain.Entities.AttributeModel", b =>
@@ -201,7 +320,14 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.ClassModel", "ConcreteType")
+                        .WithMany()
+                        .HasForeignKey("ConcreteTypeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.Navigation("Class");
+
+                    b.Navigation("ConcreteType");
                 });
 
             modelBuilder.Entity("Domain.Entities.ClassModel", b =>
@@ -214,13 +340,35 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.Navigation("BaseClass");
                 });
 
+            modelBuilder.Entity("Domain.Entities.InterfaceMethodModel", b =>
+                {
+                    b.HasOne("Domain.Entities.InterfaceModel", null)
+                        .WithMany("Methods")
+                        .HasForeignKey("InterfaceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.InterfaceModel", b =>
+                {
+                    b.HasOne("Domain.Entities.ClassModel", null)
+                        .WithMany("ImplementedInterfaces")
+                        .HasForeignKey("ClassModelId");
+                });
+
             modelBuilder.Entity("Domain.Entities.LocalVarModel", b =>
                 {
+                    b.HasOne("Domain.Entities.ClassModel", "ConcreteType")
+                        .WithMany()
+                        .HasForeignKey("ConcreteTypeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Domain.Entities.MethodModel", "Method")
                         .WithMany("Vars")
                         .HasForeignKey("MethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ConcreteType");
 
                     b.Navigation("Method");
                 });
@@ -230,8 +378,7 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.HasOne("Domain.Entities.MethodModel", "ParentMethod")
                         .WithMany("MethodsCalled")
                         .HasForeignKey("ParentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ParentMethod");
                 });
@@ -247,21 +394,68 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.Navigation("Class");
                 });
 
+            modelBuilder.Entity("Domain.Entities.NamespaceModel", b =>
+                {
+                    b.HasOne("Domain.Entities.NamespaceModel", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("Domain.Entities.ParamModel", b =>
                 {
+                    b.HasOne("Domain.Entities.ClassModel", "ConcreteType")
+                        .WithMany()
+                        .HasForeignKey("ConcreteTypeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Entities.InterfaceMethodModel", null)
+                        .WithMany("Parameters")
+                        .HasForeignKey("InterfaceMethodModelId");
+
                     b.HasOne("Domain.Entities.MethodModel", "Method")
                         .WithMany("Params")
                         .HasForeignKey("MethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("ConcreteType");
+
                     b.Navigation("Method");
+                });
+
+            modelBuilder.Entity("MethodCallConcreteParameters", b =>
+                {
+                    b.HasOne("Domain.Entities.ClassModel", null)
+                        .WithMany()
+                        .HasForeignKey("ConcreteParametersId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.MethodCallModel", null)
+                        .WithMany()
+                        .HasForeignKey("MethodCallModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.ClassModel", b =>
                 {
                     b.Navigation("Attributes");
 
+                    b.Navigation("ImplementedInterfaces");
+
+                    b.Navigation("Methods");
+                });
+
+            modelBuilder.Entity("Domain.Entities.InterfaceMethodModel", b =>
+                {
+                    b.Navigation("Parameters");
+                });
+
+            modelBuilder.Entity("Domain.Entities.InterfaceModel", b =>
+                {
                     b.Navigation("Methods");
                 });
 
@@ -272,6 +466,11 @@ namespace SimuladorDeObjetos.Infrastructure.Migrations
                     b.Navigation("Params");
 
                     b.Navigation("Vars");
+                });
+
+            modelBuilder.Entity("Domain.Entities.NamespaceModel", b =>
+                {
+                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }

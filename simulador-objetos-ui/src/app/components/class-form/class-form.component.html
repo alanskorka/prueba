@@ -1,0 +1,46 @@
+<h2>Crear Nueva Clase</h2>
+
+<div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nombre:</label>
+    <input id="name" formControlName="name">
+    <div *ngIf="classForm.get('name')?.invalid && classForm.get('name')?.touched" class="error">
+      El nombre es requerido.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="namespaceId" class="form-label">Namespace</label>
+    <select 
+      id="namespaceId" 
+      class="form-select" 
+      formControlName="namespaceId"
+      [ngClass]="{'is-invalid': classForm.get('namespaceId')?.invalid && classForm.get('namespaceId')?.touched}"
+    >
+      <option value="">Selecciona un namespace</option>
+      <option *ngFor="let namespace of namespaces" [value]="namespace.id">{{ namespace.name }}</option>
+    </select>
+    <div class="invalid-feedback" *ngIf="classForm.get('namespaceId')?.invalid && classForm.get('namespaceId')?.touched">
+      El namespace es requerido
+    </div>
+  </div>
+
+  <div>
+    <label>
+      <input type="checkbox" formControlName="isAbstract">
+      Abstracta
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <input type="checkbox" formControlName="isSealed">
+      Sellada
+    </label>
+  </div>
+
+  <button type="submit" [disabled]="classForm.invalid">Crear Clase</button>
+</form>

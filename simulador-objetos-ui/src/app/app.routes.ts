@@ -1,0 +1,70 @@
+import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { ClassListComponent } from './components/class-list/class-list.component';
+import { ClassDetailComponent } from './components/class-detail/class-detail.component';
+import { ClassFormComponent } from './components/class-form/class-form.component';
+import { InterfaceListComponent } from './components/interface-list/interface-list.component';
+import { InterfaceDetailComponent } from './components/interface-detail/interface-detail.component';
+import { InterfaceFormComponent } from './components/interface-form/interface-form.component';
+import { NamespaceListComponent } from './components/namespace-list/namespace-list.component';
+import { NamespaceDetailComponent } from './components/namespace-detail/namespace-detail.component';
+import { NamespaceFormComponent } from './components/namespace-form/namespace-form.component';
+import { AttributeListComponent } from './components/attribute-list/attribute-list.component';
+import { AttributeDetailComponent } from './components/attribute-detail/attribute-detail.component';
+import { AttributeFormComponent } from './components/attribute-form/attribute-form.component';
+import { MethodListComponent } from './components/method-list/method-list.component';
+import { MethodDetailComponent } from './components/method-detail/method-detail.component';
+import { MethodFormComponent } from './components/method-form/method-form.component';
+import { ParamListComponent } from './components/param-list/param-list.component';
+import { ParamDetailComponent } from './components/param-detail/param-detail.component';
+import { ParamFormComponent } from './components/param-form/param-form.component';
+import { MethodCallListComponent } from './components/method-call-list/method-call-list.component';
+import { MethodCallDetailComponent } from './components/method-call-detail/method-call-detail.component';
+import { MethodCallFormComponent } from './components/method-call-form/method-call-form.component';
+import { InterfaceMethodListComponent } from './components/interface-method-list/interface-method-list.component';
+import { InterfaceMethodDetailComponent } from './components/interface-method-detail/interface-method-detail.component';
+import { InterfaceMethodFormComponent } from './components/interface-method-form/interface-method-form.component';
+import { LocalVarListComponent } from './components/local-var-list/local-var-list.component';
+import { LocalVarDetailComponent } from './components/local-var-detail/local-var-detail.component';
+import { LocalVarFormComponent } from './components/local-var-form/local-var-form.component';
+
+export const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'classes', component: ClassListComponent },
+  { path: 'classes/new', component: ClassFormComponent },
+  { path: 'classes/:id', component: ClassDetailComponent },
+  { path: 'classes/:id/edit', component: ClassFormComponent },
+  { path: 'interfaces', component: InterfaceListComponent },
+  { path: 'interfaces/new', component: InterfaceFormComponent },
+  { path: 'interfaces/:id', component: InterfaceDetailComponent },
+  { path: 'interfaces/:id/edit', component: InterfaceFormComponent },
+  { path: 'namespaces', component: NamespaceListComponent },
+  { path: 'namespaces/new', component: NamespaceFormComponent },
+  { path: 'namespaces/:id', component: NamespaceDetailComponent },
+  { path: 'namespaces/:id/edit', component: NamespaceFormComponent },
+  { path: 'attributes', component: AttributeListComponent },
+  { path: 'attributes/new', component: AttributeFormComponent },
+  { path: 'attributes/:id', component: AttributeDetailComponent },
+  { path: 'attributes/:id/edit', component: AttributeFormComponent },
+  { path: 'methods', component: MethodListComponent },
+  { path: 'methods/new', component: MethodFormComponent },
+  { path: 'methods/:id', component: MethodDetailComponent },
+  { path: 'methods/:id/edit', component: MethodFormComponent },
+  { path: 'params', component: ParamListComponent },
+  { path: 'params/new', component: ParamFormComponent },
+  { path: 'params/:id', component: ParamDetailComponent },
+  { path: 'params/:id/edit', component: ParamFormComponent },
+  { path: 'method-calls', component: MethodCallListComponent },
+  { path: 'method-calls/new', component: MethodCallFormComponent },
+  { path: 'method-calls/:id', component: MethodCallDetailComponent },
+  { path: 'method-calls/:id/edit', component: MethodCallFormComponent },
+  { path: 'interface-methods', component: InterfaceMethodListComponent },
+  { path: 'interface-methods/new', component: InterfaceMethodFormComponent },
+  { path: 'interface-methods/:id', component: InterfaceMethodDetailComponent },
+  { path: 'interface-methods/:id/edit', component: InterfaceMethodFormComponent },
+  { path: 'local-vars', component: LocalVarListComponent },
+  { path: 'local-vars/new', component: LocalVarFormComponent },
+  { path: 'local-vars/:id', component: LocalVarDetailComponent },
+  { path: 'local-vars/:id/edit', component: LocalVarFormComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
+];

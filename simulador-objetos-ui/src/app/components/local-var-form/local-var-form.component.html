@@ -1,0 +1,108 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">
+            <i class="bi bi-code-slash"></i>
+            {{ isEdit ? 'Editar' : 'Nueva' }} Variable Local
+          </h3>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="text-center my-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+          </div>
+
+          <div *ngIf="successMessage" class="alert alert-success">
+            <i class="bi bi-check-circle"></i> {{ successMessage }}
+          </div>
+
+          <form *ngIf="!loading" [formGroup]="localVarForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre de la Variable</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name" 
+                [ngClass]="{'is-invalid': localVarForm.get('name')?.invalid && localVarForm.get('name')?.touched}"
+                placeholder="Ej: contador, resultado, temp"
+                required
+              >
+              <div class="invalid-feedback" *ngIf="localVarForm.get('name')?.invalid && localVarForm.get('name')?.touched">
+                {{ getErrorMessage('name') }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="type" class="form-label">Tipo de Datos</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="type" 
+                formControlName="type" 
+                [ngClass]="{'is-invalid': localVarForm.get('type')?.invalid && localVarForm.get('type')?.touched}"
+                placeholder="Ej: int, string, bool, List<string>"
+                required
+              >
+              <div class="invalid-feedback" *ngIf="localVarForm.get('type')?.invalid && localVarForm.get('type')?.touched">
+                {{ getErrorMessage('type') }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="methodId" class="form-label">Método</label>
+              <select 
+                class="form-select" 
+                id="methodId" 
+                formControlName="methodId" 
+                [ngClass]="{'is-invalid': localVarForm.get('methodId')?.invalid && localVarForm.get('methodId')?.touched}"
+                required
+              >
+                <option value="">Selecciona un método</option>
+                <option *ngFor="let method of methods" [value]="method.id">
+                  {{ method.name }} ({{ method.returnType }})
+                </option>
+              </select>
+              <div class="invalid-feedback" *ngIf="localVarForm.get('methodId')?.invalid && localVarForm.get('methodId')?.touched">
+                {{ getErrorMessage('methodId') }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="concreteTypeId" class="form-label">Tipo Concreto (Opcional)</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="concreteTypeId" 
+                formControlName="concreteTypeId" 
+                placeholder="ID del tipo concreto si aplica"
+              >
+              <div class="form-text">Solo necesario para tipos complejos o genéricos</div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <a routerLink="/local-vars" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+              </a>
+              <button 
+                type="submit" 
+                class="btn btn-primary" 
+                [disabled]="localVarForm.invalid || loading"
+              >
+                <i class="bi bi-check-lg"></i>
+                {{ isEdit ? 'Actualizar' : 'Crear' }} Variable Local
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

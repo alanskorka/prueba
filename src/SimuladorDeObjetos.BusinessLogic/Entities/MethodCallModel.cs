@@ -7,10 +7,14 @@ public class MethodCallModel
 {
     public Guid Id { get; set; }
     public string? MethodName { get; set; }
-    public ReferenceTypeInvocation ReferenceType { get; set; }
-    public Guid ParentMethodId { get; set; }
+    public ReferenceTypeInvocation ReferenceType { get; set; } = ReferenceTypeInvocation.This;
     public string? ReferenceName { get; set; }
+    public Guid? ParentMethodId { get; set; }
+    public List<Guid> ConcreteParameterTypes { get; set; } = new();
+
     [JsonIgnore]
-    public MethodModel? ParentMethod { get; set; } = null!;
-    public Guid? ParentCallId { get; set; }
+    public MethodModel? ParentMethod { get; set; }
+
+    [JsonIgnore]
+    public List<ClassModel> ConcreteParameters { get; set; } = new();
 }

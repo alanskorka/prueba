@@ -1,7 +1,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using SimuladorDeObjetos.Application.Interfaces;
+using SimuladorDeObjetos.Application.Services.Interfaces;
 using SimuladorDeObjetos.WebApi.Controllers;
 
 namespace SimuladorDeObjetos.WebApi.Test;

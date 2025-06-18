@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: simulador-db-local
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong(!)Password123
+    ports:
+      - "1433:1433"
+    volumes:
+      - simulador-db-data:/var/opt/mssql
+
+volumes:
+  simulador-db-data: 

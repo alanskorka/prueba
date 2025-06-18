@@ -1,0 +1,116 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">Métodos de Interfaz</h2>
+          <button class="btn btn-primary" routerLink="/interface-methods/new">
+            <i class="bi bi-plus-circle"></i> Nuevo Método
+          </button>
+        </div>
+        <div class="card-body">
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+          </div>
+          
+          <div *ngIf="loading" class="text-center my-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+
+          <div *ngIf="!loading && interfaceMethods.length === 0" class="text-center my-4">
+            <i class="bi bi-inbox display-1 text-muted"></i>
+            <p class="text-muted">No hay métodos de interfaz registrados</p>
+            <button class="btn btn-primary" routerLink="/interface-methods/new">
+              <i class="bi bi-plus-circle"></i> Crear Primer Método
+            </button>
+          </div>
+
+          <div *ngIf="!loading && interfaceMethods.length > 0">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Buscar métodos..."
+                    [(ngModel)]="searchTerm"
+                    (input)="filterInterfaceMethods()"
+                  >
+                </div>
+              </div>
+              <div class="col-md-6 text-end">
+                <span class="text-muted">
+                  {{ filteredInterfaceMethods.length }} de {{ interfaceMethods.length }} métodos
+                </span>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Retorno</th>
+                    <th>Interfaz</th>
+                    <th>Parámetros</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let method of filteredInterfaceMethods">
+                    <td>
+                      <code class="small">{{ method.id?.substring(0, 8) }}...</code>
+                    </td>
+                    <td>
+                      <span class="fw-bold">{{ method.name }}</span>
+                    </td>
+                    <td>
+                      <span class="badge bg-info">{{ method.returnType }}</span>
+                    </td>
+                    <td>
+                      <span class="text-primary">{{ getInterfaceName(method.interfaceId) }}</span>
+                    </td>
+                    <td>
+                      <span class="text-muted">{{ method.parameters.length || 0 }} parámetros</span>
+                    </td>
+                    <td>
+                      <div class="btn-group btn-group-sm">
+                        <button 
+                          class="btn btn-outline-primary" 
+                          [routerLink]="['/interface-methods', method.id]"
+                          title="Ver detalles"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button 
+                          class="btn btn-outline-warning" 
+                          [routerLink]="['/interface-methods', method.id, 'edit']"
+                          title="Editar"
+                        >
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button 
+                          class="btn btn-outline-danger" 
+                          (click)="deleteInterfaceMethod(method)"
+                          title="Eliminar"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0">{{ isEdit ? 'Editar Método de Interfaz' : 'Nuevo Método de Interfaz' }}</h2>
+        </div>
+        <div class="card-body">
+          <div *ngIf="successMessage" class="alert alert-success">
+            <i class="bi bi-check-circle"></i> {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+          </div>
+
+          <div *ngIf="loading" class="text-center my-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="mt-2">Cargando interfaces disponibles...</p>
+          </div>
+
+          <form *ngIf="!loading" [formGroup]="methodForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre del Método</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name" 
+                [ngClass]="{'is-invalid': methodForm.get('name')?.invalid && methodForm.get('name')?.touched}"
+                placeholder="Ej: CalculateTotal"
+                required
+              >
+              <div class="invalid-feedback" *ngIf="methodForm.get('name')?.invalid && methodForm.get('name')?.touched">
+                El nombre del método es requerido
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="returnType" class="form-label">Tipo de Retorno</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="returnType" 
+                formControlName="returnType" 
+                [ngClass]="{'is-invalid': methodForm.get('returnType')?.invalid && methodForm.get('returnType')?.touched}"
+                placeholder="Ej: int, string, void"
+                required
+              >
+              <div class="invalid-feedback" *ngIf="methodForm.get('returnType')?.invalid && methodForm.get('returnType')?.touched">
+                El tipo de retorno es requerido
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="interfaceId" class="form-label">Interfaz</label>
+              <select 
+                class="form-select" 
+                id="interfaceId" 
+                formControlName="interfaceId" 
+                [ngClass]="{'is-invalid': methodForm.get('interfaceId')?.invalid && methodForm.get('interfaceId')?.touched}"
+                required
+              >
+                <option value="">Seleccione una interfaz</option>
+                <option *ngFor="let i of interfaces" [value]="i.id">{{ i.name }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="methodForm.get('interfaceId')?.invalid && methodForm.get('interfaceId')?.touched">
+                La interfaz es requerida
+              </div>
+            </div>
+            <div class="d-flex gap-2 mt-3">
+              <button type="submit" class="btn btn-primary" [disabled]="methodForm.invalid">
+                <i class="bi bi-plus-circle"></i> {{ isEdit ? 'Actualizar' : 'Crear' }} Método
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="router.navigate(['/interface-methods'])">
+                <i class="bi bi-x-circle"></i> Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

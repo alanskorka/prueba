@@ -2,6 +2,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Moq;
 using SimuladorDeObjetos.Application;
+using SimuladorDeObjetos.Application.Services;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;
@@ -59,7 +60,7 @@ public class AttributeModelServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(InvalidOperationException))]
     public void Create_ShouldThrow_WhenClassNotFound()
     {
         _mockClassRepo!.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((ClassModel?)null);
@@ -98,8 +99,18 @@ public class AttributeModelServiceTest
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdate()
     {
-        _service!.Update(_attribute!);
-        _mockRepo!.Verify(r => r.Update(_attribute!), Times.Once);
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute);
+
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns(new ClassModel
+        {
+            Id = _attribute.ClassId,
+            IsSealed = false,
+            Attributes = new List<AttributeModel> { _attribute }
+        });
+
+        _service!.Update(_attribute);
+
+        _mockRepo.Verify(r => r.Update(_attribute!), Times.Once);
     }
 
     [TestMethod]
@@ -110,10 +121,48 @@ public class AttributeModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenAttributeNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns((AttributeModel?)null);
+        _service!.Update(_attribute!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenClassNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute!);
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns((ClassModel?)null);
+        _service!.Update(_attribute!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenClassIsSealed()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute!);
+        _classModel!.IsSealed = true;
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns(_classModel);
+        _service!.Update(_attribute!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenAttributeNameIsDuplicated()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute!);
+        _classModel!.Attributes.Add(new AttributeModel { Id = Guid.NewGuid(), Name = _attribute.Name });
+        _mockClassRepo!.Setup(r => r.GetById(_attribute.ClassId)).Returns(_classModel);
+        _service!.Update(_attribute!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns(_attribute);
         _service!.Delete(_attribute!);
-        _mockRepo!.Verify(r => r.Delete(_attribute!), Times.Once);
+        _mockRepo.Verify(r => r.Delete(_attribute!), Times.Once);
     }
 
     [TestMethod]
@@ -121,5 +170,13 @@ public class AttributeModelServiceTest
     public void Delete_ShouldThrow_WhenAttributeIsNull()
     {
         _service!.Delete(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenAttributeNotFound()
+    {
+        _mockRepo!.Setup(r => r.GetById(_attribute!.Id)).Returns((AttributeModel?)null);
+        _service!.Delete(_attribute!);
     }
 }

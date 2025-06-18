@@ -1,0 +1,1 @@
+// Eliminar la interfaz ParamModel de este archivo. Usar solo la del service. 

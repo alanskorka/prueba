@@ -2,6 +2,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
 using SimuladorDeObjetos.Application.DTOs;
+using SimuladorDeObjetos.Application.DTOs.Persistence;
 
 namespace SimuladorDeObjetos.Application.test;
 
@@ -21,13 +22,16 @@ public class MappingProfileTest
     [TestMethod]
     public void AttributeDto_To_Model_And_Back()
     {
+        var concreteClassId = Guid.NewGuid();
         var dto = new AttributeDto
         {
             Id = Guid.NewGuid(),
             Name = "Attr",
             Type = "string",
             ClassId = Guid.NewGuid(),
-            Accessibility = AccessibilityModifier.Protected
+            Accessibility = AccessibilityModifier.Protected,
+            ConcreteTypeId = concreteClassId,
+            ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
         };
 
         var model = _mapper.Map<AttributeModel>(dto);
@@ -38,12 +42,23 @@ public class MappingProfileTest
         Assert.AreEqual(dto.Type, mappedBack.Type);
         Assert.AreEqual(dto.ClassId, mappedBack.ClassId);
         Assert.AreEqual(dto.Accessibility, mappedBack.Accessibility);
+        Assert.AreEqual(dto.ConcreteTypeId, mappedBack.ConcreteTypeId);
+        Assert.AreEqual(dto.ConcreteType?.Id, mappedBack.ConcreteType?.Id);
     }
 
     [TestMethod]
     public void ParamDto_To_Model_And_Back()
     {
-        var dto = new ParamDto { Id = Guid.NewGuid(), Name = "p1", Type = "int", MethodId = Guid.NewGuid() };
+        var concreteClassId = Guid.NewGuid();
+        var dto = new ParamDto
+        {
+            Id = Guid.NewGuid(),
+            Name = "p1",
+            Type = "int",
+            MethodId = Guid.NewGuid(),
+            ConcreteTypeId = concreteClassId,
+            ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
+        };
         var model = _mapper.Map<ParamModel>(dto);
         var mappedBack = _mapper.Map<ParamDto>(model);
 
@@ -51,12 +66,23 @@ public class MappingProfileTest
         Assert.AreEqual(dto.Name, mappedBack.Name);
         Assert.AreEqual(dto.Type, mappedBack.Type);
         Assert.AreEqual(dto.MethodId, mappedBack.MethodId);
+        Assert.AreEqual(dto.ConcreteTypeId, mappedBack.ConcreteTypeId);
+        Assert.AreEqual(dto.ConcreteType?.Id, mappedBack.ConcreteType?.Id);
     }
 
     [TestMethod]
     public void LocalVarDto_To_Model_And_Back()
     {
-        var dto = new LocalVarDto { Id = Guid.NewGuid(), Name = "v1", Type = "bool", MethodId = Guid.NewGuid() };
+        var concreteClassId = Guid.NewGuid();
+        var dto = new LocalVarDto
+        {
+            Id = Guid.NewGuid(),
+            Name = "v1",
+            Type = "bool",
+            MethodId = Guid.NewGuid(),
+            ConcreteTypeId = concreteClassId,
+            ConcreteType = new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
+        };
         var model = _mapper.Map<LocalVarModel>(dto);
         var mappedBack = _mapper.Map<LocalVarDto>(model);
 
@@ -64,18 +90,34 @@ public class MappingProfileTest
         Assert.AreEqual(dto.Name, mappedBack.Name);
         Assert.AreEqual(dto.Type, mappedBack.Type);
         Assert.AreEqual(dto.MethodId, mappedBack.MethodId);
+        Assert.AreEqual(dto.ConcreteTypeId, mappedBack.ConcreteTypeId);
+        Assert.AreEqual(dto.ConcreteType?.Id, mappedBack.ConcreteType?.Id);
     }
 
     [TestMethod]
     public void MethodCallDto_To_Model_And_Back()
     {
-        var dto = new MethodCallDto { MethodName = "Call", ReferenceType = ReferenceTypeInvocation.Attribute, ReferenceName = "obj" };
+        var concreteClassId = Guid.NewGuid();
+        var dto = new MethodCallDto
+        {
+            MethodName = "Call",
+            ReferenceType = ReferenceTypeInvocation.Attribute,
+            ReferenceName = "obj",
+            ConcreteParameterTypes = new List<Guid> { concreteClassId },
+            ConcreteParameters = new List<ClassModel>
+            {
+                new ClassModel { Id = concreteClassId, Name = "ConcreteClass" }
+            }
+        };
         var model = _mapper.Map<MethodCallModel>(dto);
         var mappedBack = _mapper.Map<MethodCallDto>(model);
 
         Assert.AreEqual(dto.MethodName, mappedBack.MethodName);
         Assert.AreEqual(dto.ReferenceType, mappedBack.ReferenceType);
         Assert.AreEqual(dto.ReferenceName, mappedBack.ReferenceName);
+        CollectionAssert.AreEqual(dto.ConcreteParameterTypes, mappedBack.ConcreteParameterTypes);
+        Assert.AreEqual(dto.ConcreteParameters.Count, mappedBack.ConcreteParameters.Count);
+        Assert.AreEqual(dto.ConcreteParameters[0].Id, mappedBack.ConcreteParameters[0].Id);
     }
 
     [TestMethod]
@@ -118,13 +160,28 @@ public class MappingProfileTest
             IsAbstract = false,
             IsSealed = true,
             BaseClassId = null,
-            Attributes = new List<AttributeModel>
-            {
-                new() { Id = Guid.NewGuid(), Name = "attr1", Type = "string", ClassId = classId, Accessibility = AccessibilityModifier.Public }
-            },
+            Attributes =
+                new List<AttributeModel>
+                {
+                    new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "attr1",
+                        Type = "string",
+                        ClassId = classId,
+                        Accessibility = AccessibilityModifier.Public
+                    }
+                },
             Methods = new List<MethodModel>
             {
-                new() { Id = Guid.NewGuid(), Name = "M1", ReturnType = "void", ClassId = classId, Accessibility = AccessibilityModifier.Private }
+                new()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "M1",
+                    ReturnType = "void",
+                    ClassId = classId,
+                    Accessibility = AccessibilityModifier.Private
+                }
             }
         };
 
@@ -137,5 +194,73 @@ public class MappingProfileTest
         Assert.AreEqual(dto.IsSealed, mappedBack.IsSealed);
         Assert.AreEqual(dto.Attributes.Count, mappedBack.Attributes.Count);
         Assert.AreEqual(dto.Methods.Count, mappedBack.Methods.Count);
+    }
+
+    [TestMethod]
+    public void InterfaceMethodDto_To_Model_And_Back()
+    {
+        var dto = new InterfaceMethodDto
+        {
+            Id = 1,
+            Name = "DoSomething",
+            ReturnType = "string",
+            Parameters = new List<ParamDto>
+            {
+                new() { Id = Guid.NewGuid(), Name = "x", Type = "int", MethodId = Guid.NewGuid() }
+            }
+        };
+
+        var model = _mapper.Map<InterfaceMethodModel>(dto);
+        var mappedBack = _mapper.Map<InterfaceMethodDto>(model);
+
+        Assert.AreEqual(dto.Id, mappedBack.Id);
+        Assert.AreEqual(dto.Name, mappedBack.Name);
+        Assert.AreEqual(dto.ReturnType, mappedBack.ReturnType);
+        Assert.AreEqual(dto.Parameters.Count, mappedBack.Parameters.Count);
+        Assert.AreEqual(dto.Parameters[0].Name, mappedBack.Parameters[0].Name);
+        Assert.AreEqual(dto.Parameters[0].Type, mappedBack.Parameters[0].Type);
+    }
+
+    [TestMethod]
+    public void InterfaceDto_To_Model_And_Back()
+    {
+        var dto = new InterfaceDto
+        {
+            Id = 1,
+            Name = "IMyInterface",
+            Methods = new List<InterfaceMethodDto>
+            {
+                new InterfaceMethodDto
+                {
+                    Id = 10,
+                    Name = "DoSomething",
+                    ReturnType = "void",
+                    Parameters = new List<ParamDto>
+                    {
+                        new ParamDto
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "x",
+                            Type = "int",
+                            MethodId = Guid.NewGuid()
+                        }
+                    }
+                }
+            }
+        };
+
+        var model = _mapper.Map<InterfaceModel>(dto);
+
+        var mappedBack = _mapper.Map<InterfaceDto>(model);
+
+        Assert.AreEqual(dto.Id, mappedBack.Id);
+        Assert.AreEqual(dto.Name, mappedBack.Name);
+
+        Assert.AreEqual(1, mappedBack.Methods.Count);
+        Assert.AreEqual("DoSomething", mappedBack.Methods[0].Name);
+
+        Assert.AreEqual(1, mappedBack.Methods[0].Parameters.Count);
+        Assert.AreEqual("x", mappedBack.Methods[0].Parameters[0].Name);
+        Assert.AreEqual("int", mappedBack.Methods[0].Parameters[0].Type);
     }
 }

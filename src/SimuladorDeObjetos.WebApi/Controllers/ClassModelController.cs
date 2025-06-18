@@ -1,16 +1,14 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using SimuladorDeObjetos.Application.Interfaces;
+using SimuladorDeObjetos.Application.Services.Interfaces;
 
 namespace SimuladorDeObjetos.WebApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class ClassModelController : ControllerBase
+[Route("api/class")]
+public class ClassModelController(IClassModelService service) : ControllerBase
 {
-    private readonly IClassModelService _service;
-
-    public ClassModelController(IClassModelService service) => _service = service;
+    private readonly IClassModelService _service = service;
 
     [HttpGet]
     public IActionResult GetAll()
@@ -75,5 +73,17 @@ public class ClassModelController : ControllerBase
         {
             return Problem(e.Message);
         }
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        var model = _service.GetById(id);
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(model);
     }
 }

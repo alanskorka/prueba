@@ -1,6 +1,6 @@
 using Domain.Entities;
 
-namespace SimuladorDeObjetos.Application.Interfaces;
+namespace SimuladorDeObjetos.Application.Services.Interfaces;
 
 public interface IClassModelService
 {
@@ -10,4 +10,5 @@ public interface IClassModelService
     void Update(ClassModel model);
     void SaveChanges();
     ClassModel? GetByName(string name);
+    ClassModel? GetById(Guid id);
 }

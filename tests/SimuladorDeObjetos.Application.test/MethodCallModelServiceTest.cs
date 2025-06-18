@@ -44,6 +44,14 @@ public class MethodCallModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Create_ShouldThrow_WhenCallAlreadyExists()
+    {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns(_call);
+        _service!.Create(_call!);
+    }
+
+    [TestMethod]
     public void GetAll_ShouldReturnListFromRepository()
     {
         var list = new List<MethodCallModel> { _call! };
@@ -58,8 +66,11 @@ public class MethodCallModelServiceTest
     [TestMethod]
     public void Update_ShouldCallRepositoryUpdate()
     {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns(_call);
+
         _service!.Update(_call!);
-        _mockRepo!.Verify(r => r.Update(_call!), Times.Once);
+
+        _mockRepo.Verify(r => r.Update(_call!), Times.Once);
     }
 
     [TestMethod]
@@ -70,10 +81,21 @@ public class MethodCallModelServiceTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Update_ShouldThrow_WhenCallDoesNotExist()
+    {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns((MethodCallModel?)null);
+        _service!.Update(_call!);
+    }
+
+    [TestMethod]
     public void Delete_ShouldCallRepositoryDelete()
     {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns(_call);
+
         _service!.Delete(_call!);
-        _mockRepo!.Verify(r => r.Delete(_call!), Times.Once);
+
+        _mockRepo.Verify(r => r.Delete(_call!), Times.Once);
     }
 
     [TestMethod]
@@ -81,5 +103,13 @@ public class MethodCallModelServiceTest
     public void Delete_ShouldThrow_WhenCallIsNull()
     {
         _service!.Delete(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void Delete_ShouldThrow_WhenCallDoesNotExist()
+    {
+        _mockRepo!.Setup(r => r.GetById(_call!.Id)).Returns((MethodCallModel?)null);
+        _service!.Delete(_call!);
     }
 }

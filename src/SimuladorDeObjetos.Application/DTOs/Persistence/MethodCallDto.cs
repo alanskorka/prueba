@@ -1,7 +1,8 @@
 using Domain.Entities;
-
-namespace SimuladorDeObjetos.Application.DTOs;
 using Domain.Enums;
+
+namespace SimuladorDeObjetos.Application.DTOs.Persistence;
+
 public class MethodCallDto
 {
     public Guid Id { get; set; }
@@ -11,4 +12,6 @@ public class MethodCallDto
     public string? ReferenceName { get; set; }
     public MethodModel ParentMethod { get; set; } = null!;
     public Guid? ParentCallId { get; set; }
+    public List<Guid> ConcreteParameterTypes { get; set; } = [];
+    public List<ClassModel> ConcreteParameters { get; set; } = [];
 }
