@@ -1,7 +1,7 @@
 using AutoMapper;
 using Domain.Entities;
 
-namespace SimuladorDeObjetos.Application.DTOs;
+namespace SimuladorDeObjetos.Application.DTOs.Persistence;
 public class MappingProfile : Profile
 {
     public MappingProfile()

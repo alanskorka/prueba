@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AttributeModel } from '../models/attribute.model';
+import { environment } from '../../environments/environment';
+
+export interface AttributeModel {
+  id?: number;
+  name: string;
+  classId: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttributeService {
-  private apiUrl = '/api/AttributeModel';
+  private apiUrl = `${environment.apiUrl}/AttributeModel`;
 
   constructor(private http: HttpClient) { }
 

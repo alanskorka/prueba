@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { InterfaceModel } from '../models/interface.model';
+import { environment } from '../../environments/environment';
+
+export interface InterfaceModel {
+  id?: number;
+  name: string;
+  namespaceId?: number;
+  methods?: any[];
+  implementedBy?: number[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterfaceService {
-  private apiUrl = '/api/InterfaceModel';
+  private apiUrl = `${environment.apiUrl}/InterfaceModel`;
 
   constructor(private http: HttpClient) { }
 

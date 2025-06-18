@@ -1,7 +1,15 @@
+import { AttributeModel } from './attribute.model';
+import { MethodModel } from './method.model';
+import { InterfaceModel } from './interface.model';
+
 export interface ClassModel {
   id: number;
   name: string;
   namespaceId: number;
-  attributes: any[]; // Se definirá 'AttributeModel' luego
-  methods: any[]; // Se definirá 'MethodModel' luego
+  attributes: AttributeModel[];
+  methods: MethodModel[];
+  implementedInterfaces: InterfaceModel[];
+  isStatic: boolean;
+  baseClassId?: number;
+  baseClass?: ClassModel;
 } 

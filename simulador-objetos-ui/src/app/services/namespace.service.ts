@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { NamespaceModel } from '../models/namespace.model';
+import { environment } from '../../environments/environment';
+
+export interface NamespaceModel {
+  id?: string;
+  name: string;
+  parentId?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class NamespaceService {
-  private apiUrl = '/api/Namespaces';
+  private apiUrl = `${environment.apiUrl}/Namespace`;
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +21,7 @@ export class NamespaceService {
     return this.http.get<NamespaceModel[]>(this.apiUrl);
   }
 
-  getNamespace(id: number): Observable<NamespaceModel> {
+  getNamespace(id: string): Observable<NamespaceModel> {
     return this.http.get<NamespaceModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -23,11 +29,11 @@ export class NamespaceService {
     return this.http.post<NamespaceModel>(this.apiUrl, namespaceData);
   }
 
-  updateNamespace(id: number, namespaceData: NamespaceModel): Observable<any> {
+  updateNamespace(id: string, namespaceData: NamespaceModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, namespaceData);
   }
 
-  deleteNamespace(id: number): Observable<any> {
+  deleteNamespace(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
