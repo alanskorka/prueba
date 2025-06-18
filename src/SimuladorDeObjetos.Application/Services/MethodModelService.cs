@@ -14,6 +14,8 @@ public class MethodModelService(IMethodModelRepository methodRepo, IClassModelRe
 
     public IEnumerable<MethodModel> GetAll() => _methodRepo.GetAll() ?? Enumerable.Empty<MethodModel>();
 
+    public MethodModel? GetById(Guid id) => _methodRepo.GetById(id);
+
     public void Add(MethodModel method)
     {
         ArgumentNullException.ThrowIfNull(method);
