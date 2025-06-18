@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { InterfaceMethodModel } from '../models/interface-method.model';
 
 @Injectable({
@@ -12,10 +12,12 @@ export class InterfaceMethodService {
   constructor(private http: HttpClient) { }
 
   getInterfaceMethods(): Observable<InterfaceMethodModel[]> {
-    return this.http.get<InterfaceMethodModel[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => response.$values || response)
+    );
   }
 
-  getInterfaceMethod(id: number): Observable<InterfaceMethodModel> {
+  getInterfaceMethod(id: string): Observable<InterfaceMethodModel> {
     return this.http.get<InterfaceMethodModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -23,11 +25,11 @@ export class InterfaceMethodService {
     return this.http.post<InterfaceMethodModel>(this.apiUrl, interfaceMethodData);
   }
 
-  updateInterfaceMethod(id: number, interfaceMethodData: InterfaceMethodModel): Observable<any> {
+  updateInterfaceMethod(id: string, interfaceMethodData: InterfaceMethodModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, interfaceMethodData);
   }
 
-  deleteInterfaceMethod(id: number): Observable<any> {
+  deleteInterfaceMethod(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

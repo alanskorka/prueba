@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { MethodCallModel } from '../models/method-call.model';
 
 @Injectable({
@@ -12,7 +12,9 @@ export class MethodCallService {
   constructor(private http: HttpClient) { }
 
   getMethodCalls(): Observable<MethodCallModel[]> {
-    return this.http.get<MethodCallModel[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => response.$values || response)
+    );
   }
 
   getMethodCall(id: string): Observable<MethodCallModel> {

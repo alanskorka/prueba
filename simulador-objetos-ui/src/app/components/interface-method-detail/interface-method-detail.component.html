@@ -1,1 +1,61 @@
-<p>interface-method-detail works!</p>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">Detalle de Método de Interfaz</h2>
+          <button class="btn btn-secondary btn-sm" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Volver
+          </button>
+        </div>
+        <div class="card-body" *ngIf="loading">
+          <div class="text-center my-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="errorMessage">
+          <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+          </div>
+          <button class="btn btn-primary" (click)="ngOnInit()">
+            <i class="bi bi-arrow-clockwise"></i> Reintentar
+          </button>
+        </div>
+        <div class="card-body" *ngIf="method && !loading">
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>ID:</strong>
+              <span class="text-muted">{{ method.id }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Nombre:</strong>
+              <span class="fw-bold text-primary">{{ method.name }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Tipo de Retorno:</strong>
+              <span class="badge bg-info">{{ method.returnType }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Interfaz:</strong>
+              <span class="fw-bold text-primary">{{ getInterfaceName(method.interfaceId) }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Parámetros:</strong>
+              <span class="text-muted">{{ method.parameters?.length || 0 }} parámetros</span>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <button class="btn btn-warning me-2" [routerLink]="['/interface-methods', method.id, 'edit']">
+              <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button class="btn btn-secondary" (click)="goBack()">
+              <i class="bi bi-x-circle"></i> Volver a la lista
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

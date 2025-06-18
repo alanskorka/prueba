@@ -21,7 +21,16 @@ public class InterfaceMethodModelRepository : IInterfaceMethodModelRepository
 
     public async Task<IEnumerable<InterfaceMethodModel>> GetAll()
     {
-        return await _context.InterfaceMethodModels.ToListAsync();
+        return await _context.InterfaceMethodModels
+            .Include(m => m.Parameters)
+            .ToListAsync();
+    }
+
+    public async Task<InterfaceMethodModel?> GetById(int id)
+    {
+        return await _context.InterfaceMethodModels
+            .Include(m => m.Parameters)
+            .FirstOrDefaultAsync(m => m.Id == id);
     }
 
     public async Task Update(InterfaceMethodModel model)

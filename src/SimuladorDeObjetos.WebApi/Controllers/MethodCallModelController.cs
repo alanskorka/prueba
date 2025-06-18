@@ -25,6 +25,25 @@ public class MethodCallModelController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        try
+        {
+            var methodCall = _service.GetById(id);
+            if (methodCall == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(methodCall);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
     [HttpPost]
     public IActionResult Create([FromBody] MethodCallModel model)
     {
@@ -44,8 +63,8 @@ public class MethodCallModelController : ControllerBase
         }
     }
 
-    [HttpPut]
-    public IActionResult Update([FromBody] MethodCallModel model)
+    [HttpPut("{id}")]
+    public IActionResult Update(Guid id, [FromBody] MethodCallModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -54,6 +73,7 @@ public class MethodCallModelController : ControllerBase
 
         try
         {
+            model.Id = id;
             _service.Update(model);
             return Ok();
         }
@@ -63,12 +83,18 @@ public class MethodCallModelController : ControllerBase
         }
     }
 
-    [HttpDelete]
-    public IActionResult Delete([FromBody] MethodCallModel model)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
     {
         try
         {
-            _service.Delete(model);
+            var methodCall = _service.GetById(id);
+            if (methodCall == null)
+            {
+                return NotFound();
+            }
+
+            _service.Delete(methodCall);
             return Ok();
         }
         catch (Exception e)

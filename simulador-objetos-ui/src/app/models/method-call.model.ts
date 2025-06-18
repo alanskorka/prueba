@@ -1,5 +1,8 @@
 export interface MethodCallModel {
-  id: number;
-  callerMethodId: number;
-  calleeMethodId: number;
+  id?: string;
+  methodName?: string;
+  referenceType: string;
+  referenceName?: string;
+  parentMethodId?: string;
+  concreteParameterTypes?: string[];
 } 

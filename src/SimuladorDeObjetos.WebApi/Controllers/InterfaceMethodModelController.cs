@@ -10,31 +10,89 @@ public class InterfaceMethodModelController(IInterfaceMethodModelService service
 {
     private readonly IInterfaceMethodModelService _service = service;
 
-    [HttpPost]
-    public async Task<IActionResult> Add([FromBody] InterfaceMethodModel model)
-    {
-        await _service.Add(model);
-        return NoContent();
-    }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<InterfaceMethodModel>>> GetAll()
     {
-        var result = await _service.GetAll();
-        return Ok(result);
+        try
+        {
+            var result = await _service.GetAll();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 
-    [HttpPut]
-    public async Task<IActionResult> Update([FromBody] InterfaceMethodModel model)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<InterfaceMethodModel>> GetById(int id)
     {
-        await _service.Update(model);
-        return NoContent();
+        try
+        {
+            var method = await _service.GetById(id);
+            if (method == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(method);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add([FromBody] InterfaceMethodModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _service.Add(model);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] InterfaceMethodModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            model.Id = id;
+            await _service.Update(model);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _service.Delete(id);
-        return NoContent();
+        try
+        {
+            await _service.Delete(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 }
