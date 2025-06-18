@@ -1,1 +1,112 @@
-<p>local-var-list works!</p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+      <i class="bi bi-code-slash"></i>
+      Variables Locales
+    </h2>
+    <a routerLink="/local-vars/new" class="btn btn-primary">
+      <i class="bi bi-plus-circle"></i> Nueva Variable Local
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <!-- Barra de búsqueda -->
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-search"></i>
+            </span>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Buscar por nombre, tipo o método..."
+              [(ngModel)]="searchTerm"
+              (input)="filterLocalVars()"
+            >
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <span class="text-muted">
+            {{ filteredLocalVars.length }} de {{ localVars.length }} variables locales
+          </span>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+      </div>
+
+      <!-- Tabla -->
+      <div *ngIf="!loading && filteredLocalVars.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Método</th>
+              <th>Tipo Concreto</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let localVar of filteredLocalVars">
+              <td>
+                <strong>{{ localVar.name }}</strong>
+              </td>
+              <td>
+                <span class="badge bg-info">{{ localVar.type }}</span>
+              </td>
+              <td>{{ getMethodName(localVar.methodId) }}</td>
+              <td>
+                <span *ngIf="localVar.concreteTypeId" class="text-muted">
+                  {{ localVar.concreteTypeId }}
+                </span>
+                <span *ngIf="!localVar.concreteTypeId" class="text-muted">
+                  -
+                </span>
+              </td>
+              <td>
+                <div class="btn-group float-end">
+                  <a [routerLink]="['/local-vars', localVar.id]" class="btn btn-outline-primary btn-sm" title="Ver">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a [routerLink]="['/local-vars', localVar.id, 'edit']" class="btn btn-outline-secondary btn-sm" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button class="btn btn-outline-danger btn-sm" title="Eliminar" (click)="deleteLocalVar(localVar)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sin resultados -->
+      <div *ngIf="!loading && filteredLocalVars.length === 0 && localVars.length > 0" class="text-center text-muted py-4">
+        <i class="bi bi-search fs-1"></i>
+        <p class="mt-2">No se encontraron variables locales que coincidan con la búsqueda</p>
+      </div>
+
+      <!-- Sin datos -->
+      <div *ngIf="!loading && localVars.length === 0" class="text-center text-muted py-4">
+        <i class="bi bi-inbox fs-1"></i>
+        <p class="mt-2">No hay variables locales registradas</p>
+        <a routerLink="/local-vars/new" class="btn btn-primary mt-2">
+          <i class="bi bi-plus-circle"></i> Crear Primera Variable Local
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

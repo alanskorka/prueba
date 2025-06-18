@@ -23,6 +23,11 @@ public class InterfaceMethodModelService : IInterfaceMethodModelService
         return await _repository.GetAll();
     }
 
+    public async Task<InterfaceMethodModel?> GetById(int id)
+    {
+        return await _repository.GetById(id);
+    }
+
     public async Task Update(InterfaceMethodModel model)
     {
          await _repository.Update(model);

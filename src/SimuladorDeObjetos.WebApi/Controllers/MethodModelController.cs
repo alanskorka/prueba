@@ -26,6 +26,25 @@ public class MethodModelController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        try
+        {
+            var method = _service.GetById(id);
+            if (method == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(method);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
     [HttpPost]
     public IActionResult Add([FromBody] MethodModel method)
     {
@@ -45,8 +64,8 @@ public class MethodModelController : ControllerBase
         }
     }
 
-    [HttpPut]
-    public IActionResult Update([FromBody] MethodModel method)
+    [HttpPut("{id}")]
+    public IActionResult Update(Guid id, [FromBody] MethodModel method)
     {
         if (!ModelState.IsValid)
         {
@@ -55,6 +74,7 @@ public class MethodModelController : ControllerBase
 
         try
         {
+            method.Id = id;
             _service.Update(method);
             return Ok();
         }
@@ -64,11 +84,17 @@ public class MethodModelController : ControllerBase
         }
     }
 
-    [HttpDelete]
-    public IActionResult Delete([FromBody] MethodModel method)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
     {
         try
         {
+            var method = _service.GetById(id);
+            if (method == null)
+            {
+                return NotFound();
+            }
+
             _service.Delete(method);
             return Ok();
         }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,16 @@ export class MethodService {
   constructor(private http: HttpClient) { }
 
   getMethods(): Observable<MethodModel[]> {
-    return this.http.get<MethodModel[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => {
+        console.log('Raw response from backend:', response);
+        // Handle the $values format from backend
+        if (response && response.$values) {
+          return response.$values;
+        }
+        return response;
+      })
+    );
   }
 
   getMethod(id: string): Observable<MethodModel> {

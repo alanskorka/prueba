@@ -25,6 +25,25 @@ public class ParamModelController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        try
+        {
+            var param = _service.GetById(id);
+            if (param == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(param);
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
     [HttpPost]
     public IActionResult Add([FromBody] ParamModel param)
     {
@@ -44,8 +63,8 @@ public class ParamModelController : ControllerBase
         }
     }
 
-    [HttpPut]
-    public IActionResult Update([FromBody] ParamModel param)
+    [HttpPut("{id}")]
+    public IActionResult Update(Guid id, [FromBody] ParamModel param)
     {
         if (!ModelState.IsValid)
         {
@@ -54,6 +73,7 @@ public class ParamModelController : ControllerBase
 
         try
         {
+            param.Id = id;
             _service.Update(param);
             return Ok();
         }
@@ -63,11 +83,17 @@ public class ParamModelController : ControllerBase
         }
     }
 
-    [HttpDelete]
-    public IActionResult Delete([FromBody] ParamModel param)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
     {
         try
         {
+            var param = _service.GetById(id);
+            if (param == null)
+            {
+                return NotFound();
+            }
+
             _service.Delete(param);
             return Ok();
         }

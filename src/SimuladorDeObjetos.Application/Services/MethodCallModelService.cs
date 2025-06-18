@@ -24,6 +24,8 @@ public class MethodCallModelService : IMethodCallModelService
 
     public List<MethodCallModel> GetAll() => _repo.GetAll();
 
+    public MethodCallModel? GetById(Guid id) => _repo.GetById(id);
+
     public void Update(MethodCallModel call)
     {
         ArgumentNullException.ThrowIfNull(call);

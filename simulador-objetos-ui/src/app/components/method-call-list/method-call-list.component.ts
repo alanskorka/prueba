@@ -1,86 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MethodCallService } from '../../services/method-call.service';
 import { MethodService, MethodModel } from '../../services/method.service';
+import { MethodCallModel } from '../../models/method-call.model';
 
 @Component({
   selector: 'app-method-call-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
-  template: `
-    <div class="container mt-4">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Llamadas a Métodos</h2>
-        <a routerLink="/method-calls/new" class="btn btn-primary">
-          <i class="bi bi-plus-circle"></i> Nueva Llamada
-        </a>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div *ngIf="loading" class="text-center my-4">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Cargando...</span>
-            </div>
-          </div>
-          <div *ngIf="errorMessage" class="alert alert-danger">
-            <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
-          </div>
-          <div *ngIf="!loading && methodCalls.length > 0" class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Método Origen</th>
-                  <th>Método Destino</th>
-                  <th>Tipo de Llamada</th>
-                  <th class="text-end">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let call of methodCalls">
-                  <td>{{ getMethodName(call.sourceMethodId) }}</td>
-                  <td>{{ getMethodName(call.targetMethodId) }}</td>
-                  <td>{{ call.callType }}</td>
-                  <td>
-                    <div class="btn-group float-end">
-                      <a [routerLink]="['/method-calls', call.id]" class="btn btn-outline-primary btn-sm" title="Ver">
-                        <i class="bi bi-eye"></i>
-                      </a>
-                      <a [routerLink]="['/method-calls', call.id, 'edit']" class="btn btn-outline-secondary btn-sm" title="Editar">
-                        <i class="bi bi-pencil"></i>
-                      </a>
-                      <button class="btn btn-outline-danger btn-sm" title="Eliminar" (click)="deleteMethodCall(call)">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div *ngIf="!loading && methodCalls.length === 0" class="text-center text-muted py-4">
-            <i class="bi bi-inbox fs-1"></i>
-            <p class="mt-2">No hay llamadas registradas</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .btn-group { gap: 0.5rem; }
-    .table th { font-weight: 600; background-color: #f8f9fa; }
-  `]
+  imports: [CommonModule, RouterLink, FormsModule],
+  templateUrl: './method-call-list.component.html',
+  styleUrls: ['./method-call-list.component.scss']
 })
 export class MethodCallListComponent implements OnInit {
-  methodCalls: any[] = [];
+  methodCalls: MethodCallModel[] = [];
+  filteredMethodCalls: MethodCallModel[] = [];
   methods: MethodModel[] = [];
   loading = false;
   errorMessage: string | null = null;
+  searchTerm: string = '';
 
   constructor(private methodCallService: MethodCallService, private methodService: MethodService) {}
 
   ngOnInit(): void {
     this.loadMethodCalls();
+    this.loadMethods();
+  }
+
+  loadMethods(): void {
     this.methodService.getMethods().subscribe({
       next: (data) => this.methods = data,
       error: () => this.errorMessage = 'Error al cargar los métodos.'
@@ -93,6 +41,7 @@ export class MethodCallListComponent implements OnInit {
     this.methodCallService.getMethodCalls().subscribe({
       next: (data) => {
         this.methodCalls = data;
+        this.filteredMethodCalls = data;
         this.loading = false;
       },
       error: (error: Error) => {
@@ -102,14 +51,30 @@ export class MethodCallListComponent implements OnInit {
     });
   }
 
-  getMethodName(methodId: string): string {
-    return this.methods.find(m => m.id === methodId)?.name || '';
+  getMethodName(methodId?: string): string {
+    if (!methodId) return 'N/A';
+    return this.methods.find(m => m.id === methodId)?.name || 'Método no encontrado';
   }
 
-  deleteMethodCall(call: any): void {
-    if (confirm(`¿Seguro que deseas eliminar la llamada?`)) {
+  filterMethodCalls(): void {
+    if (!this.searchTerm.trim()) {
+      this.filteredMethodCalls = this.methodCalls;
+      return;
+    }
+
+    const search = this.searchTerm.toLowerCase();
+    this.filteredMethodCalls = this.methodCalls.filter(call => 
+      call.methodName?.toLowerCase().includes(search) ||
+      call.referenceType?.toLowerCase().includes(search) ||
+      call.referenceName?.toLowerCase().includes(search) ||
+      this.getMethodName(call.parentMethodId).toLowerCase().includes(search)
+    );
+  }
+
+  deleteMethodCall(call: MethodCallModel): void {
+    if (confirm(`¿Seguro que deseas eliminar la llamada "${call.methodName}"?`)) {
       this.loading = true;
-      this.methodCallService.deleteMethodCall(call.id).subscribe({
+      this.methodCallService.deleteMethodCall(call.id!).subscribe({
         next: () => {
           this.loadMethodCalls();
         },
