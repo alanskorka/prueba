@@ -1,13 +1,20 @@
 using Domain.Entities;
+using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Application.Services.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-namespace SimuladorDeObjetos.Application.Services;
+namespace SimuladorDeObjetos.Application;
 
-public class AttributeModelService(IAtributteModelRepository repo, IClassModelRepository classRepo) : IAttributeModelService
+public class AttributeModelService : IAttributeModelService
 {
-    private readonly IAtributteModelRepository _repo = repo;
-    private readonly IClassModelRepository _classRepo = classRepo;
+    private readonly IAtributteModelRepository _repo;
+    private readonly IClassModelRepository _classRepo;
+
+    public AttributeModelService(IAtributteModelRepository repo, IClassModelRepository classRepo)
+    {
+        _repo = repo;
+        _classRepo = classRepo;
+    }
 
     public void Create(AttributeModel attribute)
     {

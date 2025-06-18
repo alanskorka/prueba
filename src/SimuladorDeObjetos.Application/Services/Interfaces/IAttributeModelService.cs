@@ -1,6 +1,6 @@
 using Domain.Entities;
 
-namespace SimuladorDeObjetos.Application.Interfaces;
+namespace SimuladorDeObjetos.Application.Services.Interfaces;
 
 public interface IAttributeModelService
 {

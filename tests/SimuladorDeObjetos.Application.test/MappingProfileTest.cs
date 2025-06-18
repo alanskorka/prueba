@@ -2,6 +2,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
 using SimuladorDeObjetos.Application.DTOs;
+using SimuladorDeObjetos.Application.DTOs.Persistence;
 
 namespace SimuladorDeObjetos.Application.test;
 

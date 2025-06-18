@@ -10,7 +10,7 @@ public static class ApplicationServiceExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IClassModelService, ClassModelService>();
-        services.AddScoped<Application.Services.Interfaces.IAttributeModelService, Application.Services.AttributeModelService>();
+        services.AddScoped<IAttributeModelService, AttributeModelService>();
         services.AddScoped<IMethodModelService, MethodModelService>();
         services.AddScoped<IParamModelService, ParamModelService>();
         services.AddScoped<ILocalVarModelService, LocalVarModelService>();

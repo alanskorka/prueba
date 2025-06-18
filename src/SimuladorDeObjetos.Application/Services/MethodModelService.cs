@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Domain.Enums;
 using SimuladorDeObjetos.Application.DTOs.Api;
+using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Application.Services.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
