@@ -80,7 +80,10 @@ public class ClassModelController(IClassModelService service) : ControllerBase
     {
         var model = _service.GetById(id);
         if (model == null)
+        {
             return NotFound();
+        }
+
         return Ok(model);
     }
 }

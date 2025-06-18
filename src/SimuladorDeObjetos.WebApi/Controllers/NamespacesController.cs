@@ -27,7 +27,11 @@ public class NamespacesController(INamespaceService service) : ControllerBase
         try
         {
             var ns = service.GetAll().FirstOrDefault(n => n.Id == id);
-            if (ns == null) return NotFound();
+            if (ns == null)
+            {
+                return NotFound();
+            }
+
             return Ok(ns);
         }
         catch (Exception e)
