@@ -15,6 +15,8 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IParamModelService, ParamModelService>();
         services.AddScoped<ILocalVarModelService, LocalVarModelService>();
         services.AddScoped<IMethodCallModelService, MethodCallModelService>();
+        services.AddScoped<IInterfaceModelService, InterfaceModelService>();
+        services.AddScoped<IInterfaceMethodModelService, InterfaceMethodModelService>();
 
         return services;
     }

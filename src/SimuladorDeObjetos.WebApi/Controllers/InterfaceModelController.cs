@@ -30,7 +30,7 @@ public class InterfaceModelController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<InterfaceModel>> GetById(Guid id)
+    public async Task<ActionResult<InterfaceModel>> GetById(int id)
     {
         var result = await _service.GetById(id);
         if (result == null)

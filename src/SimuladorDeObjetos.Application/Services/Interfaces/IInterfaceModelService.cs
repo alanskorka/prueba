@@ -6,7 +6,7 @@ public interface IInterfaceModelService
 {
     Task Add(InterfaceModel model);
     Task<IEnumerable<InterfaceModel>> GetAll();
-    Task<InterfaceModel> GetById(Guid id);
-    Task Delete(InterfaceModel id);
+    Task<InterfaceModel> GetById(int id);
+    Task Delete(InterfaceModel model);
     Task Update(InterfaceModel model);
 }

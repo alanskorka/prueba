@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { InterfaceService, InterfaceModel } from '../../services/interface.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InterfaceService } from '../../services/interface.service';
 import { CommonModule } from '@angular/common';
+import { InterfaceModel } from '../../models/interface.model';
 
 @Component({
   selector: 'app-interface-form',
@@ -14,7 +15,7 @@ import { CommonModule } from '@angular/common';
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">
-              <h2 class="mb-0">Crear Nueva Interface</h2>
+              <h2 class="mb-0">{{ isEditMode ? 'Editar Interface' : 'Crear Nueva Interface' }}</h2>
             </div>
             <div class="card-body">
               <div *ngIf="successMessage" class="alert alert-success">
@@ -40,10 +41,11 @@ import { CommonModule } from '@angular/common';
                 </div>
 
                 <div class="d-flex gap-2">
-                  <button type="submit" class="btn btn-primary" [disabled]="interfaceForm.invalid">
-                    <i class="bi bi-plus-circle"></i> Crear Interface
+                  <button type="submit" class="btn btn-primary" [disabled]="interfaceForm.invalid || loading">
+                    <span *ngIf="!loading">{{ isEditMode ? 'Actualizar' : 'Crear' }}</span>
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   </button>
-                  <button type="button" class="btn btn-secondary" (click)="router.navigate(['/interfaces'])">
+                  <button type="button" class="btn btn-secondary" (click)="router.navigate(['/interfaces'])" [disabled]="loading">
                     <i class="bi bi-x-circle"></i> Cancelar
                   </button>
                 </div>
@@ -67,35 +69,84 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class InterfaceFormComponent {
+export class InterfaceFormComponent implements OnInit {
   interfaceForm: FormGroup;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  isEditMode = false;
+  interfaceId: number | null = null;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private interfaceService: InterfaceService,
-    public router: Router
+    public router: Router,
+    private route: ActivatedRoute
   ) {
     this.interfaceForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
+  ngOnInit(): void {
+    this.interfaceId = this.route.snapshot.params['id'];
+    if (this.interfaceId) {
+      this.isEditMode = true;
+      this.loadInterfaceData();
+    }
+  }
+
+  loadInterfaceData(): void {
+    if (!this.interfaceId) return;
+    this.loading = true;
+    this.interfaceService.getInterface(this.interfaceId).subscribe({
+      next: (interfaceData) => {
+        this.interfaceForm.patchValue(interfaceData);
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Error al cargar la interface.';
+        this.loading = false;
+      }
+    });
+  }
+
   onSubmit(): void {
-    if (this.interfaceForm.valid) {
-      const interfaceData: InterfaceModel = {
-        name: this.interfaceForm.value.name
-      };
+    if (this.interfaceForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
+
+    const interfaceData: InterfaceModel = {
+      ...this.interfaceForm.value,
+      id: this.interfaceId || 0
+    };
+
+    if (this.isEditMode) {
+      this.interfaceService.updateInterface(interfaceData).subscribe({
+        next: () => {
+          this.successMessage = '¡Interface actualizada exitosamente!';
+          this.loading = false;
+          setTimeout(() => this.router.navigate(['/interfaces']), 2000);
+        },
+        error: (error: Error) => {
+          this.errorMessage = `Error al actualizar la interface: ${error.message}`;
+          this.loading = false;
+        }
+      });
+    } else {
       this.interfaceService.createInterface(interfaceData).subscribe({
         next: () => {
           this.successMessage = '¡Interface creada exitosamente!';
-          this.errorMessage = null;
+          this.loading = false;
           setTimeout(() => this.router.navigate(['/interfaces']), 2000);
         },
         error: (error: Error) => {
           this.errorMessage = `Error al crear la interface: ${error.message}`;
-          this.successMessage = null;
+          this.loading = false;
         }
       });
     }

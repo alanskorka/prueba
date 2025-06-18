@@ -23,6 +23,8 @@ public static class InfrastructureServiceExtensions
         services.AddScoped<IMethodCallModelRepository, MethodCallModelRepository>();
         services.AddScoped<IMethodModelRepository, MethodModelRepository>();
         services.AddScoped<IParamModelRepository, ParamModelRepository>();
+        services.AddScoped<IInterfaceModelRepository, InterfaceModelRepository>();
+        services.AddScoped<IInterfaceMethodModelRepository, InterfaceMethodModelRepository>();
 
         return services;
     }

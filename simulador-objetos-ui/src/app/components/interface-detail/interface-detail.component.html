@@ -1,1 +1,25 @@
-<p>interface-detail works!</p>
+<div class="container mt-4">
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="interfaceData" class="card">
+    <div class="card-header">
+      <h2>Interface Details: {{ interfaceData.name }}</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>ID:</strong> {{ interfaceData.id }}</p>
+      <p><strong>Name:</strong> {{ interfaceData.name }}</p>
+      <!-- TODO: Display other properties like methods -->
+    </div>
+    <div class="card-footer">
+      <a routerLink="/interfaces" class="btn btn-primary">Back to List</a>
+    </div>
+  </div>
+</div>

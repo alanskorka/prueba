@@ -1,9 +1,10 @@
 using Domain.Entities;
+using SimuladorDeObjetos.Application.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application;
 
-public class InterfaceModelService
+public class InterfaceModelService : IInterfaceModelService
 {
     private readonly IInterfaceModelRepository _repository;
 
@@ -22,7 +23,7 @@ public class InterfaceModelService
         await _repository.Add(model);
     }
 
-    public async Task<List<InterfaceModel>> GetAll()
+    public async Task<IEnumerable<InterfaceModel>> GetAll()
     {
         return await _repository.GetAll();
     }
@@ -32,14 +33,14 @@ public class InterfaceModelService
         return await _repository.GetById(id);
     }
 
-    public async Task Delete(int id)
+    public async Task Delete(InterfaceModel model)
     {
-        if (await _repository.IsUsedByAnyClass(id))
+        if (await _repository.IsUsedByAnyClass(model.Id))
         {
             throw new InvalidOperationException("Interface is in use by a class.");
         }
 
-        await _repository.Delete(id);
+        await _repository.Delete(model.Id);
     }
 
     public async Task Update(InterfaceModel model)
