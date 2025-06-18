@@ -151,13 +151,17 @@ export class ClassFormComponent implements OnInit {
   onSubmit(): void {
     if (this.classForm.valid) {
       const classData: ClassModel = {
-        id: this.classId || '',
         name: this.classForm.value.name,
         isAbstract: this.classForm.value.isAbstract,
         isSealed: this.classForm.value.isSealed,
-        namespaceId: this.classForm.value.namespaceId
+        namespaceId: this.classForm.value.namespaceId,
+        attributes: [],
+        methods: [],
+        implementedInterfaces: []
       };
+
       if (this.isEditMode) {
+        classData.id = this.classId!;
         this.classService.updateClass(classData).subscribe({
           next: () => {
             this.successMessage = '¡Clase actualizada exitosamente!';

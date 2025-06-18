@@ -5,17 +5,16 @@ import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 
 export interface ClassModel {
-  id: string;
+  id?: string;
   name: string;
-  namespaceId: string;
-  attributes?: any[];
-  methods?: any[];
-  implementedInterfaces?: any[];
-  isStatic?: boolean;
-  isAbstract?: boolean;
-  isSealed?: boolean;
+  namespaceId?: string;
+  isAbstract: boolean;
+  isSealed: boolean;
+  attributes: any[];
+  methods: any[];
   baseClassId?: string;
   baseClass?: ClassModel;
+  implementedInterfaces?: any[];
 }
 
 @Injectable({
