@@ -66,7 +66,7 @@ export class LocalVarListComponent implements OnInit {
     this.filteredLocalVars = this.localVars.filter(localVar => 
       localVar.name?.toLowerCase().includes(search) ||
       localVar.type?.toLowerCase().includes(search) ||
-      this.getMethodName(localVar.methodId).toLowerCase().includes(search)
+      (this.methodIdToNameMap[localVar.methodId]?.toLowerCase() || 'método no encontrado').includes(search)
     );
   }
 
