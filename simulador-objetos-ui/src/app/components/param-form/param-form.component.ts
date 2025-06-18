@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParamService, ParamModel } from '../../services/param.service';
 import { MethodService, MethodModel } from '../../services/method.service';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-param-form',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">
-              <h2 class="mb-0">Crear Nuevo Parámetro</h2>
+              <h2 class="mb-0">{{ isEditMode ? 'Editar Parámetro' : 'Crear Nuevo Parámetro' }}</h2>
             </div>
             <div class="card-body">
               <div *ngIf="successMessage" class="alert alert-success">
@@ -34,9 +35,11 @@ import { CommonModule } from '@angular/common';
                     id="name" 
                     formControlName="name"
                     [ngClass]="{'is-invalid': paramForm.get('name')?.invalid && paramForm.get('name')?.touched}"
+                    placeholder="Ej: amount, customer, items"
                   >
                   <div class="invalid-feedback" *ngIf="paramForm.get('name')?.invalid && paramForm.get('name')?.touched">
-                    El nombre es requerido
+                    <span *ngIf="paramForm.get('name')?.errors?.['required']">El nombre es requerido</span>
+                    <span *ngIf="paramForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</span>
                   </div>
                 </div>
 
@@ -48,6 +51,7 @@ import { CommonModule } from '@angular/common';
                     id="type" 
                     formControlName="type"
                     [ngClass]="{'is-invalid': paramForm.get('type')?.invalid && paramForm.get('type')?.touched}"
+                    placeholder="Ej: int, string, Customer, List&lt;Product&gt;"
                   >
                   <div class="invalid-feedback" *ngIf="paramForm.get('type')?.invalid && paramForm.get('type')?.touched">
                     El tipo es requerido
@@ -63,7 +67,9 @@ import { CommonModule } from '@angular/common';
                     [ngClass]="{'is-invalid': paramForm.get('methodId')?.invalid && paramForm.get('methodId')?.touched}"
                   >
                     <option value="">Seleccione un método</option>
-                    <option *ngFor="let method of methods" [value]="method.id">{{ method.name }}</option>
+                    <option *ngFor="let method of methods" [value]="method.id">
+                      {{ method.name }} ({{ method.returnType || 'void' }})
+                    </option>
                   </select>
                   <div class="invalid-feedback" *ngIf="paramForm.get('methodId')?.invalid && paramForm.get('methodId')?.touched">
                     El método es requerido
@@ -71,8 +77,9 @@ import { CommonModule } from '@angular/common';
                 </div>
 
                 <div class="d-flex gap-2">
-                  <button type="submit" class="btn btn-primary" [disabled]="paramForm.invalid">
-                    <i class="bi bi-plus-circle"></i> Crear Parámetro
+                  <button type="submit" class="btn btn-primary" [disabled]="paramForm.invalid || loading">
+                    <i class="bi" [ngClass]="isEditMode ? 'bi-pencil' : 'bi-plus-circle'"></i> 
+                    {{ isEditMode ? 'Actualizar Parámetro' : 'Crear Parámetro' }}
                   </button>
                   <button type="button" class="btn btn-secondary" (click)="router.navigate(['/params'])">
                     <i class="bi bi-x-circle"></i> Cancelar
@@ -86,9 +93,18 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   styles: [`
-    .card { box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
-    .card-header { background-color: #f8f9fa; border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
-    .form-label { font-weight: 500; }
+    .card {
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    
+    .card-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    .form-label {
+      font-weight: 500;
+    }
   `]
 })
 export class ParamFormComponent implements OnInit {
@@ -96,8 +112,9 @@ export class ParamFormComponent implements OnInit {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   methods: MethodModel[] = [];
-  isEdit = false;
+  isEditMode = false;
   paramId: string | null = null;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -108,58 +125,100 @@ export class ParamFormComponent implements OnInit {
   ) {
     this.paramForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      type: ['', [Validators.required]],
+      type: ['object', [Validators.required]],
       methodId: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-    this.methodService.getMethods().subscribe({
-      next: (data) => this.methods = data,
-      error: () => this.errorMessage = 'Error al cargar los métodos.'
-    });
+    this.loadMethods();
     this.paramId = this.route.snapshot.paramMap.get('id');
     if (this.paramId) {
-      this.isEdit = true;
-      this.paramService.getParam(this.paramId).subscribe({
-        next: (data) => this.paramForm.patchValue(data),
-        error: () => this.errorMessage = 'Error al cargar el parámetro.'
-      });
+      this.isEditMode = true;
+      this.loadParam();
     }
+  }
+
+  loadMethods(): void {
+    this.methodService.getMethods().subscribe({
+      next: (data: any) => {
+        const methods = data.$values || data;
+        this.methods = methods;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading methods:', error);
+        this.errorMessage = 'Error al cargar los métodos.';
+      }
+    });
+  }
+
+  loadParam(): void {
+    if (!this.paramId) return;
+    
+    this.paramService.getParam(this.paramId).subscribe({
+      next: (data: ParamModel) => {
+        this.paramForm.patchValue({
+          name: data.name,
+          type: data.type || 'object',
+          methodId: data.methodId
+        });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading param:', error);
+        this.errorMessage = 'Error al cargar el parámetro.';
+      }
+    });
   }
 
   onSubmit(): void {
     if (this.paramForm.valid) {
+      this.loading = true;
+      this.errorMessage = null;
+      this.successMessage = null;
+
       const paramData: ParamModel = {
         name: this.paramForm.value.name,
         type: this.paramForm.value.type,
         methodId: String(this.paramForm.value.methodId)
       };
-      if (this.isEdit && this.paramId) {
+
+      if (this.isEditMode && this.paramId) {
         this.paramService.updateParam(this.paramId, paramData).subscribe({
           next: () => {
             this.successMessage = '¡Parámetro actualizado exitosamente!';
-            this.errorMessage = null;
-            this.router.navigate(['/params']);
+            this.loading = false;
+            setTimeout(() => this.router.navigate(['/params']), 2000);
           },
-          error: (error: Error) => {
-            this.errorMessage = `Error al actualizar el parámetro: ${error.message}`;
-            this.successMessage = null;
+          error: (error: HttpErrorResponse) => {
+            console.error('Error updating param:', error);
+            this.errorMessage = this.getErrorMessage(error);
+            this.loading = false;
           }
         });
       } else {
         this.paramService.createParam(paramData).subscribe({
           next: () => {
             this.successMessage = '¡Parámetro creado exitosamente!';
-            this.errorMessage = null;
-            this.router.navigate(['/params']);
+            this.loading = false;
+            setTimeout(() => this.router.navigate(['/params']), 2000);
           },
-          error: (error: Error) => {
-            this.errorMessage = `Error al crear el parámetro: ${error.message}`;
-            this.successMessage = null;
+          error: (error: HttpErrorResponse) => {
+            console.error('Error creating param:', error);
+            this.errorMessage = this.getErrorMessage(error);
+            this.loading = false;
           }
         });
       }
     }
+  }
+
+  private getErrorMessage(error: HttpErrorResponse): string {
+    if (error.error?.detail) {
+      return error.error.detail;
+    }
+    if (error.error?.title) {
+      return error.error.title;
+    }
+    return `Error al ${this.isEditMode ? 'actualizar' : 'crear'} el parámetro`;
   }
 }

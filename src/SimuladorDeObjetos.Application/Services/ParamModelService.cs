@@ -21,6 +21,8 @@ public class ParamModelService : IParamModelService
 
     public IEnumerable<ParamModel> GetAll() => _repo.GetAll();
 
+    public ParamModel? GetById(Guid id) => _repo.GetById(id);
+
     public void Add(ParamModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
