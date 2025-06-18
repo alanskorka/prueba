@@ -56,16 +56,20 @@ export class ParamDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.paramService.getParam(id).subscribe({
+      this.paramService.getParam(id).pipe(takeUntil(this.destroy$)).subscribe({
         next: (data) => this.param = data,
         error: () => this.param = null
       });
-      this.methodService.getMethods().subscribe({
+      this.methodService.getMethods().pipe(takeUntil(this.destroy$)).subscribe({
         next: (data) => this.methods = data
       });
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   getMethodName(methodId: string): string {
     return this.methods.find(m => m.id === methodId)?.name || '';
   }
