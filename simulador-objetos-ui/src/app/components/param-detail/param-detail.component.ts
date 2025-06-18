@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParamService, ParamModel } from '../../services/param.service';
 import { MethodService, MethodModel } from '../../services/method.service';
 import { CommonModule } from '@angular/common';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-param-detail',
@@ -42,9 +43,10 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class ParamDetailComponent implements OnInit {
+export class ParamDetailComponent implements OnInit, OnDestroy {
   param: ParamModel | null = null;
   methods: MethodModel[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -57,11 +59,11 @@ export class ParamDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.paramService.getParam(id).pipe(takeUntil(this.destroy$)).subscribe({
-        next: (data) => this.param = data,
+        next: (data: ParamModel) => this.param = data,
         error: () => this.param = null
       });
       this.methodService.getMethods().pipe(takeUntil(this.destroy$)).subscribe({
-        next: (data) => this.methods = data
+        next: (data: MethodModel[]) => this.methods = data
       });
     }
   }
@@ -70,6 +72,7 @@ export class ParamDetailComponent implements OnInit {
     this.destroy$.next();
     this.destroy$.complete();
   }
+  
   getMethodName(methodId: string): string {
     return this.methods.find(m => m.id === methodId)?.name || '';
   }

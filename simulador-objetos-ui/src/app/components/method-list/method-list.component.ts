@@ -83,7 +83,7 @@ export class MethodListComponent implements OnInit {
     this.loadMethods();
     this.classService.getClasses().subscribe({
       next: (data) => this.classes = data,
-      error: () => this.classErrorMessage = 'Error al cargar las clases.'
+      error: () => this.errorMessage = 'Error al cargar las clases.'
     });
   }
 
