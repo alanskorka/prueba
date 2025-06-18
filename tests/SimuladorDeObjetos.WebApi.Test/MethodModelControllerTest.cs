@@ -52,9 +52,10 @@ public class MethodModelControllerTest
     [TestMethod]
     public void Update_ShouldReturnOk()
     {
-        var method = new MethodModel { Name = "UpdatedMethod" };
+        var id = Guid.NewGuid();
+        var method = new MethodModel { Id = id, Name = "UpdatedMethod" };
 
-        var result = _controller!.Update(method);
+        var result = _controller!.Update(id, method);
 
         _mockService!.Verify(s => s.Update(method), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
@@ -63,10 +64,13 @@ public class MethodModelControllerTest
     [TestMethod]
     public void Delete_ShouldReturnOk()
     {
-        var method = new MethodModel { Name = "ToDelete" };
+        var id = Guid.NewGuid();
+        var method = new MethodModel { Id = id, Name = "ToDelete" };
+        _mockService!.Setup(s => s.GetById(id)).Returns(method);
 
-        var result = _controller!.Delete(method);
+        var result = _controller!.Delete(id);
 
+        _mockService!.Verify(s => s.GetById(id), Times.Once);
         _mockService!.Verify(s => s.Delete(method), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
@@ -126,7 +130,7 @@ public class MethodModelControllerTest
         _controller!.ModelState.AddModelError("Name", "Required");
         var method = new MethodModel();
 
-        var result = _controller.Update(method);
+        var result = _controller.Update(Guid.NewGuid(), method);
 
         Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
     }
@@ -146,10 +150,11 @@ public class MethodModelControllerTest
     [TestMethod]
     public void Update_ShouldReturnProblem_WhenServiceThrows()
     {
-        var method = new MethodModel { Name = "fail" };
+        var id = Guid.NewGuid();
+        var method = new MethodModel { Id = id, Name = "fail" };
         _mockService!.Setup(s => s.Update(method)).Throws(new Exception("fail"));
 
-        var result = _controller!.Update(method);
+        var result = _controller!.Update(id, method);
 
         Assert.IsInstanceOfType(result, typeof(ObjectResult));
         Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
@@ -158,10 +163,12 @@ public class MethodModelControllerTest
     [TestMethod]
     public void Delete_ShouldReturnProblem_WhenServiceThrows()
     {
-        var method = new MethodModel { Name = "fail" };
+        var id = Guid.NewGuid();
+        var method = new MethodModel { Id = id, Name = "fail" };
+        _mockService!.Setup(s => s.GetById(id)).Returns(method);
         _mockService!.Setup(s => s.Delete(method)).Throws(new Exception("fail"));
 
-        var result = _controller!.Delete(method);
+        var result = _controller!.Delete(id);
 
         Assert.IsInstanceOfType(result, typeof(ObjectResult));
         Assert.AreEqual(500, ((ObjectResult)result).StatusCode);

@@ -26,9 +26,9 @@ public class ParamModelControllerTest
             new ParamModel { Name = "param1", Type = "string" },
             new ParamModel { Name = "param2", Type = "int" }
         };
-        _mockService.Setup(s => s.GetAll()).Returns(expected);
+        _mockService!.Setup(s => s.GetAll()).Returns(expected);
 
-        var result = _controller.GetAll() as OkObjectResult;
+        var result = _controller!.GetAll() as OkObjectResult;
 
         Assert.IsNotNull(result);
         var returned = result.Value as IEnumerable<ParamModel>;
@@ -37,36 +37,76 @@ public class ParamModelControllerTest
     }
 
     [TestMethod]
+    public void GetById_ShouldReturnParam_WhenExists()
+    {
+        var expected = new ParamModel { Id = Guid.NewGuid(), Name = "param", Type = "string" };
+        _mockService!.Setup(s => s.GetById(expected.Id)).Returns(expected);
+
+        var result = _controller!.GetById(expected.Id) as OkObjectResult;
+
+        Assert.IsNotNull(result);
+        var returned = result.Value as ParamModel;
+        Assert.IsNotNull(returned);
+        Assert.AreEqual(expected.Id, returned.Id);
+    }
+
+    [TestMethod]
+    public void GetById_ShouldReturnNotFound_WhenNotExists()
+    {
+        var id = Guid.NewGuid();
+        _mockService!.Setup(s => s.GetById(id)).Returns((ParamModel?)null);
+
+        var result = _controller!.GetById(id);
+
+        Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+    }
+
+    [TestMethod]
     public void Add_ShouldCallAddMethod()
     {
         var model = new ParamModel { Name = "param", Type = "bool" };
 
-        var result = _controller.Add(model);
+        var result = _controller!.Add(model);
 
-        _mockService.Verify(s => s.Add(model), Times.Once);
+        _mockService!.Verify(s => s.Add(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
 
     [TestMethod]
     public void Update_ShouldCallUpdateMethod()
     {
-        var model = new ParamModel { Name = "param", Type = "bool" };
+        var id = Guid.NewGuid();
+        var model = new ParamModel { Id = id, Name = "param", Type = "bool" };
 
-        var result = _controller.Update(model);
+        var result = _controller!.Update(id, model);
 
-        _mockService.Verify(s => s.Update(model), Times.Once);
+        _mockService!.Verify(s => s.Update(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
     }
 
     [TestMethod]
     public void Delete_ShouldCallDeleteMethod()
     {
-        var model = new ParamModel { Name = "param", Type = "bool" };
+        var id = Guid.NewGuid();
+        var model = new ParamModel { Id = id, Name = "param", Type = "bool" };
+        _mockService!.Setup(s => s.GetById(id)).Returns(model);
 
-        var result = _controller.Delete(model);
+        var result = _controller!.Delete(id);
 
-        _mockService.Verify(s => s.Delete(model), Times.Once);
+        _mockService!.Verify(s => s.GetById(id), Times.Once);
+        _mockService!.Verify(s => s.Delete(model), Times.Once);
         Assert.IsInstanceOfType(result, typeof(OkResult));
+    }
+
+    [TestMethod]
+    public void Delete_ShouldReturnNotFound_WhenNotExists()
+    {
+        var id = Guid.NewGuid();
+        _mockService!.Setup(s => s.GetById(id)).Returns((ParamModel?)null);
+
+        var result = _controller!.Delete(id);
+
+        Assert.IsInstanceOfType(result, typeof(NotFoundResult));
     }
 
     [TestMethod]
@@ -109,7 +149,7 @@ public class ParamModelControllerTest
         _controller!.ModelState.AddModelError("Type", "Required");
         var model = new ParamModel();
 
-        var result = _controller.Update(model);
+        var result = _controller.Update(Guid.NewGuid(), model);
 
         Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
     }
@@ -117,10 +157,11 @@ public class ParamModelControllerTest
     [TestMethod]
     public void Update_ShouldReturnProblem_WhenServiceThrows()
     {
-        var model = new ParamModel { Name = "param", Type = "int" };
+        var id = Guid.NewGuid();
+        var model = new ParamModel { Id = id, Name = "param", Type = "int" };
         _mockService!.Setup(s => s.Update(model)).Throws(new Exception("fail"));
 
-        var result = _controller!.Update(model);
+        var result = _controller!.Update(id, model);
 
         Assert.IsInstanceOfType(result, typeof(ObjectResult));
         Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
@@ -129,10 +170,12 @@ public class ParamModelControllerTest
     [TestMethod]
     public void Delete_ShouldReturnProblem_WhenServiceThrows()
     {
-        var model = new ParamModel { Name = "param", Type = "bool" };
+        var id = Guid.NewGuid();
+        var model = new ParamModel { Id = id, Name = "param", Type = "bool" };
+        _mockService!.Setup(s => s.GetById(id)).Returns(model);
         _mockService!.Setup(s => s.Delete(model)).Throws(new Exception("fail"));
 
-        var result = _controller!.Delete(model);
+        var result = _controller!.Delete(id);
 
         Assert.IsInstanceOfType(result, typeof(ObjectResult));
         Assert.AreEqual(500, ((ObjectResult)result).StatusCode);

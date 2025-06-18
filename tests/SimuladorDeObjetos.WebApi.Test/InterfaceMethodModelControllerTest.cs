@@ -20,7 +20,7 @@ public class InterfaceMethodModelControllerTest
     }
 
     [TestMethod]
-    public async Task Add_ShouldCallServiceAndReturnNoContent()
+    public async Task Add_ShouldCallServiceAndReturnOk()
     {
         var model = new InterfaceMethodModel
         {
@@ -31,7 +31,7 @@ public class InterfaceMethodModelControllerTest
         var result = await _controller.Add(model);
 
         _mockService.Verify(s => s.Add(model), Times.Once);
-        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        Assert.IsInstanceOfType(result, typeof(OkResult));
     }
 
     [TestMethod]
@@ -69,29 +69,65 @@ public class InterfaceMethodModelControllerTest
     }
 
     [TestMethod]
-    public async Task Update_ShouldCallServiceAndReturnNoContent()
+    public async Task GetById_ShouldReturnInterfaceMethod_WhenExists()
     {
-        var model = new InterfaceMethodModel
+        var expected = new InterfaceMethodModel
         {
             Id = 1,
+            Name = "TestMethod",
+            ReturnType = "string"
+        };
+
+        _mockService.Setup(s => s.GetById(expected.Id))
+            .ReturnsAsync(expected);
+
+        var result = await _controller.GetById(expected.Id);
+
+        var okResult = result.Result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+
+        var returnedMethod = okResult.Value as InterfaceMethodModel;
+        Assert.IsNotNull(returnedMethod);
+        Assert.AreEqual(expected.Id, returnedMethod.Id);
+    }
+
+    [TestMethod]
+    public async Task GetById_ShouldReturnNotFound_WhenNotExists()
+    {
+        var id = 1;
+        _mockService.Setup(s => s.GetById(id))
+            .ReturnsAsync((InterfaceMethodModel?)null);
+
+        var result = await _controller.GetById(id);
+
+        Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+    }
+
+    [TestMethod]
+    public async Task Update_ShouldCallServiceAndReturnOk()
+    {
+        var id = 1;
+        var model = new InterfaceMethodModel
+        {
+            Id = id,
             Name = "UpdatedMethod",
             ReturnType = "string"
         };
 
-        var result = await _controller.Update(model);
+        var result = await _controller.Update(id, model);
 
         _mockService.Verify(s => s.Update(model), Times.Once);
-        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        Assert.IsInstanceOfType(result, typeof(OkResult));
     }
 
     [TestMethod]
-    public async Task Delete_ShouldCallServiceAndReturnNoContent()
+    public async Task Delete_ShouldCallServiceAndReturnOk()
     {
         var id = 1;
 
         var result = await _controller.Delete(id);
 
         _mockService.Verify(s => s.Delete(id), Times.Once);
-        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        Assert.IsInstanceOfType(result, typeof(OkResult));
     }
 }
