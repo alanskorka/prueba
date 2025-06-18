@@ -3,6 +3,7 @@ using Domain.Enums;
 using Moq;
 using SimuladorDeObjetos.Application;
 using SimuladorDeObjetos.Application.DTOs.Api;
+using SimuladorDeObjetos.Application.Services;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;

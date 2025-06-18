@@ -1,13 +1,11 @@
 ﻿using Domain.Entities;
-using SimuladorDeObjetos.Application.Interfaces;
+using SimuladorDeObjetos.Application.Services.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
+namespace SimuladorDeObjetos.Application.Services;
 
-namespace SimuladorDeObjetos.Application;
-
-public class ClassModelService : IClassModelService
+public class ClassModelService(IClassModelRepository repo) : IClassModelService
 {
-    private readonly IClassModelRepository _repo;
-    public ClassModelService(IClassModelRepository repo) => _repo = repo;
+    private readonly IClassModelRepository _repo = repo;
 
     public IEnumerable<ClassModel> GetAll() => _repo.GetAll();
 

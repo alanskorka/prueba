@@ -1,0 +1,21 @@
+<h2>Clases</h2>
+<a routerLink="/classes/new">Crear Nueva Clase</a>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let class of classes">
+      <td>{{ class.id }}</td>
+      <td>{{ class.name }}</td>
+      <td>
+        <a [routerLink]="['/classes', class.id]">Ver</a>
+        <a [routerLink]="['/classes', class.id, 'edit']">Editar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,33 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { MethodCallModel } from '../models/method-call.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MethodCallService {
+  private apiUrl = '/api/MethodCallModel';
+
+  constructor(private http: HttpClient) { }
+
+  getMethodCalls(): Observable<MethodCallModel[]> {
+    return this.http.get<MethodCallModel[]>(this.apiUrl);
+  }
+
+  getMethodCall(id: number): Observable<MethodCallModel> {
+    return this.http.get<MethodCallModel>(`${this.apiUrl}/${id}`);
+  }
+
+  createMethodCall(methodCallData: MethodCallModel): Observable<MethodCallModel> {
+    return this.http.post<MethodCallModel>(this.apiUrl, methodCallData);
+  }
+
+  updateMethodCall(id: number, methodCallData: MethodCallModel): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, methodCallData);
+  }
+
+  deleteMethodCall(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+}

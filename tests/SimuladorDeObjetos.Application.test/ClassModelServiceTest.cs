@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Moq;
 using SimuladorDeObjetos.Application;
+using SimuladorDeObjetos.Application.Services;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
 namespace SimuladorDeObjetos.Application.test;

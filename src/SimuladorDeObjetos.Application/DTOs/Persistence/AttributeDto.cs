@@ -1,7 +1,7 @@
 using Domain.Entities;
 using Domain.Enums;
 
-namespace SimuladorDeObjetos.Application.DTOs;
+namespace SimuladorDeObjetos.Application.DTOs.Persistence;
 
 public class AttributeDto
 {

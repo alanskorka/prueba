@@ -2,22 +2,17 @@ using Domain.Entities;
 using Domain.Enums;
 using SimuladorDeObjetos.Application.DTOs.Api;
 using SimuladorDeObjetos.Application.Interfaces;
+using SimuladorDeObjetos.Application.Services.Interfaces;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-namespace SimuladorDeObjetos.Application;
+namespace SimuladorDeObjetos.Application.Services;
 
-public class MethodModelService : IMethodModelService
+public class MethodModelService(IMethodModelRepository methodRepo, IClassModelRepository classRepo) : IMethodModelService
 {
-    private readonly IMethodModelRepository _methodRepo;
-    private readonly IClassModelRepository _classRepo;
+    private readonly IMethodModelRepository _methodRepo = methodRepo;
+    private readonly IClassModelRepository _classRepo = classRepo;
 
-    public MethodModelService(IMethodModelRepository methodRepo, IClassModelRepository classRepo)
-    {
-        _methodRepo = methodRepo;
-        _classRepo = classRepo;
-    }
-
-   public IEnumerable<MethodModel> GetAll() => _methodRepo.GetAll() ?? Enumerable.Empty<MethodModel>();
+    public IEnumerable<MethodModel> GetAll() => _methodRepo.GetAll() ?? Enumerable.Empty<MethodModel>();
 
     public void Add(MethodModel method)
     {
@@ -109,7 +104,7 @@ public class MethodModelService : IMethodModelService
 
         if (call.MethodName != null)
         {
-            var methodToExecute = GetMethodToExecute(call.MethodName, GetBaseTypeId(call), GetConcreteTypeId(call));
+            var methodToExecute = GetMethodToExecute(call.MethodName, GetBaseTypeId(), GetConcreteTypeId());
             var methodName = methodToExecute?.Name ?? call.MethodName;
 
             lines.Add($"{indent}{prefix}.{methodName}()");
@@ -131,14 +126,14 @@ public class MethodModelService : IMethodModelService
         return $"{prefix}_{name}";
     }
 
-    private Guid GetBaseTypeId(MethodCallModel call)
+    private Guid GetBaseTypeId()
     {
         // Aquí deberíamos obtener el tipo base de la referencia según el ReferenceType
         // Por ahora retornamos un valor por defecto
         return Guid.Empty;
     }
 
-    private Guid GetConcreteTypeId(MethodCallModel call)
+    private Guid GetConcreteTypeId()
     {
         // Aquí deberíamos obtener el tipo concreto de la referencia según el ReferenceType
         // Por ahora retornamos un valor por defecto

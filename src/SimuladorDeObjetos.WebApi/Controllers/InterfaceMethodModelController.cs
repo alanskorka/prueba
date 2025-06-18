@@ -6,14 +6,9 @@ namespace SimuladorDeObjetos.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class InterfaceMethodModelController : ControllerBase
+public class InterfaceMethodModelController(IInterfaceMethodModelService service) : ControllerBase
 {
-    private readonly IInterfaceMethodModelService _service;
-
-    public InterfaceMethodModelController(IInterfaceMethodModelService service)
-    {
-        _service = service;
-    }
+    private readonly IInterfaceMethodModelService _service = service;
 
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] InterfaceMethodModel model)
