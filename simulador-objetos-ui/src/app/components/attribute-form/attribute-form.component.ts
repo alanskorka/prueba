@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { AttributeService, AttributeModel } from '../../services/attribute.service';
 import { CommonModule } from '@angular/common';
+import { ClassService, ClassModel } from '../../services/class.service';
 
 @Component({
   selector: 'app-attribute-form',
@@ -40,16 +41,32 @@ import { CommonModule } from '@angular/common';
                 </div>
 
                 <div class="mb-3">
-                  <label for="classId" class="form-label">Clase (ID)</label>
-                  <input 
-                    type="number" 
-                    class="form-control" 
+                  <label for="classId" class="form-label">Clase</label>
+                  <select 
+                    class="form-select" 
                     id="classId" 
                     formControlName="classId"
                     [ngClass]="{'is-invalid': attributeForm.get('classId')?.invalid && attributeForm.get('classId')?.touched}"
                   >
+                    <option value="">Seleccione una clase</option>
+                    <option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</option>
+                  </select>
                   <div class="invalid-feedback" *ngIf="attributeForm.get('classId')?.invalid && attributeForm.get('classId')?.touched">
-                    El ID de la clase es requerido
+                    La clase es requerida
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="type" class="form-label">Tipo</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="type" 
+                    formControlName="type"
+                    [ngClass]="{'is-invalid': attributeForm.get('type')?.invalid && attributeForm.get('type')?.touched}"
+                  >
+                  <div class="invalid-feedback" *ngIf="attributeForm.get('type')?.invalid && attributeForm.get('type')?.touched">
+                    El tipo es requerido
                   </div>
                 </div>
 
@@ -85,15 +102,22 @@ export class AttributeFormComponent {
   attributeForm: FormGroup;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  classes: ClassModel[] = [];
 
   constructor(
     private fb: FormBuilder,
     private attributeService: AttributeService,
-    public router: Router
+    public router: Router,
+    private classService: ClassService
   ) {
     this.attributeForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      classId: [null, [Validators.required, Validators.min(1)]]
+      classId: ['', [Validators.required]],
+      type: ['', [Validators.required]]
+    });
+    this.classService.getClasses().subscribe({
+      next: (data) => this.classes = data.filter(c => !c.isSealed),
+      error: () => this.errorMessage = 'Error al cargar las clases.'
     });
   }
 
@@ -101,13 +125,14 @@ export class AttributeFormComponent {
     if (this.attributeForm.valid) {
       const attributeData: AttributeModel = {
         name: this.attributeForm.value.name,
-        classId: this.attributeForm.value.classId
+        classId: String(this.attributeForm.value.classId),
+        type: this.attributeForm.value.type
       };
       this.attributeService.createAttribute(attributeData).subscribe({
         next: () => {
           this.successMessage = '¡Atributo creado exitosamente!';
           this.errorMessage = null;
-          setTimeout(() => this.router.navigate(['/attributes']), 2000);
+          this.router.navigate(['/attributes']);
         },
         error: (error: Error) => {
           this.errorMessage = `Error al crear el atributo: ${error.message}`;

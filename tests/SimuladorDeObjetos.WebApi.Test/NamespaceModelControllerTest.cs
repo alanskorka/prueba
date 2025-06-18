@@ -10,13 +10,13 @@ namespace SimuladorDeObjetos.WebApi.Test;
 public class NamespaceControllerTest
 {
     private Mock<INamespaceService> _mockService = null!;
-    private NamespaceController _controller = null!;
+    private NamespacesController _controller = null!;
 
     [TestInitialize]
     public void Setup()
     {
         _mockService = new Mock<INamespaceService>();
-        _controller = new NamespaceController(_mockService.Object);
+        _controller = new NamespacesController(_mockService.Object);
     }
 
     [TestMethod]

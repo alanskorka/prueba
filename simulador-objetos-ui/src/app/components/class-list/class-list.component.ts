@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ClassService, Class } from '../../services/class.service';
+import { ClassService, ClassModel } from '../../services/class.service';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -63,7 +63,7 @@ import { HttpErrorResponse } from '@angular/common/http';
                   </td>
                 </tr>
                 <tr *ngIf="filteredClasses.length === 0">
-                  <td colspan="4" class="text-center py-4">
+                  <td colspan="3" class="text-center py-4">
                     <div class="text-muted">
                       <i class="bi bi-inbox fs-1"></i>
                       <p class="mt-2">No se encontraron clases</p>
@@ -93,8 +93,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   `]
 })
 export class ClassListComponent implements OnInit {
-  classes: Class[] = [];
-  filteredClasses: Class[] = [];
+  classes: ClassModel[] = [];
+  filteredClasses: ClassModel[] = [];
   searchTerm: string = '';
 
   constructor(private classService: ClassService) {}
@@ -131,18 +131,12 @@ export class ClassListComponent implements OnInit {
     );
   }
 
-  deleteClass(classToDelete: Class): void {
+  deleteClass(classToDelete: ClassModel): void {
     if (!classToDelete?.id) return;
     if (confirm('¿Está seguro de que desea eliminar esta clase?')) {
       this.classService.deleteClass(classToDelete).subscribe({
-        next: () => {
-          this.classes = this.classes.filter(c => c.id !== classToDelete.id);
-          this.filterClasses();
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error('Error deleting class:', error);
-          // TODO: Mostrar mensaje de error al usuario
-        }
+        next: () => this.loadClasses(),
+        error: () => alert('Error al eliminar la clase')
       });
     }
   }

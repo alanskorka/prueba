@@ -1,4 +1,4 @@
-import { ParamModel } from './param.model';
+import { ParamModel } from '../services/param.service';
 
 export interface InterfaceMethodModel {
   id: number;

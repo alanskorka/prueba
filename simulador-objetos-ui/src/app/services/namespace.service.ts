@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 export interface NamespaceModel {
   id?: string;
@@ -13,12 +14,14 @@ export interface NamespaceModel {
   providedIn: 'root'
 })
 export class NamespaceService {
-  private apiUrl = `${environment.apiUrl}/Namespace`;
+  private apiUrl = `${environment.apiUrl}/namespaces`;
 
   constructor(private http: HttpClient) { }
 
   getNamespaces(): Observable<NamespaceModel[]> {
-    return this.http.get<NamespaceModel[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => response?.$values ?? [])
+    );
   }
 
   getNamespace(id: string): Observable<NamespaceModel> {
@@ -33,7 +36,7 @@ export class NamespaceService {
     return this.http.put(`${this.apiUrl}/${id}`, namespaceData);
   }
 
-  deleteNamespace(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteNamespace(namespace: NamespaceModel): Observable<any> {
+    return this.http.request('delete', this.apiUrl, { body: namespace });
   }
 }
