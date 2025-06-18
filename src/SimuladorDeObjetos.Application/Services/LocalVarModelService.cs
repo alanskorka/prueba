@@ -17,6 +17,8 @@ public class LocalVarModelService : ILocalVarModelService
 
     public IEnumerable<LocalVarModel> GetAll() => _repo.GetAll();
 
+    public LocalVarModel? GetById(Guid id) => _repo.GetById(id);
+
     public void Add(LocalVarModel model)
     {
         ValidateModelNotNull(model);

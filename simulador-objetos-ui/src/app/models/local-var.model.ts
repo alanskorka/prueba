@@ -1,5 +1,7 @@
 export interface LocalVarModel {
-  id: number;
+  id?: string;
   name: string;
-  methodId: number;
+  type: string;
+  methodId: string;
+  concreteTypeId?: string;
 } 

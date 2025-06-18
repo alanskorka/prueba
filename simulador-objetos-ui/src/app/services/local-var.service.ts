@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { LocalVarModel } from '../models/local-var.model';
 
 @Injectable({
@@ -12,10 +12,19 @@ export class LocalVarService {
   constructor(private http: HttpClient) { }
 
   getLocalVars(): Observable<LocalVarModel[]> {
-    return this.http.get<LocalVarModel[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => {
+        console.log('Raw response from backend:', response);
+        // Handle the $values format from backend
+        if (response && response.$values) {
+          return response.$values;
+        }
+        return response;
+      })
+    );
   }
 
-  getLocalVar(id: number): Observable<LocalVarModel> {
+  getLocalVar(id: string): Observable<LocalVarModel> {
     return this.http.get<LocalVarModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -23,11 +32,11 @@ export class LocalVarService {
     return this.http.post<LocalVarModel>(this.apiUrl, localVarData);
   }
 
-  updateLocalVar(id: number, localVarData: LocalVarModel): Observable<any> {
+  updateLocalVar(id: string, localVarData: LocalVarModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, localVarData);
   }
 
-  deleteLocalVar(id: number): Observable<any> {
+  deleteLocalVar(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
