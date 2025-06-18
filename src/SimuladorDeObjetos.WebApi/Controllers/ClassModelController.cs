@@ -74,4 +74,13 @@ public class ClassModelController(IClassModelService service) : ControllerBase
             return Problem(e.Message);
         }
     }
+
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        var model = _service.GetById(id);
+        if (model == null)
+            return NotFound();
+        return Ok(model);
+    }
 }

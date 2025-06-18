@@ -10,4 +10,5 @@ public interface IClassModelService
     void Update(ClassModel model);
     void SaveChanges();
     ClassModel? GetByName(string name);
+    ClassModel? GetById(Guid id);
 }

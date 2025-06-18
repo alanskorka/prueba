@@ -1,12 +1,184 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MethodService, MethodModel } from '../../services/method.service';
+import { ClassService, ClassModel } from '../../services/class.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-method-form',
   standalone: true,
-  imports: [],
-  templateUrl: './method-form.component.html',
-  styleUrl: './method-form.component.scss'
-})
-export class MethodFormComponent {
+  imports: [CommonModule, ReactiveFormsModule],
+  template: `
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="mb-0">{{ isEdit ? 'Editar Método' : 'Crear Nuevo Método' }}</h2>
+            </div>
+            <div class="card-body">
+              <div *ngIf="successMessage" class="alert alert-success">
+                <i class="bi bi-check-circle"></i> {{ successMessage }}
+              </div>
+              <div *ngIf="errorMessage" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle"></i> {{ errorMessage }}
+              </div>
 
+              <form [formGroup]="methodForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nombre</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="name" 
+                    formControlName="name"
+                    [ngClass]="{'is-invalid': methodForm.get('name')?.invalid && methodForm.get('name')?.touched}"
+                  >
+                  <div class="invalid-feedback" *ngIf="methodForm.get('name')?.invalid && methodForm.get('name')?.touched">
+                    El nombre es requerido
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="returnType" class="form-label">Tipo de Retorno</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="returnType" 
+                    formControlName="returnType"
+                    [ngClass]="{'is-invalid': methodForm.get('returnType')?.invalid && methodForm.get('returnType')?.touched}"
+                  >
+                  <div class="invalid-feedback" *ngIf="methodForm.get('returnType')?.invalid && methodForm.get('returnType')?.touched">
+                    El tipo de retorno es requerido
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="classId" class="form-label">Clase</label>
+                  <select 
+                    class="form-select" 
+                    id="classId" 
+                    formControlName="classId"
+                    [ngClass]="{'is-invalid': methodForm.get('classId')?.invalid && methodForm.get('classId')?.touched}"
+                  >
+                    <option value="">Seleccione una clase</option>
+                    <option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="methodForm.get('classId')?.invalid && methodForm.get('classId')?.touched">
+                    La clase es requerida
+                  </div>
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="isVirtual" formControlName="isVirtual">
+                  <label class="form-check-label" for="isVirtual">Virtual</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="isStatic" formControlName="isStatic">
+                  <label class="form-check-label" for="isStatic">Static</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="isOverride" formControlName="isOverride">
+                  <label class="form-check-label" for="isOverride">Override</label>
+                </div>
+
+                <div class="d-flex gap-2 mt-3">
+                  <button type="submit" class="btn btn-primary" [disabled]="methodForm.invalid">
+                    <i class="bi bi-plus-circle"></i> {{ isEdit ? 'Actualizar' : 'Crear' }} Método
+                  </button>
+                  <button type="button" class="btn btn-secondary" (click)="router.navigate(['/methods'])">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .card { box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
+    .card-header { background-color: #f8f9fa; border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
+    .form-label { font-weight: 500; }
+  `]
+})
+export class MethodFormComponent implements OnInit {
+  methodForm: FormGroup;
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  classes: ClassModel[] = [];
+  isEdit = false;
+  methodId: string | null = null;
+
+  constructor(
+    private fb: FormBuilder,
+    private methodService: MethodService,
+    public router: Router,
+    private classService: ClassService,
+    private route: ActivatedRoute
+  ) {
+    this.methodForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      returnType: ['', [Validators.required]],
+      classId: ['', [Validators.required]],
+      isVirtual: [false],
+      isStatic: [false],
+      isOverride: [false]
+    });
+  }
+
+  ngOnInit(): void {
+    this.classService.getClasses().subscribe({
+      next: (data) => this.classes = data,
+      error: () => this.errorMessage = 'Error al cargar las clases.'
+    });
+    this.methodId = this.route.snapshot.paramMap.get('id');
+    if (this.methodId) {
+      this.isEdit = true;
+      this.methodService.getMethod(this.methodId).subscribe({
+        next: (data) => this.methodForm.patchValue(data),
+        error: () => this.errorMessage = 'Error al cargar el método.'
+      });
+    }
+  }
+
+  onSubmit(): void {
+    if (this.methodForm.valid) {
+      const methodData: MethodModel = {
+        name: this.methodForm.value.name,
+        returnType: this.methodForm.value.returnType,
+        classId: String(this.methodForm.value.classId),
+        isVirtual: this.methodForm.value.isVirtual,
+        isStatic: this.methodForm.value.isStatic,
+        isOverride: this.methodForm.value.isOverride
+      };
+      if (this.isEdit && this.methodId) {
+        this.methodService.updateMethod(this.methodId, methodData).subscribe({
+          next: () => {
+            this.successMessage = '¡Método actualizado exitosamente!';
+            this.errorMessage = null;
+            this.router.navigate(['/methods']);
+          },
+          error: (error: Error) => {
+            this.errorMessage = `Error al actualizar el método: ${error.message}`;
+            this.successMessage = null;
+          }
+        });
+      } else {
+        this.methodService.createMethod(methodData).subscribe({
+          next: () => {
+            this.successMessage = '¡Método creado exitosamente!';
+            this.errorMessage = null;
+            this.router.navigate(['/methods']);
+          },
+          error: (error: Error) => {
+            this.errorMessage = `Error al crear el método: ${error.message}`;
+            this.successMessage = null;
+          }
+        });
+      }
+    }
+  }
 }

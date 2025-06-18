@@ -38,7 +38,15 @@ import { NamespaceService, NamespaceModel } from '../../services/namespace.servi
                   <td>{{ ns.name }}</td>
                   <td>
                     <div class="btn-group float-end">
-                      <!-- Aquí puedes agregar acciones como ver, editar, eliminar -->
+                      <a [routerLink]="['/namespaces', ns.id]" class="btn btn-outline-primary btn-sm" title="Ver">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <a [routerLink]="['/namespaces', ns.id, 'edit']" class="btn btn-outline-secondary btn-sm" title="Editar">
+                        <i class="bi bi-pencil"></i>
+                      </a>
+                      <button class="btn btn-outline-danger btn-sm" title="Eliminar" (click)="deleteNamespace(ns)">
+                        <i class="bi bi-trash"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -87,5 +95,20 @@ export class NamespaceListComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  deleteNamespace(ns: NamespaceModel): void {
+    if (confirm(`¿Seguro que deseas eliminar el namespace '${ns.name}'?`)) {
+      this.loading = true;
+      this.namespaceService.deleteNamespace(ns.id!).subscribe({
+        next: () => {
+          this.loadNamespaces();
+        },
+        error: () => {
+          this.errorMessage = 'Error al eliminar el namespace';
+          this.loading = false;
+        }
+      });
+    }
   }
 }

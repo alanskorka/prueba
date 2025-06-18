@@ -40,7 +40,15 @@ import { AttributeService, AttributeModel } from '../../services/attribute.servi
                   <td>{{ attr.classId }}</td>
                   <td>
                     <div class="btn-group float-end">
-                      <!-- Aquí puedes agregar acciones como ver, editar, eliminar -->
+                      <a [routerLink]="['/attributes', attr.id]" class="btn btn-outline-primary btn-sm" title="Ver">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <a [routerLink]="['/attributes', attr.id, 'edit']" class="btn btn-outline-secondary btn-sm" title="Editar">
+                        <i class="bi bi-pencil"></i>
+                      </a>
+                      <button class="btn btn-outline-danger btn-sm" title="Eliminar" (click)="deleteAttribute(attr)">
+                        <i class="bi bi-trash"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -89,5 +97,20 @@ export class AttributeListComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  deleteAttribute(attr: AttributeModel): void {
+    if (confirm(`¿Seguro que deseas eliminar el atributo '${attr.name}'?`)) {
+      this.loading = true;
+      this.attributeService.deleteAttribute(attr.id!).subscribe({
+        next: () => {
+          this.loadAttributes();
+        },
+        error: () => {
+          this.errorMessage = 'Error al eliminar el atributo';
+          this.loading = false;
+        }
+      });
+    }
   }
 }

@@ -6,7 +6,7 @@ namespace SimuladorDeObjetos.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class NamespaceController(INamespaceService service) : ControllerBase
+public class NamespacesController(INamespaceService service) : ControllerBase
 {
     [HttpGet]
     public IActionResult GetAll()
@@ -14,6 +14,21 @@ public class NamespaceController(INamespaceService service) : ControllerBase
         try
         {
             return Ok(service.GetAll());
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetById(Guid id)
+    {
+        try
+        {
+            var ns = service.GetAll().FirstOrDefault(n => n.Id == id);
+            if (ns == null) return NotFound();
+            return Ok(ns);
         }
         catch (Exception e)
         {

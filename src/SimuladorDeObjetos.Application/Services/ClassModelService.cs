@@ -46,6 +46,8 @@ public class ClassModelService(IClassModelRepository repo) : IClassModelService
     public ClassModel? GetByName(string name) =>
         _repo.GetAll().FirstOrDefault(c => c.Name == name);
 
+    public ClassModel? GetById(Guid id) => _repo.GetById(id);
+
     private void ValidateUniqueName(string name, Guid? currentId = null)
     {
         var exists = _repo.GetAll()

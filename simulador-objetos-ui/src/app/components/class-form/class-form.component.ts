@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ClassService, Class } from '../../services/class.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ClassService, ClassModel } from '../../services/class.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">
-              <h2 class="mb-0">Crear Nueva Clase</h2>
+              <h2 class="mb-0">{{ isEditMode ? 'Editar Clase' : 'Crear Nueva Clase' }}</h2>
             </div>
             <div class="card-body">
               <div *ngIf="successMessage" class="alert alert-success">
@@ -65,7 +65,7 @@ import { CommonModule } from '@angular/common';
 
                 <div class="d-flex gap-2">
                   <button type="submit" class="btn btn-primary" [disabled]="classForm.invalid">
-                    <i class="bi bi-plus-circle"></i> Crear Clase
+                    <i class="bi" [ngClass]="isEditMode ? 'bi-pencil' : 'bi-plus-circle'"></i> {{ isEditMode ? 'Actualizar Clase' : 'Crear Clase' }}
                   </button>
                   <button type="button" class="btn btn-secondary" (click)="router.navigate(['/classes'])">
                     <i class="bi bi-x-circle"></i> Cancelar
@@ -97,11 +97,14 @@ export class ClassFormComponent implements OnInit {
   classForm: FormGroup;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  isEditMode = false;
+  classId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private classService: ClassService,
-    public router: Router
+    public router: Router,
+    private route: ActivatedRoute
   ) {
     this.classForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -111,18 +114,39 @@ export class ClassFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Aquí podríamos cargar las clases base disponibles si es necesario
+    this.classId = this.route.snapshot.params['id'];
+    if (this.classId) {
+      this.isEditMode = true;
+      this.classService.getClass(this.classId).subscribe({
+        next: (data) => this.classForm.patchValue(data),
+        error: () => this.errorMessage = 'Error al cargar la clase.'
+      });
+    }
   }
 
   onSubmit(): void {
     if (this.classForm.valid) {
-      const classData: Class = {
+      const classData: ClassModel = {
+        id: this.classId || undefined,
         name: this.classForm.value.name,
         isAbstract: this.classForm.value.isAbstract,
         isSealed: this.classForm.value.isSealed,
         attributes: [],
         methods: []
       } as any;
+      if (this.isEditMode) {
+        this.classService.updateClass(classData).subscribe({
+          next: () => {
+            this.successMessage = '¡Clase actualizada exitosamente!';
+            this.errorMessage = null;
+            setTimeout(() => this.router.navigate(['/classes']), 2000);
+          },
+          error: (error: Error) => {
+            this.errorMessage = `Error al actualizar la clase: ${error.message}`;
+            this.successMessage = null;
+          }
+        });
+      } else {
       this.classService.createClass(classData).subscribe({
         next: () => {
           this.successMessage = '¡Clase creada exitosamente!';
@@ -134,6 +158,7 @@ export class ClassFormComponent implements OnInit {
           this.successMessage = null;
         }
       });
+      }
     }
   }
 }

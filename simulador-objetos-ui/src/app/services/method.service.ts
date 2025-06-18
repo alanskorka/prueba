@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MethodModel } from '../models/method.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class MethodService {
     return this.http.get<MethodModel[]>(this.apiUrl);
   }
 
-  getMethod(id: number): Observable<MethodModel> {
+  getMethod(id: string): Observable<MethodModel> {
     return this.http.get<MethodModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -23,11 +22,24 @@ export class MethodService {
     return this.http.post<MethodModel>(this.apiUrl, methodData);
   }
 
-  updateMethod(id: number, methodData: MethodModel): Observable<any> {
+  updateMethod(id: string, methodData: MethodModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, methodData);
   }
 
-  deleteMethod(id: number): Observable<any> {
+  deleteMethod(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+}
+
+export interface MethodModel {
+  id?: string;
+  name: string;
+  returnType: string;
+  parameters?: any[];
+  localVars?: any[];
+  methodCalls?: any[];
+  isVirtual?: boolean;
+  isStatic?: boolean;
+  isOverride?: boolean;
+  classId: string;
 }

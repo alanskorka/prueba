@@ -1,1 +1,13 @@
-<p>namespace-detail works!</p>
+<div class="container mt-4">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="namespaceData">
+    <h2>Detalle de Namespace</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Nombre:</strong> {{ namespaceData.name }}</li>
+      <!-- Puedes agregar más campos aquí -->
+    </ul>
+    <button class="btn btn-secondary mt-3" (click)="router.navigate(['/namespaces'])">Volver</button>
+  </div>
+</div>

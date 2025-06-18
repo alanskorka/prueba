@@ -1,5 +1,1 @@
-export interface ParamModel {
-  id: number;
-  name: string;
-  methodId: number;
-} 
+// Eliminar la interfaz ParamModel de este archivo. Usar solo la del service. 

@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ParamModel } from '../models/param.model';
+
+export interface ParamModel {
+  id?: string;
+  name: string;
+  type?: string;
+  methodId: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +21,7 @@ export class ParamService {
     return this.http.get<ParamModel[]>(this.apiUrl);
   }
 
-  getParam(id: number): Observable<ParamModel> {
+  getParam(id: string): Observable<ParamModel> {
     return this.http.get<ParamModel>(`${this.apiUrl}/${id}`);
   }
 
@@ -23,11 +29,11 @@ export class ParamService {
     return this.http.post<ParamModel>(this.apiUrl, paramData);
   }
 
-  updateParam(id: number, paramData: ParamModel): Observable<any> {
+  updateParam(id: string, paramData: ParamModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, paramData);
   }
 
-  deleteParam(id: number): Observable<any> {
+  deleteParam(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
