@@ -2,14 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-
-export interface InterfaceModel {
-  id?: number;
-  name: string;
-  namespaceId?: number;
-  methods?: any[];
-  implementedBy?: number[];
-}
+import { InterfaceModel } from '../models/interface.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +24,11 @@ export class InterfaceService {
     return this.http.post<InterfaceModel>(this.apiUrl, interfaceData);
   }
 
-  updateInterface(id: number, interfaceData: InterfaceModel): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, interfaceData);
+  updateInterface(interfaceData: InterfaceModel): Observable<any> {
+    return this.http.put(this.apiUrl, interfaceData);
   }
 
-  deleteInterface(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteInterface(interfaceData: InterfaceModel): Observable<any> {
+    return this.http.delete(this.apiUrl, { body: interfaceData });
   }
 }

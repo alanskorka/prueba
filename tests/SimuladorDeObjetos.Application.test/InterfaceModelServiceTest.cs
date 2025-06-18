@@ -66,8 +66,8 @@ public class InterfaceModelServiceTest
 
         var result = await _service.GetAll();
 
-        Assert.AreEqual(2, result.Count);
-        Assert.AreEqual("ITest1", result[0].Name);
+        Assert.AreEqual(2, result.Count());
+        Assert.AreEqual("ITest1", result.First().Name);
     }
 
     [TestMethod]
@@ -87,11 +87,19 @@ public class InterfaceModelServiceTest
     [TestMethod]
     public async Task Delete_WhenNotUsedByAnyClass_ShouldCallDelete()
     {
-        var id = 1;
-        _repository.Setup(r => r.IsUsedByAnyClass(id)).ReturnsAsync(false);
+        var model = new InterfaceModel
+        {
+            Id = 1,
+            Name = "IModified",
+            Methods = new List<InterfaceMethodModel>
+            {
+                new() { Name = "DoX", ReturnType = "string", Parameters = new() }
+            }
+        };
+        _repository.Setup(r => r.IsUsedByAnyClass(1)).ReturnsAsync(false);
 
-        await _service.Delete(id);
-        _repository.Verify(r => r.Delete(id), Times.Once);
+        await _service.Delete(model);
+        _repository.Verify(r => r.Delete(1), Times.Once);
     }
 
     [TestMethod]
