@@ -1,11 +1,9 @@
 using Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SimuladorDeObjetos.Application;
 using SimuladorDeObjetos.Application.Services;
 using SimuladorDeObjetos.Infrastructure.Repositories.Interfaces;
 
-namespace Tests;
+namespace SimuladorDeObjetos.Application.test;
 
 [TestClass]
 public class NamespaceServiceTests

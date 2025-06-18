@@ -56,7 +56,7 @@ import { HttpErrorResponse } from '@angular/common/http';
                       <a [routerLink]="['/classes', class.id, 'edit']" class="btn btn-sm btn-warning">
                         <i class="bi bi-pencil"></i>
                       </a>
-                      <button class="btn btn-sm btn-danger" (click)="deleteClass(class.id)">
+                      <button class="btn btn-sm btn-danger" (click)="deleteClass(class)">
                         <i class="bi bi-trash"></i>
                       </button>
                     </div>
@@ -131,15 +131,15 @@ export class ClassListComponent implements OnInit {
     );
   }
 
-  deleteClass(id: string | undefined): void {
-    if (!id) return;
+  deleteClass(classToDelete: Class): void {
+    if (!classToDelete?.id) return;
     if (confirm('¿Está seguro de que desea eliminar esta clase?')) {
-      this.classService.deleteClass(id).subscribe({
+      this.classService.deleteClass(classToDelete).subscribe({
         next: () => {
-          this.classes = this.classes.filter(c => c.id !== id);
+          this.classes = this.classes.filter(c => c.id !== classToDelete.id);
           this.filterClasses();
         },
-        error: (error: Error) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Error deleting class:', error);
           // TODO: Mostrar mensaje de error al usuario
         }

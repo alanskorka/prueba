@@ -31,7 +31,7 @@ export class ClassService {
     return this.http.post<Class>(this.apiUrl, classModel);
   }
 
-  deleteClass(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteClass(classModel: Class): Observable<void> {
+    return this.http.delete<void>(this.apiUrl, { body: classModel });
   }
 }
