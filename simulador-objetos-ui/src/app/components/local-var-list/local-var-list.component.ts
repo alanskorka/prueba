@@ -20,6 +20,7 @@ export class LocalVarListComponent implements OnInit {
   loading = false;
   errorMessage: string | null = null;
   searchTerm: string = '';
+  methodIdToNameMap: { [key: string]: string } = {};
 
   constructor(private localVarService: LocalVarService, private methodService: MethodService) {}
 
@@ -30,7 +31,15 @@ export class LocalVarListComponent implements OnInit {
 
   loadMethods(): void {
     this.methodService.getMethods().subscribe({
-      next: (data) => this.methods = data,
+      next: (data) => {
+        this.methods = data;
+        this.methodIdToNameMap = {};
+        data.forEach(method => {
+          if (method.id) {
+            this.methodIdToNameMap[method.id] = method.name;
+          }
+        });
+      },
       error: () => this.errorMessage = 'Error al cargar los métodos.'
     });
   }

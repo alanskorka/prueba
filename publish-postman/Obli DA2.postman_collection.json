@@ -1,0 +1,845 @@
+{
+	"info": {
+		"_postman_id": "ad3f97ed-64b3-4a22-adcc-88020f6cd3f7",
+		"name": "Obli DA2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43767060",
+		"_collection_link": "https://obli-da2-team.postman.co/workspace/Obli-DA2-Team-Workspace~71d1dfe9-4394-474b-8f25-e63a981e0e3f/collection/41313638-ad3f97ed-64b3-4a22-adcc-88020f6cd3f7?action=share&source=collection_link&creator=43767060"
+	},
+	"item": [
+		{
+			"name": "ClassModel",
+			"item": [
+				{
+					"name": "GET all /classes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5038/api/classModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"classModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /class",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"MiClaseDePrueba\",\r\n  \"isAbstract\": false,\r\n  \"isSealed\": false,\r\n  \"baseClassId\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/classModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"classModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /class",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"ec0e9145-07a9-4185-b38f-08dd8ceb472e\",\r\n  \"name\": \"NombreActualizado\",\r\n  \"isAbstract\": false,\r\n  \"isSealed\": false,\r\n  \"baseClassId\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/classModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"classModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /class",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"id\": \"61136c6b-1bf1-4f40-b38e-08dd8ceb472e\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/classModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"classModel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MethodModel",
+			"item": [
+				{
+					"name": "GET all /methods",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5038/api/methodModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /method",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"MiMetodo\",\r\n  \"returnType\": \"void\",\r\n  \"classId\": \"ec0e9145-07a9-4185-b38f-08dd8ceb472e\",\r\n  \"isAbstract\": false,\r\n  \"isSealed\": false,\r\n  \"accessibility\": \"Public\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /method",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"c0764870-54e0-4d7d-7034-08dd8da4bce3\",\r\n  \"name\": \"MiMetodoActualizado\",\r\n  \"returnType\": \"string\",\r\n  \"classId\": \"4c8a7913-f625-4d08-1388-08dd8d8fe5af\",\r\n  \"isAbstract\": false,\r\n  \"isSealed\": false,\r\n  \"accessibility\": \"Protected\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /method",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"c0764870-54e0-4d7d-7034-08dd8da4bce3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST SimulateMethodExecution",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"referenceTypeId\": \"20000000-0000-0000-0000-000000000001\",\r\n  \"concreteTypeId\": \"20000000-0000-0000-0000-000000000002\",\r\n  \"methodId\": \"30000000-0000-0000-0000-000000000002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodModel/simulate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodModel",
+								"simulate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MethodCallModel",
+			"item": [
+				{
+					"name": "GET all /methodCalls",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5038/api/methodCallModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodCallModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /methodCall",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"methodName\":     \"LlamadaInterna\",\r\n  \"referenceType\":  \"Attribute\",\r\n  \"referenceName\":  \"repo\",\r\n  \"parentMethodId\": \"6e5be9fb-1687-432f-a0ee-08dd8dae3a0b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodCallModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodCallModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /methodCall",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":             \"658e13f5-0bd8-4e55-ca81-08dd8dae6602\",\r\n  \"methodName\":     \"LlamadaModificada\",\r\n  \"referenceType\":  \"Base\",\r\n  \"referenceName\":  null,\r\n  \"parentMethodId\": \"6e5be9fb-1687-432f-a0ee-08dd8dae3a0b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodCallModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodCallModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /methodCall",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"658e13f5-0bd8-4e55-ca81-08dd8dae6602\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/methodCallModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"methodCallModel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AttributeModel",
+			"item": [
+				{
+					"name": "GET all /attributes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5038/api/AttributeModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"AttributeModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /attribute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"miAtributo5\",\r\n  \"type\": \"string\",\r\n  \"classId\": \"ec0e9145-07a9-4185-b38f-08dd8ceb472e\",\r\n  \"accessibility\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/AttributeModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"AttributeModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /attribute",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"c4eaebcf-dab7-436b-196e-08dd8d969b07\",\r\n  \"name\": \"atributoActualizado\",\r\n  \"type\": \"int\",\r\n  \"classId\": \"ec0e9145-07a9-4185-b38f-08dd8ceb472e\",\r\n  \"accessibility\": \"Private\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/AttributeModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"AttributeModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /attribute",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"id\": \"aad0740a-9c85-4f5c-a1d2-08dd8d9705a8\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/AttributeModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"AttributeModel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ParamModel",
+			"item": [
+				{
+					"name": "GET all /params",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5038/api/paramModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"paramModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /param",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":     \"miParametro\",\r\n  \"type\":     \"bool\",\r\n  \"methodId\": \"6e5be9fb-1687-432f-a0ee-08dd8dae3a0b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/paramModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"paramModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /param",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":       \"00dda111-1d34-489d-44b8-08dd8dafc3cd\",\r\n  \"name\":     \"parametroActualizado\",\r\n  \"type\":     \"double\",\r\n  \"methodId\": \"6509567c-8b0c-4d54-aa92-08dd8db08f86\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/paramModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"paramModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /param",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"00dda111-1d34-489d-44b8-08dd8dafc3cd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/paramModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"paramModel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LocalVarModel",
+			"item": [
+				{
+					"name": "GET all /localVars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5038/api/localVarModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"localVarModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /localVar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":     \"indice\",\r\n  \"type\":     \"int\",\r\n  \"methodId\": \"6e5be9fb-1687-432f-a0ee-08dd8dae3a0b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/localVarModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"localVarModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /localVar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":       \"9675b160-6211-448c-fcc9-08dd8db24145\",\r\n  \"name\":     \"indiceActualizado\",\r\n  \"type\":     \"long\",\r\n  \"methodId\": \"6e5be9fb-1687-432f-a0ee-08dd8dae3a0b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/localVarModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"localVarModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /localVar",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"9675b160-6211-448c-fcc9-08dd8db24145\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5038/api/localVarModel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5038",
+							"path": [
+								"api",
+								"localVarModel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
